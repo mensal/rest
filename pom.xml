@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>io.github.zyc</groupId>
     <artifactId>despesas</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    
+
     <packaging>war</packaging>
-    
+
     <build>
         <finalName>ROOT</finalName>
         <plugins>
@@ -51,7 +52,7 @@
                         <id>default-testCompile</id>
                         <phase>none</phase>
                     </execution>
-                    
+
                     <execution>
                         <id>java-compile</id>
                         <phase>compile</phase>
@@ -90,7 +91,7 @@
             -->
         </plugins>
     </build>
-    
+
     <dependencies>
         <!-- GZIP -->
         <dependency>
@@ -98,7 +99,7 @@
             <artifactId>urlrewritefilter</artifactId>
             <version>4.0.4</version>
         </dependency>
-        
+
         <!-- JEE 7 -->
         <dependency>
             <groupId>javax</groupId>
@@ -106,14 +107,14 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- QRCode -->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>javase</artifactId>
             <version>3.3.1</version>
         </dependency>
-        
+
         <!-- Logger -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -121,7 +122,7 @@
             <version>1.7.2</version>
             <scope>provided</scope>
         </dependency>
-        
+
         <!-- Commons -->
         <!--
         <dependency>
@@ -150,28 +151,28 @@
             <version>1.7</version>
         </dependency>
          -->
-        
+
         <!-- Hibernate -->
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>6.0.5.Final</version>
         </dependency>
-        
+
         <!-- JWT -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
             <version>3.3.0</version>
         </dependency>
-        
+
         <!-- CORS -->
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
             <version>2.6</version>
         </dependency>
-        
+
         <!-- Tests -->
         <dependency>
             <groupId>junit</groupId>
@@ -179,7 +180,7 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- Kotlin -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
@@ -193,7 +194,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -201,5 +202,11 @@
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <profiles>
+        <profile>
+            <id>openshift</id>
+        </profile>
+    </profiles>
 </project>
 
