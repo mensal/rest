@@ -14,5 +14,6 @@ internal open class ProbeREST {
     @GET
     @Path("liveness")
     open fun liveness() {
+
     }
 }
