@@ -10,6 +10,7 @@ open class TesteREST {
 
 
 
+
     @GET
     @Produces("text/plain")
     fun teste() = Instant.now()
