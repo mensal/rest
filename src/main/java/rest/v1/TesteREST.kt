@@ -6,10 +6,7 @@ import javax.ws.rs.Path
 import javax.ws.rs.Produces
 
 @Path("teste")
-open class TesteREST {
-
-
-
+internal open class TesteREST {
 
     @GET
     @Produces("text/plain")
