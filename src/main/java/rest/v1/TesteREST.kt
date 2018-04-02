@@ -5,7 +5,7 @@ import javax.ws.rs.GET
 import javax.ws.rs.Path
 
 @Path("teste")
-class TesteREST {
+open class TesteREST {
 
     @GET
     fun teste() = Instant.now()
