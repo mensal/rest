@@ -10,5 +10,5 @@ internal open class TesteREST {
 
     @GET
     @Produces("text/plain")
-    fun teste() = Instant.now()
+    open fun teste() = Instant.now()
 }
