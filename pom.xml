@@ -11,6 +11,7 @@
     <packaging>war</packaging>
 
     <build>
+        <finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
@@ -202,6 +203,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!--
     <profiles>
         <profile>
             <id>openshift</id>
@@ -221,5 +223,6 @@
             </build>
         </profile>
     </profiles>
+    -->
 </project>
 
