@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="postgres@localhost">
+<dataSource name="despesas@localhost">
   <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.7">
     <root id="1"/>
     <database id="2" parent="1" name="postgres">
@@ -66,7 +66,7 @@
     </role>
     <schema id="14" parent="2" name="public">
       <ObjectId>19577</ObjectId>
-      <IntrospectionTimestamp>2018-04-02.18:41:46.317</IntrospectionTimestamp>
+      <IntrospectionTimestamp>2018-04-03.18:02:33.626</IntrospectionTimestamp>
       <IntrospectionStateNumber>2144</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>

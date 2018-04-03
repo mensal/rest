@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="postgres@localhost" uuid="501675af-e8d6-4906-a763-22e9c2020332">
+    <data-source source="LOCAL" name="despesas@localhost" uuid="9b63b252-baef-4646-a40c-ba010ba358a9">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="despesas@postgresql-despesas.a3c1.starter-us-west-1.openshiftapps.com" uuid="043767af-fd33-4285-b3d6-65a3a71f773d">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://postgresql-despesas.a3c1.starter-us-west-1.openshiftapps.com:5432/despesas</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/despesas</jdbc-url>
     </data-source>
   </component>
 </project>

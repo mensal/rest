@@ -6,10 +6,6 @@
     <persistence-unit name="pu" transaction-type="JTA">
         <jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
 
-        <class>core.entity.Teste</class>
-
-        <exclude-unlisted-classes>true</exclude-unlisted-classes>
-
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.transaction.jta.platform"
