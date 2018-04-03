@@ -19,7 +19,6 @@ internal open class TesteREST {
     @POST
     @Transactional
     open fun post() {
-
         val lancamento = Lancamento()
         lancamento.data = Date()
 

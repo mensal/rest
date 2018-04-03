@@ -4,7 +4,7 @@ import javax.persistence.Entity
 import javax.persistence.Table
 
 @Entity
-@Table(name = "lancamento_diarista")
-internal class LancamentoDiarista : Lancamento() {
+@Table(name = "lancamento_diaria")
+internal class LancamentoDiaria : Lancamento() {
 
 }

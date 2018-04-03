@@ -4,8 +4,8 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-@Table(name = "tipo_fixo")
-internal class TipoFixo {
+@Table(name = "tipo_despesa_fixa")
+internal class TipoDespesaFixa {
 
     @Id
     @GeneratedValue

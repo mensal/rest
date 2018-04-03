@@ -6,8 +6,8 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "lancamento_automovel")
-internal class LancamentoAutomovel : Lancamento() {
+@Table(name = "lancamento_abastecimento")
+internal class LancamentoAbastecimento : Lancamento() {
 
     @ManyToOne
     @JoinColumn(name = "id_automovel")
