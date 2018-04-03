@@ -1,6 +1,7 @@
 package rest
 
-import core.entity.Teste
+import core.entity.Lancamento
+import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
@@ -18,16 +19,19 @@ internal open class TesteREST {
     @POST
     @Transactional
     open fun post() {
-        em!!.persist(Teste())
+
+        val lancamento = Lancamento()
+        lancamento.data = Date()
+
+        em!!.persist(lancamento)
     }
 
     @GET
     @Produces("application/json")
-    open fun get(): List<Teste> {
-        val jpql = " from Teste "
+    open fun get(): List<Lancamento> {
+        val jpql = " select l from Lancamento l "
 
-        val query = em!!.createQuery(jpql, Teste::class.java)
+        val query = em!!.createQuery(jpql, Lancamento::class.java)
         return query.resultList
     }
-
 }

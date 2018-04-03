@@ -12,4 +12,8 @@ internal class LancamentoAutomovel : Lancamento() {
     @ManyToOne
     @JoinColumn(name = "id_automovel")
     var automovel: Automovel? = null
+
+    var odometro: Int? = null
+
+    var litros: Int? = null
 }

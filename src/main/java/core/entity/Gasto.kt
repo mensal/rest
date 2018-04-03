@@ -1,7 +1,9 @@
 package core.entity
 
+import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
+import javax.validation.constraints.NotNull
 
 @Entity
 internal class Gasto {
@@ -18,4 +20,8 @@ internal class Gasto {
     @ManyToOne
     @JoinColumn(name = "id_usuario")
     var usuario: Usuario? = null
+
+    @NotNull
+    @Column(precision = 8, scale = 2)
+    var valor: BigDecimal? = null
 }
