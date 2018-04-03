@@ -1,4 +1,4 @@
-package rest.v1
+package rest
 
 import core.entity.Teste
 import javax.persistence.EntityManager
