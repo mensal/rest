@@ -1,6 +1,5 @@
 package core.entity
 
-import java.sql.Timestamp
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -20,8 +19,8 @@ internal class Automovel {
     @Temporal(TemporalType.DATE)
     var desde: Date? = null
 
-    @Temporal(TemporalType.DATE)
     @Column
+    @Temporal(TemporalType.DATE)
     var ate: Date? = null
 
     @NotNull

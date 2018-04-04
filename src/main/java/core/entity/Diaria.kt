@@ -21,8 +21,8 @@ internal class Diaria {
     @Temporal(DATE)
     var desde: Date? = null
 
-    @Temporal(DATE)
     @Column
+    @Temporal(DATE)
     var ate: Date? = null
 
     @NotNull
