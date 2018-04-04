@@ -12,6 +12,5 @@ open class TipoDespesaFixa {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
-    @Version
-    val versao: Int? = null
+    var vencimento: Int? = null
 }

@@ -16,9 +16,6 @@ open class Lancamento {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
-    @Version
-    val versao: Int? = null
-
     @NotNull
     @Temporal(TemporalType.DATE)
     var data: Date? = null

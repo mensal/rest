@@ -11,7 +11,4 @@ open class Usuario {
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
-
-    @Version
-    val versao: Int? = null
 }

@@ -15,23 +15,19 @@ class AutomovelData {
 
     var versao: Int? = null
 
-    fun preencher(automovel: Automovel?): AutomovelData {
+    fun ler(automovel: Automovel?): AutomovelData {
         this.id = automovel?.id
         this.nome = automovel?.nome
-        this.periodo = PeriodoData().preencher(automovel?.periodo)
-        this.versao = automovel?.versao
+        this.periodo = PeriodoData().ler(automovel?.periodo)
 
         return this
     }
 
-    fun converter(): Automovel {
-        val convertido = Automovel()
+    fun escrever(automovel: Automovel?): Automovel? {
+        automovel?.id = this.id
+        automovel?.nome = this.nome
+        automovel?.periodo = periodo?.escrever(automovel?.periodo)
 
-        convertido.id = this.id
-        convertido.nome = this.nome
-        convertido.periodo = this.periodo?.converter()
-        convertido.versao = this.versao
-
-        return convertido
+        return automovel
     }
 }

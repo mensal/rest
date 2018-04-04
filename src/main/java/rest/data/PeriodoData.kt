@@ -11,18 +11,17 @@ class PeriodoData {
 
     var ate: Date? = null
 
-    fun preencher(periodo: Periodo?): PeriodoData {
+    fun ler(periodo: Periodo?): PeriodoData {
         this.de = periodo?.de
         this.ate = periodo?.ate
 
         return this
     }
 
-    fun converter(): Periodo {
-        val convertido = Periodo()
-        convertido.de = this.de
-        convertido.ate = this.ate
+    fun escrever(periodo: Periodo?): Periodo? {
+        periodo?.de = this.de
+        periodo?.ate = this.ate
 
-        return convertido
+        return periodo
     }
 }

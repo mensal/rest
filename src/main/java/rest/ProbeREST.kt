@@ -8,11 +8,9 @@ internal open class ProbeREST {
 
     @GET
     @Path("readiness")
-    open fun readiness() {
-    }
+    open fun readiness() = null
 
     @GET
     @Path("liveness")
-    open fun liveness() {
-    }
+    open fun liveness() = null
 }

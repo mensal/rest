@@ -13,9 +13,6 @@ open class Automovel {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
-    @Version
-    var versao: Int? = null
-
     @NotNull
     @Embedded
     var periodo: Periodo? = null

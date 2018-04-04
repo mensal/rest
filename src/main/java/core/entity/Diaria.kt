@@ -14,9 +14,6 @@ open class Diaria {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
-    @Version
-    val versao: Int? = null
-
     @NotNull
     @Embedded
     var periodo: Periodo? = null

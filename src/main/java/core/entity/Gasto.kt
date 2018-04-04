@@ -14,9 +14,6 @@ open class Gasto {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
-    @Version
-    val versao: Int? = null
-
     @ManyToOne
     @JoinColumn(name = "id_lancamento")
     var lancamento: Lancamento? = null
