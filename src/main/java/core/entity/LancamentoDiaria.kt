@@ -5,5 +5,5 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "lancamento_diaria")
-internal class LancamentoDiaria : Lancamento() {
+open class LancamentoDiaria : Lancamento() {
 }

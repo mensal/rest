@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Inheritance(strategy = JOINED)
-internal open class Lancamento {
+open class Lancamento {
 
     @Id
     @GeneratedValue

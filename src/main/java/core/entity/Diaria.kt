@@ -7,7 +7,7 @@ import javax.persistence.TemporalType.DATE
 import javax.validation.constraints.NotNull
 
 @Entity
-internal class Diaria {
+open class Diaria {
 
     @Id
     @GeneratedValue

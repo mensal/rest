@@ -5,7 +5,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-internal class Automovel {
+open class Automovel {
 
     @Id
     @GeneratedValue

@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "tipo_despesa_fixa")
-internal class TipoDespesaFixa {
+open class TipoDespesaFixa {
 
     @Id
     @GeneratedValue

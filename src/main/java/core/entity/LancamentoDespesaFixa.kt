@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "lancamento_despesa_fixa")
-internal class LancamentoDespesaFixa : Lancamento() {
+open class LancamentoDespesaFixa : Lancamento() {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo_despesa_fixa")

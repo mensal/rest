@@ -4,7 +4,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-internal class Usuario {
+open class Usuario {
 
     @Id
     @GeneratedValue

@@ -6,7 +6,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-internal class Gasto {
+open class Gasto {
 
     @Id
     @GeneratedValue
