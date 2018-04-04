@@ -4,6 +4,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
+@Table(name = "usuario")
 open class Usuario {
 
     @Id
@@ -12,5 +13,5 @@ open class Usuario {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    val versao: Int? = null
 }

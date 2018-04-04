@@ -13,5 +13,5 @@ open class TipoDespesaFixa {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    val versao: Int? = null
 }

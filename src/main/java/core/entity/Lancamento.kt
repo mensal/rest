@@ -7,6 +7,7 @@ import javax.persistence.TemporalType.TIMESTAMP
 import javax.validation.constraints.NotNull
 
 @Entity
+@Table(name = "lancamento")
 @Inheritance(strategy = JOINED)
 open class Lancamento {
 
@@ -16,7 +17,7 @@ open class Lancamento {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    val versao: Int? = null
 
     @NotNull
     @Temporal(TemporalType.DATE)

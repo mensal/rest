@@ -6,6 +6,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
+@Table(name = "gasto")
 open class Gasto {
 
     @Id
@@ -14,7 +15,7 @@ open class Gasto {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    val versao: Int? = null
 
     @ManyToOne
     @JoinColumn(name = "id_lancamento")

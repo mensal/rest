@@ -3,10 +3,10 @@ package core.entity
 import java.math.BigDecimal
 import java.util.*
 import javax.persistence.*
-import javax.persistence.TemporalType.DATE
 import javax.validation.constraints.NotNull
 
 @Entity
+@Table(name = "diaria")
 open class Diaria {
 
     @Id
@@ -15,15 +15,11 @@ open class Diaria {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    val versao: Int? = null
 
     @NotNull
-    @Temporal(DATE)
-    var desde: Date? = null
-
-    @Column
-    @Temporal(DATE)
-    var ate: Date? = null
+    @Embedded
+    var periodo: Periodo? = null
 
     @NotNull
     @Column(precision = 8, scale = 2)

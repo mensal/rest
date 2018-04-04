@@ -5,6 +5,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
+@Table(name = "automovel")
 open class Automovel {
 
     @Id
@@ -13,15 +14,11 @@ open class Automovel {
     var id: UUID? = null
 
     @Version
-    val versao: Long? = null
+    var versao: Int? = null
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    var desde: Date? = null
-
-    @Column
-    @Temporal(TemporalType.DATE)
-    var ate: Date? = null
+    @Embedded
+    var periodo: Periodo? = null
 
     @NotNull
     var nome: String? = null
