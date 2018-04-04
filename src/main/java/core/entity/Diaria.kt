@@ -14,6 +14,9 @@ internal class Diaria {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
+    @Version
+    val versao: Long? = null
+
     @NotNull
     @Temporal(DATE)
     var desde: Date? = null

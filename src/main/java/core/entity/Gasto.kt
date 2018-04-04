@@ -13,6 +13,9 @@ internal class Gasto {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
+    @Version
+    val versao: Long? = null
+
     @ManyToOne
     @JoinColumn(name = "id_lancamento")
     var lancamento: Lancamento? = null

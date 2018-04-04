@@ -11,4 +11,7 @@ internal class TipoDespesaFixa {
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
+
+    @Version
+    val versao: Long? = null
 }

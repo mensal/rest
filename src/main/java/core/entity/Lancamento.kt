@@ -15,8 +15,21 @@ internal open class Lancamento {
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
 
+    @Version
+    val versao: Long? = null
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
+    var data: Date? = null
+
     @NotNull
     @Temporal(TIMESTAMP)
-    @Column(columnDefinition = "timestamp with time zone")
-    var data: Date? = null
+    @Column(name = "atualizado_em", columnDefinition = "timestamp with time zone")
+    var atualizadoEm: Date? = null
+
+    @PreUpdate
+    @PrePersist
+    private fun pre() {
+        atualizadoEm = Date()
+    }
 }

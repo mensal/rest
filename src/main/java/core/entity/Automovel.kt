@@ -1,5 +1,6 @@
 package core.entity
 
+import java.sql.Timestamp
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -11,6 +12,9 @@ internal class Automovel {
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
+
+    @Version
+    val versao: Long? = null
 
     @NotNull
     @Temporal(TemporalType.DATE)

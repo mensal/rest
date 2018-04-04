@@ -1,10 +1,7 @@
 package core.entity
 
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 internal class Usuario {
@@ -13,4 +10,7 @@ internal class Usuario {
     @GeneratedValue
     @Column(columnDefinition = "uuid", updatable = false)
     var id: UUID? = null
+
+    @Version
+    val versao: Long? = null
 }
