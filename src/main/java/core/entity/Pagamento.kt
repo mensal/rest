@@ -3,13 +3,12 @@ package core.entity
 import java.util.*
 import javax.persistence.*
 import javax.persistence.InheritanceType.JOINED
-import javax.persistence.TemporalType.TIMESTAMP
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "lancamento")
+@Table(name = "pagamento")
 @Inheritance(strategy = JOINED)
-open class Lancamento {
+open class Pagamento {
 
     @Id
     @GeneratedValue
@@ -19,15 +18,4 @@ open class Lancamento {
     @NotNull
     @Temporal(TemporalType.DATE)
     var data: Date? = null
-
-    @NotNull
-    @Temporal(TIMESTAMP)
-    @Column(name = "atualizado_em", columnDefinition = "timestamp with time zone")
-    var atualizadoEm: Date? = null
-
-    @PreUpdate
-    @PrePersist
-    private fun pre() {
-        atualizadoEm = Date()
-    }
 }
