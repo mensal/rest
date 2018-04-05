@@ -1,7 +1,7 @@
 package rest
 
-import core.entity.DespesaDiversa
 import core.entity.Periodo
+import core.entity.TipoDespesaDiversa
 import core.persistence.DespesaDiversaDAO
 import rest.data.DespesaDiversaData
 import java.util.*
@@ -34,7 +34,7 @@ internal open class DespesaDiversaREST {
     @Consumes("application/json")
     @Produces("application/json")
     open fun inserir(@Valid data: DespesaDiversaData, @Context uriInfo: UriInfo): Response {
-        val despesa = data.escrever(DespesaDiversa())!!
+        val despesa = data.escrever(TipoDespesaDiversa())!!
 
         if (data.periodo == null) despesa.periodo = Periodo()
         if (data.periodo?.de == null) despesa.periodo?.de = Date()

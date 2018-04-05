@@ -1,7 +1,7 @@
 package rest.data
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import core.entity.DespesaDiversa
+import core.entity.TipoDespesaDiversa
 import java.util.*
 import javax.validation.constraints.NotNull
 
@@ -15,7 +15,7 @@ class DespesaDiversaData {
 
     var periodo: PeriodoData? = null
 
-    fun ler(despesa: DespesaDiversa?): DespesaDiversaData {
+    fun ler(despesa: TipoDespesaDiversa?): DespesaDiversaData {
         this.id = despesa?.id
         this.nome = despesa?.nome
         this.periodo = PeriodoData().ler(despesa?.periodo)
@@ -23,7 +23,7 @@ class DespesaDiversaData {
         return this
     }
 
-    fun escrever(despesa: DespesaDiversa?): DespesaDiversa? {
+    fun escrever(despesa: TipoDespesaDiversa?): TipoDespesaDiversa? {
         despesa?.id = this.id
         despesa?.nome = this.nome
         despesa?.periodo = periodo?.escrever(despesa?.periodo)

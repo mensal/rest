@@ -12,8 +12,8 @@ open class LancamentoAbastecimento : Lancamento() {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_automovel")
-    var automovel: Automovel? = null
+    @JoinColumn(name = "id_tipo_despesa")
+    var tipoDespesa: TipoDespesaAutomovel? = null
 
     var odometro: Int? = null
 

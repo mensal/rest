@@ -1,6 +1,6 @@
 package core.persistence
 
-import core.entity.Automovel
+import core.entity.TipoDespesaAutomovel
 import java.util.*
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
@@ -13,11 +13,11 @@ open class AutomovelDAO {
     @PersistenceContext
     private lateinit var em: EntityManager
 
-    open fun obter(id: UUID) = em.find(Automovel::class.java, id)
+    open fun obter(id: UUID) = em.find(TipoDespesaAutomovel::class.java, id)
 
-    open fun pesquisar(): List<Automovel> {
-        val jpql = " select a from Automovel a "
-        val query = em.createQuery(jpql, Automovel::class.java)
+    open fun pesquisar(): List<TipoDespesaAutomovel> {
+        val jpql = " select a from TipoDespesaAutomovel a "
+        val query = em.createQuery(jpql, TipoDespesaAutomovel::class.java)
 
         return query.resultList
     }

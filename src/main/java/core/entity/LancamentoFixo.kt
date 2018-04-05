@@ -6,10 +6,10 @@ import javax.persistence.ManyToOne
 import javax.persistence.Table
 
 @Entity
-@Table(name = "lancamento_despesa_fixa")
-open class LancamentoDespesaFixa : Lancamento() {
+@Table(name = "lancamento_fixo")
+open class LancamentoFixo : Lancamento() {
 
     @ManyToOne
-    @JoinColumn(name = "id_despesa_fixa")
-    var despesa: DespesaFixa? = null
+    @JoinColumn(name = "id_tipo_despesa")
+    var tipoDespesa: TipoDespesaFixa? = null
 }
