@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.Periodo
 import java.util.*
 
-@JsonPropertyOrder("nome", "desde")
+@JsonPropertyOrder("de", "ate")
 class PeriodoData {
 
     var de: Date? = null

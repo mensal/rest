@@ -10,6 +10,6 @@ import javax.persistence.Table
 open class LancamentoDespesaFixa : Lancamento() {
 
     @ManyToOne
-    @JoinColumn(name = "id_tipo_despesa_fixa")
-    var tipo: TipoDespesaFixa? = null
+    @JoinColumn(name = "id_despesa_fixa")
+    var despesa: DespesaFixa? = null
 }

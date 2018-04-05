@@ -11,20 +11,16 @@ import javax.transaction.Transactional
 open class AutomovelDAO {
 
     @PersistenceContext
-    private val em: EntityManager? = null
+    private lateinit var em: EntityManager
 
-    open fun obter(id: UUID) = em!!.find(Automovel::class.java, id)
+    open fun obter(id: UUID) = em.find(Automovel::class.java, id)
 
     open fun pesquisar(): List<Automovel> {
         val jpql = " select a from Automovel a "
-        val query = em!!.createQuery(jpql, Automovel::class.java)
+        val query = em.createQuery(jpql, Automovel::class.java)
 
         return query.resultList
     }
-
-    open fun inserir(automovel: Automovel) = em!!.persist(automovel)
-
-    open fun atualizar(automovel: Automovel) = em!!.merge(automovel)
 
     companion object {
         fun instance() = CDI.current().select(AutomovelDAO::class.java).get()!!
