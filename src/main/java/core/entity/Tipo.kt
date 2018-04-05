@@ -5,7 +5,7 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @MappedSuperclass
-abstract class TipoDespesa {
+abstract class Tipo {
 
     @Id
     @GeneratedValue

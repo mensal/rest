@@ -7,13 +7,15 @@ import javax.persistence.Table
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "pagamento_diverso")
-open class PagamentoDiverso : Pagamento() {
+@Table(name = "pagamento_combustivel")
+open class PagamentoCombustivel : Pagamento() {
 
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "id_tipo_despesa")
-    var tipoDespesa: TipoDespesaDiversa? = null
+    @JoinColumn(name = "id_tipo")
+    var tipo: TipoCombustivel? = null
 
-    var observacao: String? = null
+    var odometro: Int? = null
+
+    var litros: Int? = null
 }

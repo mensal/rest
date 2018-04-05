@@ -5,12 +5,9 @@ import javax.persistence.Table
 import javax.validation.constraints.NotNull
 
 @Entity
-@Table(name = "tipo_despesa_fixa")
-open class TipoDespesaFixa : TipoDespesa() {
+@Table(name = "tipo_despesa_diversa")
+open class TipoDiversa : Tipo() {
 
     @NotNull
     var nome: String? = null
-
-    @NotNull
-    var vencimento: Int? = null
 }
