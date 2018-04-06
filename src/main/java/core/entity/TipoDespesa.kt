@@ -2,10 +2,13 @@ package core.entity
 
 import java.util.*
 import javax.persistence.*
+import javax.persistence.InheritanceType.JOINED
 import javax.validation.constraints.NotNull
 
-@MappedSuperclass
-abstract class Tipo : Versionado() {
+@Entity
+@Table(name = "tipo_despesa")
+@Inheritance(strategy = JOINED)
+abstract class TipoDespesa : Versionado() {
 
     @Id
     @GeneratedValue

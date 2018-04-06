@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "tipo_despesa_diarista")
-open class TipoDiarista : Tipo() {
+open class TipoDespesaDiarista : TipoDespesa() {
 
     @NotNull
     @Column(precision = 8, scale = 2)

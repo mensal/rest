@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull
 @Entity
 @Table(name = "usuario_pagamento")
 @IdClass(UsuarioPagamentoPk::class)
-open class UsuarioPagamento : Versionado() {
+open class UsuarioPagamento {
 
     @Id
     @ManyToOne

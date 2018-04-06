@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "tipo_despesa_combustivel")
-open class TipoCombustivel : Tipo() {
+open class TipoDespesaCombustivel : TipoDespesa() {
 
     @NotNull
     var veiculo: String? = null

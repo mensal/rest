@@ -8,12 +8,12 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "pagamento_diversa")
-open class PagamentoDiversa : Pagamento() {
+open class PagamentoDiversa : Pagamento(), PagamentoComTipoDespesa<TipoDespesaDiversa> {
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "id_tipo")
-    var tipo: TipoDiversa? = null
+    override var tipo: TipoDespesaDiversa? = null
 
     var observacao: String? = null
 }

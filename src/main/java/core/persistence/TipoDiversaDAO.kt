@@ -1,6 +1,6 @@
 package core.persistence
 
-import core.entity.TipoDiversa
+import core.entity.TipoDespesaDiversa
 import java.util.*
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
@@ -14,12 +14,12 @@ open class TipoDiversaDAO {
     @PersistenceContext
     private lateinit var em: EntityManager
 
-    open fun obter(id: UUID): TipoDiversa? {
-        val jpql = " select t from TipoDiversa t where t.id = :id "
-        val query = em.createQuery(jpql, TipoDiversa::class.java)
+    open fun obter(id: UUID): TipoDespesaDiversa? {
+        val jpql = " select t from TipoDespesaDiversa t where t.id = :id "
+        val query = em.createQuery(jpql, TipoDespesaDiversa::class.java)
         query.setParameter("id", id)
 
-        var resultado: TipoDiversa?
+        var resultado: TipoDespesaDiversa?
         try {
             resultado = query.singleResult
         } catch (cause: NoResultException) {
@@ -29,16 +29,16 @@ open class TipoDiversaDAO {
         return resultado
     }
 
-    open fun pesquisar(): List<TipoDiversa> {
-        val jpql = " select t from TipoDiversa t "
-        val query = em.createQuery(jpql, TipoDiversa::class.java)
+    open fun pesquisar(): List<TipoDespesaDiversa> {
+        val jpql = " select t from TipoDespesaDiversa t "
+        val query = em.createQuery(jpql, TipoDespesaDiversa::class.java)
 
         return query.resultList
     }
 
-    open fun inserir(despesa: TipoDiversa) = em.persist(despesa)
+    open fun inserir(despesa: TipoDespesaDiversa) = em.persist(despesa)
 
-    open fun atualizar(despesa: TipoDiversa) = em.merge(despesa)!!
+    open fun atualizar(despesa: TipoDespesaDiversa) = em.merge(despesa)!!
 
     companion object {
         fun instance() = CDI.current().select(TipoDiversaDAO::class.java).get()!!

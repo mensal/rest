@@ -18,5 +18,4 @@ open class Pagamento : Versionado() {
     @NotNull
     @Temporal(TemporalType.DATE)
     var data: Date? = null
-
 }

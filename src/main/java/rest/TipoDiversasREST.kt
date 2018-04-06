@@ -1,7 +1,7 @@
 package rest
 
 import core.entity.Periodo
-import core.entity.TipoDiversa
+import core.entity.TipoDespesaDiversa
 import core.persistence.TipoDiversaDAO
 import rest.data.TipoDiversaData
 import rest.util.RESTUtil.Companion.buildIfModified
@@ -29,7 +29,7 @@ internal open class TipoDiversasREST {
     @Consumes("application/json")
     @Produces("application/json")
     open fun inserir(@Valid data: TipoDiversaData, @Context uriInfo: UriInfo): Response {
-        val tipo = data.escrever(TipoDiversa())!!
+        val tipo = data.escrever(TipoDespesaDiversa())!!
 
         if (data.periodo == null) tipo.periodo = Periodo()
         if (data.periodo?.de == null) tipo.periodo?.de = Date()

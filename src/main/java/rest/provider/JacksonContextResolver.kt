@@ -1,4 +1,4 @@
-package rest.context
+package rest.provider
 
 
 import com.fasterxml.jackson.databind.ObjectMapper
