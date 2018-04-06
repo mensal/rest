@@ -4,6 +4,7 @@ import core.entity.TipoDiversa
 import java.util.*
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
+import javax.persistence.NoResultException
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
@@ -13,7 +14,20 @@ open class TipoDiversaDAO {
     @PersistenceContext
     private lateinit var em: EntityManager
 
-    open fun obter(id: UUID) = em.find(TipoDiversa::class.java, id)
+    open fun obter(id: UUID): TipoDiversa? {
+        val jpql = " select t from TipoDiversa t where t.id = :id "
+        val query = em.createQuery(jpql, TipoDiversa::class.java)
+        query.setParameter("id", id)
+
+        var resultado: TipoDiversa?
+        try {
+            resultado = query.singleResult
+        } catch (cause: NoResultException) {
+            resultado = null
+        }
+
+        return resultado
+    }
 
     open fun pesquisar(): List<TipoDiversa> {
         val jpql = " select t from TipoDiversa t "

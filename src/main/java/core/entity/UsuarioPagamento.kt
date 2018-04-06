@@ -1,5 +1,6 @@
 package core.entity
 
+import core.entity.UsuarioPagamento.UsuarioPagamentoPk
 import java.io.Serializable
 import java.math.BigDecimal
 import java.util.*
@@ -7,9 +8,9 @@ import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
-@IdClass(UsuarioPagamento.UsuarioPagamentoPk::class)
 @Table(name = "usuario_pagamento")
-open class UsuarioPagamento {
+@IdClass(UsuarioPagamentoPk::class)
+open class UsuarioPagamento : Versionado() {
 
     @Id
     @ManyToOne
@@ -30,6 +31,7 @@ open class UsuarioPagamento {
         var usuario: UUID? = null
 
         var pagamento: UUID? = null
+
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
             if (javaClass != other?.javaClass) return false

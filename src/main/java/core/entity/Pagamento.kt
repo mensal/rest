@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 @Entity
 @Table(name = "pagamento")
 @Inheritance(strategy = JOINED)
-open class Pagamento {
+open class Pagamento : Versionado() {
 
     @Id
     @GeneratedValue
@@ -18,4 +18,5 @@ open class Pagamento {
     @NotNull
     @Temporal(TemporalType.DATE)
     var data: Date? = null
+
 }
