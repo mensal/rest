@@ -4,7 +4,7 @@ import core.entity.Periodo
 import java.util.*
 import javax.validation.constraints.NotNull
 
-class PeriodoRequestData : RequestData<Periodo> {
+class PeriodoReqData : ReqData<Periodo> {
 
     @NotNull
     lateinit var de: Date

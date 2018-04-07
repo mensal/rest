@@ -2,8 +2,8 @@ package rest
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
-import rest.data.RequestData
-import rest.data.ResponseData
+import rest.data.ReqData
+import rest.data.ResData
 import rest.util.RESTUtil
 import java.util.*
 import javax.transaction.Transactional
@@ -11,7 +11,7 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : RequestData<E>, S : ResponseData<E, S>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : CrudDAO<E>> {
 
     protected abstract fun newEntity(): E
 
@@ -34,12 +34,10 @@ abstract class CrudREST<E : Versionado, Q : RequestData<E>, S : ResponseData<E, 
     @Consumes("application/json")
     @Produces("application/json")
     open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo, antesDeInserir: ((E) -> Unit)?): Response {
-        val entidade = data.escrever(newEntity())!!
+        var x = newEntity()
+        val entidade = data.escrever(x)!!
 
         antesDeInserir?.invoke(entidade)
-
-//        if (data.periodo == null) entidade.periodo = Periodo()
-//        if (data.periodo?.de == null) entidade.periodo?.de = Date()
 
         dao.inserir(entidade)
 

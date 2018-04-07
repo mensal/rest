@@ -5,7 +5,7 @@ import core.entity.PagamentoDiversa
 import java.util.*
 
 @JsonPropertyOrder("id", "data", "observacao")
-class PagamentoDiversaResponseData : ResponseData<PagamentoDiversa, PagamentoDiversaResponseData> {
+class PagamentoDiversaResData : ResData<PagamentoDiversa, PagamentoDiversaResData> {
 
     var id: UUID? = null
 
@@ -13,7 +13,7 @@ class PagamentoDiversaResponseData : ResponseData<PagamentoDiversa, PagamentoDiv
 
     var observacao: String? = null
 
-    override fun ler(periodo: PagamentoDiversa?): PagamentoDiversaResponseData {
+    override fun ler(periodo: PagamentoDiversa?): PagamentoDiversaResData {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

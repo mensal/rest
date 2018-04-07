@@ -5,18 +5,18 @@ import core.entity.TipoDespesaDiversa
 import java.util.*
 
 @JsonPropertyOrder("id", "nome", "periodo")
-class TipoDespesaDiversaResponseData : ResponseData<TipoDespesaDiversa, TipoDespesaDiversaResponseData> {
+class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa, TipoDespesaDiversaResData> {
 
     var id: UUID? = null
 
     var nome: String? = null
 
-    var periodo: PeriodoResponseData? = null
+    var periodo: PeriodoResData? = null
 
-    override fun ler(entidade: TipoDespesaDiversa?): TipoDespesaDiversaResponseData {
+    override fun ler(entidade: TipoDespesaDiversa?): TipoDespesaDiversaResData {
         this.id = entidade?.id
         this.nome = entidade?.nome
-        this.periodo = PeriodoResponseData().ler(entidade?.periodo)
+        this.periodo = PeriodoResData().ler(entidade?.periodo)
 
         return this
     }

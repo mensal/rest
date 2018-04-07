@@ -5,13 +5,13 @@ import core.entity.Periodo
 import java.util.*
 
 @JsonPropertyOrder("de", "ate")
-class PeriodoResponseData : ResponseData<Periodo, PeriodoResponseData> {
+class PeriodoResData : ResData<Periodo, PeriodoResData> {
 
     var de: Date? = null
 
     var ate: Date? = null
 
-    override fun ler(entidade: Periodo?): PeriodoResponseData {
+    override fun ler(entidade: Periodo?): PeriodoResData {
         this.de = entidade?.de
         this.ate = entidade?.ate
 

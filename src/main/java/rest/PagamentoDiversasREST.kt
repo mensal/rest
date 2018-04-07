@@ -2,20 +2,20 @@ package rest
 
 import core.entity.PagamentoDiversa
 import core.persistence.PagamentoDiversaDAO
-import rest.data.PagamentoDiversaRequestData
-import rest.data.PagamentoDiversaResponseData
+import rest.data.PagamentoDiversaReqData
+import rest.data.PagamentoDiversaResData
 import javax.inject.Inject
 import javax.ws.rs.Path
 
 @Path("pagamento/diversas")
-open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaRequestData, PagamentoDiversaResponseData, PagamentoDiversaDAO>() {
+open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaReqData, PagamentoDiversaResData, PagamentoDiversaDAO>() {
 
     @Inject
     override lateinit var dao: PagamentoDiversaDAO
 
     override fun newEntity() = PagamentoDiversa()
 
-    override fun newRequestData() = PagamentoDiversaRequestData()
+    override fun newRequestData() = PagamentoDiversaReqData()
 
-    override fun newResponseData() = PagamentoDiversaResponseData()
+    override fun newResponseData() = PagamentoDiversaResData()
 }

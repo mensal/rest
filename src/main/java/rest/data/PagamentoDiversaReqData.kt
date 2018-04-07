@@ -4,7 +4,7 @@ import core.entity.PagamentoDiversa
 import java.util.*
 import javax.validation.constraints.NotNull
 
-class PagamentoDiversaRequestData : RequestData<PagamentoDiversa> {
+class PagamentoDiversaReqData : ReqData<PagamentoDiversa> {
 
     @NotNull
     lateinit var data: Date

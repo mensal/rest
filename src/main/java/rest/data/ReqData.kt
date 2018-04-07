@@ -1,6 +1,6 @@
 package rest.data
 
-interface RequestData<E> {
+interface ReqData<E> {
 
     fun escrever(periodo: E?): E?
 }
