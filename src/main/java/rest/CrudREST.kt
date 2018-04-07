@@ -11,7 +11,7 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : CrudDAO<E>> {
 
     protected abstract fun newEntity(): E
 
@@ -24,7 +24,12 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : C
     @GET
     @Produces("application/json")
     open fun pesquisar(): List<S>? {
-        val resultado = dao.pesquisar().map { newResponseData().ler(it) }
+        val resultado = dao.pesquisar().map {
+            val data = newResponseData()
+            data.preencherCom(it)
+            data
+        }
+
         return if (resultado.isEmpty()) null else resultado
 
     }
@@ -34,11 +39,15 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : C
     @Consumes("application/json")
     @Produces("application/json")
     open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
-        val entidade = data.escrever(newEntity())!!
+        val entidade = newEntity()
+        data.escreverEm(entidade)
         dao.inserir(entidade)
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
-        return Response.created(location).entity(newResponseData().ler(entidade)).build()
+        val responseData = newResponseData()
+        responseData.preencherCom(entidade)
+
+        return Response.created(location).entity(responseData).build()
     }
 
     @GET
@@ -46,9 +55,11 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : C
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
-        val resultado = newResponseData().ler(persistido)
+        val resultado = newResponseData()
+        resultado.preencherCom(persistido)
 
-        return Response.ok().entity(resultado).lastModified(persistido.atualizadoEm).build()
+        val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
+        return Response.ok().entity(resultado).lastModified(atualizadoEm).build()
 
     }
 
@@ -62,12 +73,17 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : C
         var builder = RESTUtil.buildIfModified(request, headers, persistido)
 
         if (builder == null) {
-//            data.id = id
-            persistido = dao.atualizar(data.escrever(persistido)!!)
-            builder = Response.ok().entity(newResponseData().ler(persistido)).lastModified(persistido.atualizadoEm)
+            data.escreverEm(persistido)
+            persistido = dao.atualizar(persistido)
+
+            val responseData = newResponseData()
+            responseData.preencherCom(persistido)
+
+            val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
+            builder = Response.ok().entity(responseData).lastModified(atualizadoEm)
         }
 
-        return builder.build()
+        return builder!!.build()
 
     }
 

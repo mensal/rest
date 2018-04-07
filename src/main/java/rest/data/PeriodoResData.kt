@@ -5,16 +5,14 @@ import core.entity.Periodo
 import java.time.LocalDate
 
 @JsonPropertyOrder("de", "ate")
-class PeriodoResData : ResData<Periodo, PeriodoResData> {
+class PeriodoResData : ResData<Periodo> {
 
     var de: LocalDate? = null
 
     var ate: LocalDate? = null
 
-    override fun ler(entidade: Periodo?): PeriodoResData {
+    override fun preencherCom(entidade: Periodo?) {
         this.de = entidade?.de
         this.ate = entidade?.ate
-
-        return this
     }
 }

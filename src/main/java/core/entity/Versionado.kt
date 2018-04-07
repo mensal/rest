@@ -1,5 +1,6 @@
 package core.entity
 
+import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.*
 import javax.validation.constraints.NotNull
@@ -15,5 +16,5 @@ abstract class Versionado {
     @Version
     @NotNull
     @Column(name = "atualizado_em", columnDefinition = "timestamp with time zone")
-    var atualizadoEm: Date? = null
+    var atualizadoEm: ZonedDateTime? = null
 }

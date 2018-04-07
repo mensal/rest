@@ -9,8 +9,7 @@ class TipoDespesaReqData : ReqData<TipoDespesa> {
     @NotNull
     lateinit var id: UUID
 
-    override fun escrever(entidade: TipoDespesa?): TipoDespesa? {
+    override fun escreverEm(entidade: TipoDespesa?) {
         entidade?.id = id
-        return entidade
     }
 }

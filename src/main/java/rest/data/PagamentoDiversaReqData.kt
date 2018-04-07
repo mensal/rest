@@ -11,7 +11,7 @@ class PagamentoDiversaReqData : ReqData<PagamentoDiversa> {
 
     var observacao: String? = null
 
-    override fun escrever(entidade: PagamentoDiversa?): PagamentoDiversa? {
+    override fun escreverEm(entidade: PagamentoDiversa?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

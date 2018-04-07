@@ -5,7 +5,7 @@ import core.entity.TipoDespesaDiversa
 import java.util.*
 
 @JsonPropertyOrder("id", "nome", "periodo")
-class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa, TipoDespesaDiversaResData> {
+class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa> {
 
     var id: UUID? = null
 
@@ -13,11 +13,12 @@ class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa, TipoDespesaDiversa
 
     var periodo: PeriodoResData? = null
 
-    override fun ler(entidade: TipoDespesaDiversa?): TipoDespesaDiversaResData {
+    override fun preencherCom(entidade: TipoDespesaDiversa?) {
         this.id = entidade?.id
         this.nome = entidade?.nome
-        this.periodo = PeriodoResData().ler(entidade?.periodo)
 
-        return this
+        val periodo = PeriodoResData()
+        periodo.preencherCom(entidade?.periodo)
+        this.periodo = periodo
     }
 }

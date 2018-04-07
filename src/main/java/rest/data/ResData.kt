@@ -1,6 +1,6 @@
 package rest.data
 
-interface ResData<E, S : ResData<E, S>> {
+interface ResData<E> {
 
-    fun ler(entidade: E?): S
+    fun preencherCom(entidade: E?)
 }

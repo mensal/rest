@@ -3,12 +3,11 @@ package rest.data
 import core.entity.TipoDespesa
 import java.util.*
 
-class TipoDespesaResData : ResData<TipoDespesa, TipoDespesaResData> {
+class TipoDespesaResData : ResData<TipoDespesa> {
 
     var id: UUID? = null
 
-    override fun ler(entidade: TipoDespesa?): TipoDespesaResData {
+    override fun preencherCom(entidade: TipoDespesa?) {
         id = entidade?.id
-        return this
     }
 }
