@@ -2,20 +2,23 @@ package rest
 
 import core.entity.TipoDespesaDiversa
 import core.persistence.TipoDespesaDiversaDAO
-import rest.data.TipoDespesaDiversaData
+import rest.data.TipoDespesaDiversaRequestData
+import rest.data.TipoDespesaDiversaResponseData
 import javax.inject.Inject
 import javax.ws.rs.Path
 
 
 @Path("tipo/diversas")
-open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiversaData, TipoDespesaDiversaDAO>() {
+open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiversaRequestData, TipoDespesaDiversaResponseData, TipoDespesaDiversaDAO>() {
 
     @Inject
     override lateinit var dao: TipoDespesaDiversaDAO
 
     override fun newEntity() = TipoDespesaDiversa()
 
-    override fun newData() = TipoDespesaDiversaData()
+    override fun newRequestData() = TipoDespesaDiversaRequestData()
+
+    override fun newResponseData() = TipoDespesaDiversaResponseData()
 
 //    @GET
 //    @Produces("application/json")

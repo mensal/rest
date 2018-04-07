@@ -2,7 +2,8 @@ package rest
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
-import rest.data.Data
+import rest.data.RequestData
+import rest.data.ResponseData
 import rest.util.RESTUtil
 import java.util.*
 import javax.transaction.Transactional
@@ -10,18 +11,20 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, D : Data<E, D>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : RequestData<E>, S : ResponseData<E, S>, A : CrudDAO<E>> {
 
     protected abstract fun newEntity(): E
 
-    protected abstract fun newData(): D
+    protected abstract fun newRequestData(): Q
+
+    protected abstract fun newResponseData(): S
 
     protected abstract var dao: A
 
     @GET
     @Produces("application/json")
-    open fun pesquisar(): List<D>? {
-        val resultado = dao.pesquisar().map { newData().ler(it) }
+    open fun pesquisar(): List<S>? {
+        val resultado = dao.pesquisar().map { newResponseData().ler(it) }
         return if (resultado.isEmpty()) null else resultado
 
     }
@@ -30,7 +33,7 @@ abstract class CrudREST<E : Versionado, D : Data<E, D>, A : CrudDAO<E>> {
     @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    open fun inserir(@Valid data: D, @Context uriInfo: UriInfo, antesDeInserir: ((E) -> Unit)?): Response {
+    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo, antesDeInserir: ((E) -> Unit)?): Response {
         val entidade = data.escrever(newEntity())!!
 
         antesDeInserir?.invoke(entidade)
@@ -41,7 +44,7 @@ abstract class CrudREST<E : Versionado, D : Data<E, D>, A : CrudDAO<E>> {
         dao.inserir(entidade)
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
-        return Response.created(location).entity(newData().ler(entidade)).build()
+        return Response.created(location).entity(newResponseData().ler(entidade)).build()
     }
 
     @GET
@@ -49,7 +52,7 @@ abstract class CrudREST<E : Versionado, D : Data<E, D>, A : CrudDAO<E>> {
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
-        val resultado = newData().ler(persistido)
+        val resultado = newResponseData().ler(persistido)
 
         return Response.ok().entity(resultado).lastModified(persistido.atualizadoEm).build()
 
@@ -60,14 +63,14 @@ abstract class CrudREST<E : Versionado, D : Data<E, D>, A : CrudDAO<E>> {
     @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    open fun atualizar(@PathParam("id") id: UUID, @Valid data: D, @Context headers: HttpHeaders, @Context request: Request): Response {
+    open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
         var builder = RESTUtil.buildIfModified(request, headers, persistido)
 
         if (builder == null) {
 //            data.id = id
             persistido = dao.atualizar(data.escrever(persistido)!!)
-            builder = Response.ok().entity(newData().ler(persistido)).lastModified(persistido.atualizadoEm)
+            builder = Response.ok().entity(newResponseData().ler(persistido)).lastModified(persistido.atualizadoEm)
         }
 
         return builder.build()
