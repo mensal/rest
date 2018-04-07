@@ -13,9 +13,12 @@ open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaRe
     @Inject
     override lateinit var dao: PagamentoDiversaDAO
 
-    override fun newEntity() = PagamentoDiversa()
+    override fun novaEntidade() = PagamentoDiversa()
 
-    override fun newRequestData() = PagamentoDiversaReqData()
+    override fun novoRequestData() = PagamentoDiversaReqData()
 
-    override fun newResponseData() = PagamentoDiversaResData()
+    override fun novoResponseData() = PagamentoDiversaResData()
+
+    override fun antesDePersistir(entidade: PagamentoDiversa, dataRequest: PagamentoDiversaReqData) {
+    }
 }

@@ -12,13 +12,13 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
 
-    protected abstract fun newEntity(): E
+    protected abstract fun novaEntidade(): E
 
-    protected abstract fun newRequestData(): Q
+    protected abstract fun novoRequestData(): Q
 
-    protected abstract fun newResponseData(): S
+    protected abstract fun novoResponseData(): S
 
     protected abstract var dao: A
 
@@ -26,7 +26,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     @Produces("application/json")
     open fun pesquisar(): List<S>? {
         val resultado = dao.pesquisar().map {
-            val data = newResponseData()
+            val data = novoResponseData()
             data.preencherCom(it)
             data
         }
@@ -40,12 +40,14 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     @Consumes("application/json")
     @Produces("application/json")
     open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
-        val entidade = newEntity()
+        val entidade = novaEntidade()
         data.escreverEm(entidade)
+
+        antesDePersistir(entidade, data)
         dao.inserir(entidade)
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
-        val responseData = newResponseData()
+        val responseData = novoResponseData()
         responseData.preencherCom(entidade)
 
         return Response.created(location).entity(responseData).build()
@@ -56,12 +58,11 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
-        val resultado = newResponseData()
+        val resultado = novoResponseData()
         resultado.preencherCom(persistido)
 
         val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
         return Response.ok().entity(resultado).lastModified(atualizadoEm).build()
-
     }
 
     @PUT
@@ -71,13 +72,15 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     @Produces("application/json")
     open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
-        var builder = buildIfModified(request, headers, persistido)
+        var builder = buildSeModificado(request, headers, persistido)
 
         if (builder == null) {
             data.escreverEm(persistido)
+
+            antesDePersistir(persistido, data)
             persistido = dao.atualizar(persistido)
 
-            val responseData = newResponseData()
+            val responseData = novoResponseData()
             responseData.preencherCom(persistido)
 
             val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
@@ -90,7 +93,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
-    private fun buildIfModified(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
+    private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
         headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
 
         return try {
@@ -101,4 +104,6 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
             throw PreconditionFailedException()
         }
     }
+
+    protected abstract fun antesDePersistir(entidade: E, dataRequest: Q)
 }

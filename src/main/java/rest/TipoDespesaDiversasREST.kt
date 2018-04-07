@@ -13,9 +13,11 @@ open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiv
     @Inject
     override lateinit var dao: TipoDespesaDiversaDAO
 
-    override fun newEntity() = TipoDespesaDiversa()
+    override fun novaEntidade() = TipoDespesaDiversa()
 
-    override fun newRequestData() = TipoDespesaDiversaReqData()
+    override fun novoRequestData() = TipoDespesaDiversaReqData()
 
-    override fun newResponseData() = TipoDespesaDiversaResData()
+    override fun novoResponseData() = TipoDespesaDiversaResData()
+
+    override fun antesDePersistir(entidade: TipoDespesaDiversa, dataRequest: TipoDespesaDiversaReqData) {}
 }
