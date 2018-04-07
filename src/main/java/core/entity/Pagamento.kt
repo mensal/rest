@@ -10,11 +10,6 @@ import javax.validation.constraints.NotNull
 @Inheritance(strategy = JOINED)
 open class Pagamento : Versionado() {
 
-    @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid", updatable = false)
-    var id: UUID? = null
-
     @NotNull
     @Temporal(TemporalType.DATE)
     var data: Date? = null

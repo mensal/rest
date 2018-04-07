@@ -1,8 +1,8 @@
 package rest.data
 
-interface Data<E> {
+interface Data<E, D : Data<E, D>> {
 
-    fun ler(periodo: E?): Data<E>
+    fun ler(periodo: E?): D
 
     fun escrever(periodo: E?): E?
 }

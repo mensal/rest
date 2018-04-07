@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import org.apache.commons.lang3.StringUtils.isEmpty
 import java.io.IOException
 
-internal class EmptyStringAsNull : JsonDeserializer<String>() {
+class EmptyStringAsNull : JsonDeserializer<String>() {
 
     @Throws(IOException::class)
     override fun deserialize(jp: JsonParser, ctx: DeserializationContext): String? {

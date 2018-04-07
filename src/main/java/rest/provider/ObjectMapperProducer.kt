@@ -11,7 +11,7 @@ import javax.enterprise.inject.Produces
 import javax.enterprise.inject.spi.CDI
 import javax.inject.Singleton
 
-internal class ObjectMapperProducer private constructor() {
+class ObjectMapperProducer private constructor() {
 
     @Produces
     @Singleton

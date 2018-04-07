@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider
 @Provider
 @Consumes("application/json")
 @Produces("application/json")
-internal open class JacksonContextResolver : ContextResolver<ObjectMapper> {
+open class JacksonContextResolver : ContextResolver<ObjectMapper> {
 
     private var objectMapper: ObjectMapper? = null
 

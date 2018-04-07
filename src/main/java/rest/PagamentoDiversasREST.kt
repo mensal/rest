@@ -1,42 +1,18 @@
 package rest
 
+import core.entity.PagamentoDiversa
+import core.persistence.PagamentoDiversaDAO
 import rest.data.PagamentoDiversaData
-import java.util.*
-import javax.transaction.Transactional
-import javax.validation.Valid
-import javax.ws.rs.*
-import javax.ws.rs.core.*
+import javax.inject.Inject
+import javax.ws.rs.Path
 
 @Path("pagamento/diversas")
-internal open class PagamentoDiversasREST {
+open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaData, PagamentoDiversaDAO>() {
 
-    @GET
-    @Produces("application/json")
-    open fun pesquisar(): List<PagamentoDiversaData>? {
-        return null
-    }
+    @Inject
+    override lateinit var dao: PagamentoDiversaDAO
 
-    @POST
-    @Transactional
-    @Consumes("application/json")
-    @Produces("application/json")
-    open fun inserir(@Valid data: PagamentoDiversaData, @Context uriInfo: UriInfo): Response {
-        return Response.ok().build()
-    }
+    override fun newEntity() = PagamentoDiversa()
 
-    @GET
-    @Path("{id}")
-    @Produces("application/json")
-    open fun obter(@PathParam("id") id: UUID): Response {
-        return Response.ok().build()
-    }
-
-    @PUT
-    @Path("{id}")
-    @Transactional
-    @Consumes("application/json")
-    @Produces("application/json")
-    open fun atualizar(@PathParam("id") id: UUID, @Valid data: PagamentoDiversaData, @Context headers: HttpHeaders, @Context request: Request): Response {
-        return Response.ok().build()
-    }
+    override fun newData() = PagamentoDiversaData()
 }
