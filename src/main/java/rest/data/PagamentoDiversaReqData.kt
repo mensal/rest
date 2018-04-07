@@ -1,17 +1,17 @@
 package rest.data
 
 import core.entity.PagamentoDiversa
-import java.util.*
+import java.time.LocalDate
 import javax.validation.constraints.NotNull
 
 class PagamentoDiversaReqData : ReqData<PagamentoDiversa> {
 
     @NotNull
-    lateinit var data: Date
+    lateinit var data: LocalDate
 
     var observacao: String? = null
 
-    override fun escrever(periodo: PagamentoDiversa?): PagamentoDiversa? {
+    override fun escrever(entidade: PagamentoDiversa?): PagamentoDiversa? {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

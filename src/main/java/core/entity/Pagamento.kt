@@ -1,8 +1,10 @@
 package core.entity
 
-import java.util.*
-import javax.persistence.*
+import java.time.LocalDate
+import javax.persistence.Entity
+import javax.persistence.Inheritance
 import javax.persistence.InheritanceType.JOINED
+import javax.persistence.Table
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -11,6 +13,6 @@ import javax.validation.constraints.NotNull
 open class Pagamento : Versionado() {
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    var data: Date? = null
+//    @Temporal(TemporalType.DATE)
+    var data: LocalDate? = null
 }

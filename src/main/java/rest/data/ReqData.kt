@@ -2,5 +2,5 @@ package rest.data
 
 interface ReqData<E> {
 
-    fun escrever(periodo: E?): E?
+    fun escrever(entidade: E?): E?
 }

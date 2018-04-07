@@ -33,12 +33,8 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E, S>, A : C
     @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo, antesDeInserir: ((E) -> Unit)?): Response {
-        var x = newEntity()
-        val entidade = data.escrever(x)!!
-
-        antesDeInserir?.invoke(entidade)
-
+    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
+        val entidade = data.escrever(newEntity())!!
         dao.inserir(entidade)
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()

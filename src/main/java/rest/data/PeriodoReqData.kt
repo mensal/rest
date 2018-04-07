@@ -1,15 +1,15 @@
 package rest.data
 
 import core.entity.Periodo
-import java.util.*
+import java.time.LocalDate
 import javax.validation.constraints.NotNull
 
 class PeriodoReqData : ReqData<Periodo> {
 
     @NotNull
-    lateinit var de: Date
+    lateinit var de: LocalDate
 
-    var ate: Date? = null
+    var ate: LocalDate? = null
 
     override fun escrever(entidade: Periodo?): Periodo? {
         entidade?.de = this.de

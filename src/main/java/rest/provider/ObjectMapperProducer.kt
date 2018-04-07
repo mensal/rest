@@ -6,10 +6,12 @@ import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PRO
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature.*
 import com.fasterxml.jackson.databind.module.SimpleModule
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import java.util.*
 import javax.enterprise.inject.Produces
 import javax.enterprise.inject.spi.CDI
 import javax.inject.Singleton
+
 
 class ObjectMapperProducer private constructor() {
 
@@ -22,6 +24,8 @@ class ObjectMapperProducer private constructor() {
         val objectMapper = ObjectMapper()
         with(objectMapper) {
             registerModule(module)
+            registerModule(JavaTimeModule())
+
             configure(INDENT_OUTPUT, true)
             configure(WRITE_ENUMS_USING_TO_STRING, true)
             configure(WRITE_DATES_AS_TIMESTAMPS, false)

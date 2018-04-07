@@ -1,21 +1,19 @@
 package core.entity
 
-import java.util.*
+import java.time.LocalDate
 import javax.persistence.Column
 import javax.persistence.Embeddable
-import javax.persistence.Temporal
-import javax.persistence.TemporalType.DATE
 import javax.validation.constraints.NotNull
 
 @Embeddable
 open class Periodo {
 
     @NotNull
-    @Temporal(DATE)
+//    @Temporal(DATE)
     @Column(name = "periodo_de")
-    var de: Date? = null
+    var de: LocalDate? = null
 
-    @Temporal(DATE)
+    //    @Temporal(DATE)
     @Column(name = "periodo_ate")
-    var ate: Date? = null
+    var ate: LocalDate? = null
 }
