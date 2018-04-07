@@ -11,8 +11,8 @@ class PeriodoReqData : ReqData<Periodo> {
 
     var ate: LocalDate? = null
 
-    override fun escreverEm(entidade: Periodo?) {
-        entidade?.de = this.de
-        entidade?.ate = this.ate
+    override fun escreverEm(entidade: Periodo) {
+        entidade.de = de
+        entidade.ate = ate
     }
 }

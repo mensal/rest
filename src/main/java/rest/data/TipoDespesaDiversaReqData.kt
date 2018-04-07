@@ -12,11 +12,9 @@ class TipoDespesaDiversaReqData : ReqData<TipoDespesaDiversa> {
     @NotNull
     lateinit var periodo: PeriodoReqData
 
-    override fun escreverEm(entidade: TipoDespesaDiversa?) {
-        entidade?.nome = this.nome
-
-        entidade?.periodo = entidade?.periodo ?: Periodo()
-        periodo.escreverEm(entidade?.periodo)
-        entidade?.periodo = entidade?.periodo
+    override fun escreverEm(entidade: TipoDespesaDiversa) {
+        entidade.nome = nome
+        if (entidade.periodo == null) entidade.periodo = Periodo()
+        periodo.escreverEm(entidade.periodo!!)
     }
 }

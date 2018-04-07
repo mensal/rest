@@ -12,7 +12,7 @@ class PeriodoResData : ResData<Periodo> {
     var ate: LocalDate? = null
 
     override fun preencherCom(entidade: Periodo?) {
-        this.de = entidade?.de
-        this.ate = entidade?.ate
+        de = entidade?.de
+        ate = entidade?.ate
     }
 }

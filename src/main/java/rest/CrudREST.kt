@@ -2,9 +2,10 @@ package rest
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
+import org.apache.commons.lang3.time.DateUtils
 import rest.data.ReqData
 import rest.data.ResData
-import rest.util.RESTUtil
+import rest.util.PreconditionFailedException
 import java.util.*
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -70,7 +71,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     @Produces("application/json")
     open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
-        var builder = RESTUtil.buildIfModified(request, headers, persistido)
+        var builder = buildIfModified(request, headers, persistido)
 
         if (builder == null) {
             data.escreverEm(persistido)
@@ -88,4 +89,16 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : Crud
     }
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
+
+    private fun buildIfModified(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
+        headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
+
+        return try {
+            val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant())
+            request.evaluatePreconditions(DateUtils.truncate(atualizadoEm, Calendar.SECOND))
+        } catch (cause: Exception) {
+            cause.printStackTrace()
+            throw PreconditionFailedException()
+        }
+    }
 }

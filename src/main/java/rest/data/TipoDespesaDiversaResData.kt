@@ -14,11 +14,10 @@ class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa> {
     var periodo: PeriodoResData? = null
 
     override fun preencherCom(entidade: TipoDespesaDiversa?) {
-        this.id = entidade?.id
-        this.nome = entidade?.nome
+        id = entidade?.id
+        nome = entidade?.nome
 
-        val periodo = PeriodoResData()
-        periodo.preencherCom(entidade?.periodo)
-        this.periodo = periodo
+        periodo = PeriodoResData()
+        periodo?.preencherCom(entidade?.periodo)
     }
 }
