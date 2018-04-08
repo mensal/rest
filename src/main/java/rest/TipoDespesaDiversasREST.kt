@@ -4,14 +4,10 @@ import core.entity.TipoDespesaDiversa
 import core.persistence.TipoDespesaDiversaDAO
 import rest.data.TipoDespesaDiversaReqData
 import rest.data.TipoDespesaDiversaResData
-import javax.inject.Inject
 import javax.ws.rs.Path
 
 @Path("tipo/diversas")
-open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiversaReqData, TipoDespesaDiversaResData, TipoDespesaDiversaDAO>() {
-
-    @Inject
-    override lateinit var dao: TipoDespesaDiversaDAO
+open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiversaReqData, TipoDespesaDiversaResData, TipoDespesaDiversaDAO> {
 
     override fun novaEntidade() = TipoDespesaDiversa()
 
@@ -19,5 +15,5 @@ open class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiv
 
     override fun novoResponseData() = TipoDespesaDiversaResData()
 
-    override fun antesDePersistir(entidade: TipoDespesaDiversa, dataRequest: TipoDespesaDiversaReqData) {}
+    override fun daoClass() = TipoDespesaDiversaDAO::class.java
 }

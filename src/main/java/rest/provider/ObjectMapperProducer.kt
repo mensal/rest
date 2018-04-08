@@ -1,11 +1,9 @@
 package rest.provider
 
-import br.gov.serpro.ssdk.rest.EmptyStringAsNull
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL
 import com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature.*
-import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import java.util.*
 import javax.enterprise.inject.Produces
@@ -18,12 +16,12 @@ class ObjectMapperProducer private constructor() {
     @Produces
     @Singleton
     private fun create(): ObjectMapper {
-        val module = SimpleModule("Custom Module")
-        module.addDeserializer(String::class.java, EmptyStringAsNull())
+//        val module = SimpleModule("Custom Module")
+//        module.addDeserializer(String::class.java, EmptyStringAsNull())
 
         val objectMapper = ObjectMapper()
         with(objectMapper) {
-            registerModule(module)
+            //            registerModule(module)
             registerModule(JavaTimeModule())
 
             configure(INDENT_OUTPUT, true)

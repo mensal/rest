@@ -5,7 +5,7 @@ import core.entity.PagamentoDiversa
 import java.time.LocalDate
 import java.util.*
 
-@JsonPropertyOrder("id", "data", "observacao")
+@JsonPropertyOrder("id", "data", "observacao", "tipo")
 class PagamentoDiversaResData : ResData<PagamentoDiversa> {
 
     var id: UUID? = null
@@ -14,7 +14,14 @@ class PagamentoDiversaResData : ResData<PagamentoDiversa> {
 
     var observacao: String? = null
 
+    lateinit var tipo: TipoDespesaDiversaResData
+
     override fun preencherCom(entidade: PagamentoDiversa?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        id = entidade?.id
+        data = entidade?.data
+        observacao = entidade?.observacao
+
+        tipo = TipoDespesaDiversaResData()
+        tipo.preencherCom(entidade?.tipo)
     }
 }

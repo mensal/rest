@@ -2,49 +2,51 @@ package rest
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
-import org.apache.commons.lang3.time.DateUtils
+import org.apache.commons.lang.time.DateUtils
 import rest.data.ReqData
 import rest.data.ResData
 import rest.util.PreconditionFailedException
 import java.util.*
+import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
+interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
 
-    protected abstract fun novaEntidade(): E
+    fun novaEntidade(): E
 
-    protected abstract fun novoRequestData(): Q
+    fun novoRequestData(): Q
 
-    protected abstract fun novoResponseData(): S
+    fun novoResponseData(): S
 
-    protected abstract var dao: A
+    fun daoClass(): Class<A>
+
+    fun dao() = CDI.current().select(daoClass()).select().get()!!
 
     @GET
     @Produces("application/json")
-    open fun pesquisar(): List<S>? {
-        val resultado = dao.pesquisar().map {
+    fun pesquisar(): List<S>? {
+        val resultado = dao().pesquisar().map {
             val data = novoResponseData()
             data.preencherCom(it)
             data
         }
 
         return if (resultado.isEmpty()) null else resultado
-
     }
 
     @POST
     @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
+    fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
         val entidade = novaEntidade()
         data.escreverEm(entidade)
 
         antesDePersistir(entidade, data)
-        dao.inserir(entidade)
+        dao().inserir(entidade)
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
         val responseData = novoResponseData()
@@ -56,7 +58,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     @GET
     @Path("{id}")
     @Produces("application/json")
-    open fun obter(@PathParam("id") id: UUID): Response {
+    fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
         val resultado = novoResponseData()
         resultado.preencherCom(persistido)
@@ -70,7 +72,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
+    fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
         var builder = buildSeModificado(request, headers, persistido)
 
@@ -78,7 +80,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
             data.escreverEm(persistido)
 
             antesDePersistir(persistido, data)
-            persistido = dao.atualizar(persistido)
+            persistido = dao().atualizar(persistido)
 
             val responseData = novoResponseData()
             responseData.preencherCom(persistido)
@@ -91,7 +93,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
 
     }
 
-    private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
+    private fun carregar(id: UUID) = dao().obter(id) ?: throw NotFoundException()
 
     private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
         headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
@@ -105,5 +107,5 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
         }
     }
 
-    protected abstract fun antesDePersistir(entidade: E, dataRequest: Q)
+    fun antesDePersistir(entidade: E, dataRequest: Q) {}
 }
