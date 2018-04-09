@@ -32,28 +32,5 @@ open class UsuarioPagamento() {
         this.valor = valor
     }
 
-    internal class UsuarioPagamentoPk : Serializable {
-
-        var usuario: UUID? = null
-
-        var pagamento: UUID? = null
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) return true
-            if (javaClass != other?.javaClass) return false
-
-            other as UsuarioPagamentoPk
-
-            if (usuario != other.usuario) return false
-            if (pagamento != other.pagamento) return false
-
-            return true
-        }
-
-        override fun hashCode(): Int {
-            var result = usuario?.hashCode() ?: 0
-            result = 31 * result + (pagamento?.hashCode() ?: 0)
-            return result
-        }
-    }
+    internal data class UsuarioPagamentoPk(var usuario: UUID? = null, var pagamento: UUID? = null) : Serializable
 }

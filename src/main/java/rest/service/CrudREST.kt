@@ -13,7 +13,7 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : CrudDAO<E>> {
 
     protected abstract var dao: A
 
@@ -27,14 +27,23 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
 
     protected open fun depoisDePersistir(entidade: E, requestData: Q) {}
 
+    protected open fun depoisDePesquisar(entidade: E) = entidade
+
+    protected open fun depoisDePesquisar(entidades: List<E>) = entidades
+
     protected open val violationException = UnprocessableEntityException()
 
     @GET
     @Produces("application/json")
     open fun pesquisar(): List<S>? {
-        val resultado = dao.pesquisar().map {
+        var persistidos = dao.pesquisar()
+        persistidos = depoisDePesquisar(persistidos)
+
+        val resultado = persistidos.map {
+            val entidade = depoisDePesquisar(it)
+
             val data = novoResponseData()
-            data.preencherCom(it)
+            data.preencherCom(entidade)
             data
         }
 
@@ -58,7 +67,8 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
         val responseData = novoResponseData()
         responseData.preencherCom(entidade)
 
-        return Response.created(location).entity(responseData).build()
+        val atualizadoEm = Date.from(entidade.atualizadoEm!!.toInstant())
+        return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
     }
 
     @GET
@@ -66,6 +76,8 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
+        persistido = depoisDePesquisar(persistido)
+
         val resultado = novoResponseData()
         resultado.preencherCom(persistido)
 

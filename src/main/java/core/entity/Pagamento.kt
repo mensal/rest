@@ -6,6 +6,7 @@ import javax.persistence.Entity
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType.JOINED
 import javax.persistence.Table
+import javax.persistence.Transient
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -20,4 +21,7 @@ open class Pagamento() : Versionado() {
         this.id = id
         this.data = data
     }
+
+    @Transient
+    var valores: List<UsuarioPagamento>? = null
 }

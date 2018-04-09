@@ -23,6 +23,14 @@ open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaRe
 
     override fun novoResponseData() = PagamentoDiversaResData()
 
+    override fun depoisDePesquisar(entidade: PagamentoDiversa): PagamentoDiversa {
+        entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)
+
+        return entidade
+    }
+
+    override fun depoisDePesquisar(entidades: List<PagamentoDiversa>) = entidades.sortedBy(PagamentoDiversa::data)
+
     override fun antesDePersistir(entidade: PagamentoDiversa, requestData: PagamentoDiversaReqData) {
         val tipoDAO = TipoDespesaDiversaDAO.instance()
 
@@ -43,5 +51,7 @@ open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaRe
                 usuarioPagamentoDAO.inserirOuAtualizar(UsuarioPagamento(usuario, entidade, it.valor))
             }
         }
+
+        entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)
     }
 }

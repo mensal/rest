@@ -27,6 +27,10 @@ class PagamentoDiversaResData : ResData<PagamentoDiversa> {
         tipo?.preencherCom(entidade?.tipo)
 
         if (valores == null) valores = mutableListOf()
-//        valores = entidade.valores.map {  }
+        valores = entidade?.valores?.map {
+            val data = UsuarioPagamentoResData()
+            data.preencherCom(it)
+            data
+        }
     }
 }

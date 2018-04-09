@@ -1,6 +1,9 @@
 package core.entity
 
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
+import javax.persistence.Table
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -13,7 +16,4 @@ open class PagamentoDiversa : Pagamento(), PagamentoComTipoDespesa<TipoDespesaDi
     override var tipo: TipoDespesaDiversa? = null
 
     var observacao: String? = null
-
-    @Transient
-    var valores: List<UsuarioPagamento>? = null
 }
