@@ -13,7 +13,7 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, S : ResData<E>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
 
     protected abstract var dao: A
 
