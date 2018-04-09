@@ -10,6 +10,6 @@ open class ClientViolationExceptionMapper : ExceptionMapper<ClientViolationExcep
 
     override fun toResponse(exception: ClientViolationException): Response {
         val statusCode = exception.response.statusInfo.statusCode
-        return Response.status(statusCode).entity(exception.getViolations()).type("application/json").build()
+        return Response.status(statusCode).entity(exception.violations).type("application/json").build()
     }
 }

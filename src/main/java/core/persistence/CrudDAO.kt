@@ -31,9 +31,9 @@ abstract class CrudDAO<E> {
         return query.resultList
     }
 
-    open fun inserir(despesa: E) = em.persist(despesa)
+    open fun inserir(entidade: E) = em.persist(entidade)
 
-    open fun atualizar(despesa: E) = em.merge(despesa)!!
+    open fun atualizar(entidade: E) = em.merge(entidade)!!
 
     protected abstract val entityClass: Class<E>
 }

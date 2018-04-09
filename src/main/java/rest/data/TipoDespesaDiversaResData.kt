@@ -18,6 +18,6 @@ class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa> {
         nome = entidade?.nome
 
         if (periodo == null) periodo = PeriodoResData()
-        periodo?.preencherCom(entidade?.periodo)
+        periodo!!.preencherCom(entidade?.periodo)
     }
 }

@@ -1,6 +1,6 @@
 package br.gov.serpro.ssdk.rest.mapper
 
-import br.gov.serpro.ssdk.rest.ClientViolationException
+import br.gov.serpro.ssdk.rest.UnprocessableEntityException
 import javax.inject.Inject
 import javax.validation.ConstraintViolationException
 import javax.validation.ElementKind.PROPERTY
@@ -15,7 +15,7 @@ open class ConstraintViolationExceptionMapper : ExceptionMapper<ConstraintViolat
     private lateinit var mapper: ClientViolationExceptionMapper
 
     override fun toResponse(exception: ConstraintViolationException): Response {
-        val cvException = ClientViolationException(422)
+        val cvException = UnprocessableEntityException()
 
         for (violation in exception.constraintViolations) {
             val path = mutableListOf<String>()
@@ -24,6 +24,6 @@ open class ConstraintViolationExceptionMapper : ExceptionMapper<ConstraintViolat
             if (path.size > 0) cvException.addViolation(path.joinToString("."), violation.message)
         }
 
-        if (cvException.getViolations().isEmpty()) throw exception else return mapper.toResponse(cvException)
+        if (cvException.violations.isEmpty()) throw exception else return mapper.toResponse(cvException)
     }
 }

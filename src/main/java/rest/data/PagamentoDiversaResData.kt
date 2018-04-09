@@ -16,6 +16,8 @@ class PagamentoDiversaResData : ResData<PagamentoDiversa> {
 
     var tipo: TipoDespesaDiversaResData? = null
 
+    var valores: List<UsuarioPagamentoResData>? = null
+
     override fun preencherCom(entidade: PagamentoDiversa?) {
         id = entidade?.id
         data = entidade?.data
@@ -23,5 +25,8 @@ class PagamentoDiversaResData : ResData<PagamentoDiversa> {
 
         if (tipo == null) tipo = TipoDespesaDiversaResData()
         tipo?.preencherCom(entidade?.tipo)
+
+        if (valores == null) valores = mutableListOf()
+//        valores = entidade.valores.map {  }
     }
 }

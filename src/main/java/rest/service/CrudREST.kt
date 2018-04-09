@@ -1,5 +1,6 @@
-package rest
+package rest.service
 
+import br.gov.serpro.ssdk.rest.UnprocessableEntityException
 import core.entity.Versionado
 import core.persistence.CrudDAO
 import org.apache.commons.lang.time.DateUtils
@@ -7,28 +8,31 @@ import rest.data.ReqData
 import rest.data.ResData
 import rest.util.PreconditionFailedException
 import java.util.*
-import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
+abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
 
-    fun novaEntidade(): E
+    protected abstract var dao: A
 
-    fun novoRequestData(): Q
+    protected abstract fun novaEntidade(): E
 
-    fun novoResponseData(): S
+    protected abstract fun novoRequestData(): Q
 
-    fun daoClass(): Class<A>
+    protected abstract fun novoResponseData(): S
 
-    fun dao() = CDI.current().select(daoClass()).select().get()!!
+    protected open fun antesDePersistir(entidade: E, requestData: Q) {}
+
+    protected open fun depoisDePersistir(entidade: E, requestData: Q) {}
+
+    protected open val violationException = UnprocessableEntityException()
 
     @GET
     @Produces("application/json")
-    fun pesquisar(): List<S>? {
-        val resultado = dao().pesquisar().map {
+    open fun pesquisar(): List<S>? {
+        val resultado = dao.pesquisar().map {
             val data = novoResponseData()
             data.preencherCom(it)
             data
@@ -38,15 +42,17 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
     }
 
     @POST
-    @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
+    @Transactional(rollbackOn = [Throwable::class])
+    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
         val entidade = novaEntidade()
         data.escreverEm(entidade)
 
         antesDePersistir(entidade, data)
-        dao().inserir(entidade)
+        dao.inserir(entidade)
+        depoisDePersistir(entidade, data)
+        lancarExcecaoSeNecessario()
 
         val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
         val responseData = novoResponseData()
@@ -58,7 +64,7 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
     @GET
     @Path("{id}")
     @Produces("application/json")
-    fun obter(@PathParam("id") id: UUID): Response {
+    open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
         val resultado = novoResponseData()
         resultado.preencherCom(persistido)
@@ -69,10 +75,10 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
 
     @PUT
     @Path("{id}")
-    @Transactional
     @Consumes("application/json")
     @Produces("application/json")
-    fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
+    @Transactional(rollbackOn = [Throwable::class])
+    open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
         var builder = buildSeModificado(request, headers, persistido)
 
@@ -80,7 +86,9 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
             data.escreverEm(persistido)
 
             antesDePersistir(persistido, data)
-            persistido = dao().atualizar(persistido)
+            persistido = dao.atualizar(persistido)
+            depoisDePersistir(persistido, data)
+            lancarExcecaoSeNecessario()
 
             val responseData = novoResponseData()
             responseData.preencherCom(persistido)
@@ -93,7 +101,7 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
 
     }
 
-    private fun carregar(id: UUID) = dao().obter(id) ?: throw NotFoundException()
+    private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
     private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
         headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
@@ -107,5 +115,7 @@ interface CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudD
         }
     }
 
-    fun antesDePersistir(entidade: E, dataRequest: Q) {}
+    private fun lancarExcecaoSeNecessario() {
+        if (!violationException.violations.isEmpty()) throw violationException
+    }
 }
