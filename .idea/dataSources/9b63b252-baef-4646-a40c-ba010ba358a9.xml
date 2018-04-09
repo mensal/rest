@@ -66,8 +66,8 @@
     </role>
     <schema id="14" parent="6" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-04-07.20:14:43.135</IntrospectionTimestamp>
-      <IntrospectionStateNumber>8335</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-04-09.06:25:17.877</IntrospectionTimestamp>
+      <IntrospectionStateNumber>8365</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -128,7 +128,7 @@
     </table>
     <table id="30" parent="14" name="usuario">
       <ObjectId>29609</ObjectId>
-      <StateNumber>8335</StateNumber>
+      <StateNumber>8365</StateNumber>
     </table>
     <table id="31" parent="14" name="usuario_pagamento">
       <ObjectId>29614</ObjectId>
@@ -542,52 +542,66 @@
       <StateNumber>8320</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <index id="92" parent="30" name="usuario_pkey">
+    <column id="92" parent="30" name="email">
+      <Position>2</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>8364</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <column id="93" parent="30" name="nome">
+      <Position>3</Position>
+      <DataType>varchar(255)|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>8365</StateNumber>
+      <TypeId>1043</TypeId>
+    </column>
+    <index id="94" parent="30" name="usuario_pkey">
       <ObjectId>29612</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="93" parent="30" name="usuario_pkey">
+    <key id="95" parent="30" name="usuario_pkey">
       <ObjectId>29613</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>usuario_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="94" parent="31" name="id_pagamento">
+    <column id="96" parent="31" name="id_pagamento">
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
       <StateNumber>8321</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="95" parent="31" name="id_usuario">
+    <column id="97" parent="31" name="id_usuario">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
       <StateNumber>8321</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="96" parent="31" name="valor">
+    <column id="98" parent="31" name="valor">
       <Position>3</Position>
       <DataType>numeric(8,2)|0</DataType>
       <NotNull>1</NotNull>
       <StateNumber>8321</StateNumber>
       <TypeId>1700</TypeId>
     </column>
-    <index id="97" parent="31" name="usuario_pagamento_pkey">
+    <index id="99" parent="31" name="usuario_pagamento_pkey">
       <ObjectId>29617</ObjectId>
       <ColNames>id_pagamento
 id_usuario</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="98" parent="31" name="usuario_pagamento_pkey">
+    <key id="100" parent="31" name="usuario_pagamento_pkey">
       <ObjectId>29618</ObjectId>
       <ColNames>id_pagamento
 id_usuario</ColNames>
       <UnderlyingIndexName>usuario_pagamento_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="99" parent="31" name="fkf7l1s8s4yapeapu15llkq55ub">
+    <foreign-key id="101" parent="31" name="fkf7l1s8s4yapeapu15llkq55ub">
       <ObjectId>29679</ObjectId>
       <ColNames>id_pagamento</ColNames>
       <RefTableId>29559</RefTableId>
@@ -596,7 +610,7 @@ id_usuario</ColNames>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="100" parent="31" name="fkeiw20d8ijjofe5s8lxxhqn05h">
+    <foreign-key id="102" parent="31" name="fkeiw20d8ijjofe5s8lxxhqn05h">
       <ObjectId>29684</ObjectId>
       <ColNames>id_usuario</ColNames>
       <RefTableId>29609</RefTableId>

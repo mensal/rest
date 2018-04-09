@@ -14,14 +14,14 @@ class PagamentoDiversaResData : ResData<PagamentoDiversa> {
 
     var observacao: String? = null
 
-    lateinit var tipo: TipoDespesaDiversaResData
+    var tipo: TipoDespesaDiversaResData? = null
 
     override fun preencherCom(entidade: PagamentoDiversa?) {
         id = entidade?.id
         data = entidade?.data
         observacao = entidade?.observacao
 
-        tipo = TipoDespesaDiversaResData()
-        tipo.preencherCom(entidade?.tipo)
+        if (tipo == null) tipo = TipoDespesaDiversaResData()
+        tipo?.preencherCom(entidade?.tipo)
     }
 }

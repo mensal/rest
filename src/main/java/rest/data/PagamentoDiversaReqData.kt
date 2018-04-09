@@ -19,9 +19,7 @@ class PagamentoDiversaReqData : ReqData<PagamentoDiversa> {
     lateinit var tipo: IdReqData
 
     @Valid
-    @NotNull
     @NotEmpty
-//    @Size(min = 1)
     lateinit var valores: List<PagamentoValorReqData>
 
     override fun escreverEm(entidade: PagamentoDiversa) {

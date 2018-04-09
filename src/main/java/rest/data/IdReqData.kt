@@ -1,12 +1,12 @@
 package rest.data
 
 import core.entity.TipoDespesa
-import org.hibernate.validator.constraints.NotBlank
 import java.util.*
+import javax.validation.constraints.NotNull
 
 class IdReqData : ReqData<TipoDespesa> {
 
-    @NotBlank
+    @NotNull
     lateinit var id: UUID
 
     override fun escreverEm(entidade: TipoDespesa) {
