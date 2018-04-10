@@ -1,6 +1,7 @@
 package core.persistence
 
 import core.entity.Pagamento
+import core.entity.TipoDespesa
 import core.entity.Usuario
 import core.entity.UsuarioPagamento
 import core.entity.UsuarioPagamento.UsuarioPagamentoPk
@@ -15,9 +16,9 @@ open class UsuarioPagamentoDAO protected constructor() {
     @PersistenceContext
     private lateinit var em: EntityManager
 
-    open fun obter(usuario: Usuario?, pagamento: Pagamento?): UsuarioPagamento? = em.find(UsuarioPagamento::class.java, UsuarioPagamentoPk(usuario?.id, pagamento?.id))
+    open fun <T : TipoDespesa> obter(usuario: Usuario?, pagamento: Pagamento<T>?): UsuarioPagamento? = em.find(UsuarioPagamento::class.java, UsuarioPagamentoPk(usuario?.id, pagamento?.id))
 
-    open fun buscar(pagamento: Pagamento): List<UsuarioPagamento>? {
+    open fun <T : TipoDespesa> buscar(pagamento: Pagamento<T>): List<UsuarioPagamento>? {
         val jpql = " select up from UsuarioPagamento up where up.pagamento = :pagamento order by up.usuario.nome "
         val query = em.createQuery(jpql, UsuarioPagamento::class.java)
         query.setParameter("pagamento", pagamento)
@@ -36,7 +37,7 @@ open class UsuarioPagamentoDAO protected constructor() {
         }
     }
 
-    open fun excluir(pagamento: Pagamento) {
+    open fun <T : TipoDespesa> excluir(pagamento: Pagamento<T>) {
         val jpql = " delete from UsuarioPagamento up where up.pagamento = :pagamento "
         val query = em.createQuery(jpql)
         query.setParameter("pagamento", pagamento)

@@ -20,13 +20,13 @@ open class UsuarioPagamento() {
     @Id
     @ManyToOne
     @JoinColumn(name = "id_pagamento")
-    var pagamento: Pagamento? = null
+    var pagamento: Pagamento<*>? = null
 
     @NotNull
     @Column(precision = 8, scale = 2)
     var valor: BigDecimal? = null
 
-    constructor(usuario: Usuario, pagamento: Pagamento?, valor: BigDecimal) : this() {
+    constructor(usuario: Usuario, pagamento: Pagamento<*>?, valor: BigDecimal) : this() {
         this.usuario = usuario
         this.pagamento = pagamento
         this.valor = valor

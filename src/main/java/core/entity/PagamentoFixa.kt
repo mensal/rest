@@ -7,7 +7,7 @@ import javax.persistence.Table
 
 @Entity
 @Table(name = "pagamento_fixa")
-open class PagamentoFixa : Pagamento(), PagamentoComTipoDespesa<TipoDespesaFixa> {
+open class PagamentoFixa : Pagamento<TipoDespesaFixa>(), PagamentoComTipoDespesa<TipoDespesaFixa> {
 
     @ManyToOne
     @JoinColumn(name = "id_tipo")
