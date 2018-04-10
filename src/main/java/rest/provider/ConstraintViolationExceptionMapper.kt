@@ -1,6 +1,6 @@
-package br.gov.serpro.ssdk.rest.mapper
+package rest.provider
 
-import br.gov.serpro.ssdk.rest.UnprocessableEntityException
+import rest.UnprocessableEntityException
 import javax.inject.Inject
 import javax.validation.ConstraintViolationException
 import javax.validation.ElementKind.PROPERTY

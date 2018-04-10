@@ -1,9 +1,9 @@
 package rest.service
 
-import br.gov.serpro.ssdk.rest.UnprocessableEntityException
 import core.entity.Versionado
 import core.persistence.CrudDAO
 import org.apache.commons.lang.time.DateUtils
+import rest.UnprocessableEntityException
 import rest.data.ReqData
 import rest.data.ResData
 import rest.util.PreconditionFailedException
@@ -26,6 +26,8 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     protected open fun antesDePersistir(entidade: E, requestData: Q) {}
 
     protected open fun depoisDePersistir(entidade: E, requestData: Q) {}
+
+    protected open fun antesDeExcluir(entidade: E) {}
 
     protected open fun depoisDePesquisar(entidade: E) = entidade
 
@@ -110,7 +112,17 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
         }
 
         return builder!!.build()
+    }
 
+    @DELETE
+    @Path("{id}")
+    @Transactional(rollbackOn = [Throwable::class])
+    open fun deletar(@PathParam("id") id: UUID) {
+        val persistido = carregar(id)
+
+        antesDeExcluir(persistido)
+        dao.excluir(persistido)
+        lancarExcecaoSeNecessario()
     }
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()

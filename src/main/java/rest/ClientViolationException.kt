@@ -1,14 +1,14 @@
-package br.gov.serpro.ssdk.rest
+package rest
 
 import javax.ws.rs.ClientErrorException
 
-open class ClientViolationException : ClientErrorException {
+open class ClientViolationException(status: Int) : ClientErrorException(status) {
 
     val violations = mutableListOf<Violation>()
 
-    constructor(status: Int) : super(status)
+    fun addViolation(message: String): ClientViolationException = addViolation(null, message)
 
-    fun addViolation(property: String? = null, message: String): ClientViolationException {
+    fun addViolation(property: String?, message: String): ClientViolationException {
         this.violations.add(Violation(property, message))
         return this
     }

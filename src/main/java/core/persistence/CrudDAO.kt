@@ -10,7 +10,7 @@ import javax.transaction.Transactional
 abstract class CrudDAO<E> {
 
     @PersistenceContext
-    private lateinit var em: EntityManager
+    protected open lateinit var em: EntityManager
 
     open fun obter(id: UUID): E? {
         val jpql = " select e from ${entityClass.simpleName} e where e.id = :id "
@@ -34,6 +34,8 @@ abstract class CrudDAO<E> {
     open fun inserir(entidade: E) = em.persist(entidade)
 
     open fun atualizar(entidade: E) = em.merge(entidade)!!
+
+    open fun excluir(entidade: E) = em.remove(entidade)
 
     protected abstract val entityClass: Class<E>
 }

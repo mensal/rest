@@ -1,6 +1,6 @@
-package br.gov.serpro.ssdk.rest.mapper
+package rest.provider
 
-import br.gov.serpro.ssdk.rest.ClientViolationException
+import rest.ClientViolationException
 import javax.ws.rs.core.Response
 import javax.ws.rs.ext.ExceptionMapper
 import javax.ws.rs.ext.Provider

@@ -9,7 +9,7 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
-@Transactional(rollbackOn = [Throwable::class])
+@Transactional
 open class UsuarioPagamentoDAO protected constructor() {
 
     @PersistenceContext
@@ -23,7 +23,6 @@ open class UsuarioPagamentoDAO protected constructor() {
         query.setParameter("pagamento", pagamento)
 
         return query.resultList
-
     }
 
     open fun inserirOuAtualizar(entidade: UsuarioPagamento) {
@@ -35,6 +34,14 @@ open class UsuarioPagamentoDAO protected constructor() {
         } else {
             em.persist(entidade)
         }
+    }
+
+    open fun excluir(pagamento: Pagamento) {
+        val jpql = " delete from UsuarioPagamento up where up.pagamento = :pagamento "
+        val query = em.createQuery(jpql)
+        query.setParameter("pagamento", pagamento)
+
+        query.executeUpdate()
     }
 
     companion object {

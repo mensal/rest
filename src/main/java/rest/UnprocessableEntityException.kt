@@ -1,3 +1,3 @@
-package br.gov.serpro.ssdk.rest
+package rest
 
 class UnprocessableEntityException : ClientViolationException(422)

@@ -54,4 +54,8 @@ open class PagamentoDiversasREST : CrudREST<PagamentoDiversa, PagamentoDiversaRe
 
         entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)
     }
+
+    override fun antesDeExcluir(entidade: PagamentoDiversa) {
+        UsuarioPagamentoDAO.instance().excluir(entidade)
+    }
 }
