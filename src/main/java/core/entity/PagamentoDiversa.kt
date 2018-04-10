@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "pagamento_diversa")
-open class PagamentoDiversa : Pagamento<TipoDespesaDiversa>(), PagamentoComTipoDespesa<TipoDespesaDiversa> {
+open class PagamentoDiversa : Pagamento<TipoDespesaDiversa>() {
 
     @NotNull
     @ManyToOne

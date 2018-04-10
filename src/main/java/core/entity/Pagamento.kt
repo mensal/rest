@@ -18,11 +18,6 @@ abstract class Pagamento<T : TipoDespesa> : Versionado() {
 
     abstract var tipo: T?
 
-//    constructor(id: UUID?, data: LocalDate) : this() {
-//        this.id = id
-//        this.data = data
-//    }
-
     @Transient
     var valores: List<UsuarioPagamento>? = null
 }

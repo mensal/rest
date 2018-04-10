@@ -1,7 +1,6 @@
 package rest.service
 
 import core.entity.Pagamento
-import core.entity.TipoDespesa
 import core.entity.UsuarioPagamento
 import core.persistence.CrudDAO
 import core.persistence.UsuarioDAO
@@ -9,7 +8,7 @@ import core.persistence.UsuarioPagamentoDAO
 import rest.data.PagamentoReqData
 import rest.data.ResData
 
-abstract class PagamentoCrudREST<E : Pagamento<T>, T : TipoDespesa, Q : PagamentoReqData<E, T>, out S : ResData<E>, A : CrudDAO<E>> : CrudREST<E, Q, S, A>() {
+abstract class PagamentoCrudREST<E : Pagamento<*>, Q : PagamentoReqData<E>, out S : ResData<E>, A : CrudDAO<E>> : CrudREST<E, Q, S, A>() {
 
     override fun depoisDePesquisar(entidade: E): E {
         entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)

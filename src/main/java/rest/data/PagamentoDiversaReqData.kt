@@ -1,9 +1,8 @@
 package rest.data
 
 import core.entity.PagamentoDiversa
-import core.entity.TipoDespesaDiversa
 
-class PagamentoDiversaReqData : PagamentoReqData<PagamentoDiversa, TipoDespesaDiversa>() {
+class PagamentoDiversaReqData : PagamentoReqData<PagamentoDiversa>() {
 
     var observacao: String? = null
 
