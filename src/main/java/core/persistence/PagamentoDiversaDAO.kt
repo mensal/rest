@@ -9,7 +9,7 @@ open class PagamentoDiversaDAO protected constructor() : CrudDAO<PagamentoDivers
     override val entityClass = PagamentoDiversa::class.java
 
     open fun buscar(tipo: TipoDespesaDiversa): List<PagamentoDiversa> {
-        val jpql = " select pd from PagamentoDiversa pd where pd.tipo = :tipo order by pd.tipo.nome "
+        val jpql = " select e from ${entityClass.name} e where e.tipo = :tipo order by e.data desc "
         val query = em.createQuery(jpql, PagamentoDiversa::class.java)
         query.setParameter("tipo", tipo)
 
