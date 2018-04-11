@@ -1,6 +1,7 @@
 package rest.service
 
 import core.entity.Pagamento
+import core.entity.TipoDespesa
 import core.entity.UsuarioPagamento
 import core.persistence.CrudDAO
 import core.persistence.UsuarioDAO
@@ -8,25 +9,27 @@ import core.persistence.UsuarioPagamentoDAO
 import rest.data.PagamentoReqData
 import rest.data.ResData
 
-abstract class PagamentoCrudREST<E : Pagamento<*>, Q : PagamentoReqData<E>, out S : ResData<E>, A : CrudDAO<E>> : CrudREST<E, Q, S, A>() {
+abstract class PagamentoCrudREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>, TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
 
-    override fun depoisDePesquisar(entidade: E): E {
+    protected abstract var tipoDAO: TDAO
+
+    override fun depoisDePesquisar(entidade: ENT): ENT {
         entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)
         return entidade
     }
 
-    override fun depoisDePesquisar(entidades: List<E>) = entidades.sortedBy { it.data }
+    override fun depoisDePesquisar(entidades: List<ENT>) = entidades.sortedBy { it.data }
 
-    override fun antesDeExcluir(entidade: E) {
+    override fun antesDeExcluir(entidade: ENT) {
         UsuarioPagamentoDAO.instance().excluir(entidade)
     }
 
-//    override fun antesDePersistir(entidade: E, requestData: Q) {
-//        val tipo = TipoDespesaDiversaDAO.instance().obter(requestData.tipo.id)
-//        if (tipo != null) entidade.tipo = tipo else violationException.addViolation("tipo.id", "tipo de despesa inválido")
-//    }
+    override fun antesDePersistir(entidade: ENT, requestData: REQ) {
+        val tipo = tipoDAO.obter(requestData.tipo.id)
+        if (tipo != null) entidade.tipo = tipo else violationException.addViolation("tipo.id", "tipo de despesa inválido")
+    }
 
-    override fun depoisDePersistir(entidade: E, requestData: Q) {
+    override fun depoisDePersistir(entidade: ENT, requestData: REQ) {
         val usuarioDAO = UsuarioDAO.instance()
         val usuarioPagamentoDAO = UsuarioPagamentoDAO.instance()
 

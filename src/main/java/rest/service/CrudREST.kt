@@ -13,31 +13,31 @@ import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
-abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : CrudDAO<E>> {
+abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>> {
 
-    protected abstract var dao: A
+    protected abstract var dao: DAO
 
-    protected abstract fun novaEntidade(): E
+    protected abstract fun novaEntidade(): ENT
 
-    protected abstract fun novoRequestData(): Q
+    protected abstract fun novoRequestData(): REQ
 
-    protected abstract fun novoResponseData(): S
+    protected abstract fun novoResponseData(): RES
 
-    protected open fun antesDePersistir(entidade: E, requestData: Q) {}
+    protected open fun antesDePersistir(entidade: ENT, requestData: REQ) {}
 
-    protected open fun depoisDePersistir(entidade: E, requestData: Q) {}
+    protected open fun depoisDePersistir(entidade: ENT, requestData: REQ) {}
 
-    protected open fun antesDeExcluir(entidade: E) {}
+    protected open fun antesDeExcluir(entidade: ENT) {}
 
-    protected open fun depoisDePesquisar(entidade: E) = entidade
+    protected open fun depoisDePesquisar(entidade: ENT) = entidade
 
-    protected open fun depoisDePesquisar(entidades: List<E>) = entidades
+    protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
     protected open val violationException = UnprocessableEntityException()
 
     @GET
     @Produces("application/json")
-    open fun pesquisar(): List<S>? {
+    open fun pesquisar(): List<RES>? {
         var persistidos = dao.pesquisar()
         persistidos = depoisDePesquisar(persistidos)
 
@@ -56,7 +56,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     @Consumes("application/json")
     @Produces("application/json")
     @Transactional(rollbackOn = [Throwable::class])
-    open fun inserir(@Valid data: Q, @Context uriInfo: UriInfo): Response {
+    open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
         val entidade = novaEntidade()
         data.escreverEm(entidade)
 
@@ -92,7 +92,7 @@ abstract class CrudREST<E : Versionado, Q : ReqData<E>, out S : ResData<E>, A : 
     @Consumes("application/json")
     @Produces("application/json")
     @Transactional(rollbackOn = [Throwable::class])
-    open fun atualizar(@PathParam("id") id: UUID, @Valid data: Q, @Context headers: HttpHeaders, @Context request: Request): Response {
+    open fun atualizar(@PathParam("id") id: UUID, @Valid data: REQ, @Context headers: HttpHeaders, @Context request: Request): Response {
         var persistido = carregar(id)
         var builder = buildSeModificado(request, headers, persistido)
 
