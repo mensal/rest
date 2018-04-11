@@ -9,7 +9,7 @@ import core.persistence.UsuarioPagamentoDAO
 import rest.data.PagamentoReqData
 import rest.data.ResData
 
-abstract class PagamentoCrudREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>, TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
+abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>, TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
 
     protected abstract var tipoDAO: TDAO
 

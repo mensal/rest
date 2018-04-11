@@ -10,7 +10,7 @@ import javax.inject.Inject
 import javax.ws.rs.Path
 
 @Path("pagamento/diaristas")
-open class PagamentoDiaristaREST : PagamentoCrudREST<PagamentoDiarista, TipoDespesaDiarista, PagamentoDiaristaReqData, PagamentoDiaristaResData, PagamentoDiaristaDAO, TipoDespesaDiaristaDAO>() {
+open class PagamentoDiaristaREST : PagamentoREST<PagamentoDiarista, TipoDespesaDiarista, PagamentoDiaristaReqData, PagamentoDiaristaResData, PagamentoDiaristaDAO, TipoDespesaDiaristaDAO>() {
 
     @Inject
     override lateinit var dao: PagamentoDiaristaDAO
