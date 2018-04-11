@@ -1,4 +1,4 @@
-package rest.util
+package rest
 
 import javax.ws.rs.ClientErrorException
 

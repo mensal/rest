@@ -3,10 +3,11 @@ package rest.service
 import core.entity.Versionado
 import core.persistence.CrudDAO
 import org.apache.commons.lang.time.DateUtils
+import rest.PreconditionFailedException
 import rest.UnprocessableEntityException
 import rest.data.ReqData
 import rest.data.ResData
-import rest.util.PreconditionFailedException
+import rest.security.LoggedIn
 import java.util.*
 import javax.transaction.Transactional
 import javax.validation.Valid
@@ -36,6 +37,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     protected open val violationException = UnprocessableEntityException()
 
     @GET
+    @LoggedIn
     @Produces("application/json")
     open fun pesquisar(): List<RES>? {
         var persistidos = dao.pesquisar()
@@ -53,6 +55,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     }
 
     @POST
+    @LoggedIn
     @Consumes("application/json")
     @Produces("application/json")
     @Transactional(rollbackOn = [Throwable::class])
@@ -74,6 +77,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     }
 
     @GET
+    @LoggedIn
     @Path("{id}")
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
@@ -88,6 +92,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     }
 
     @PUT
+    @LoggedIn
     @Path("{id}")
     @Consumes("application/json")
     @Produces("application/json")
@@ -115,6 +120,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     }
 
     @DELETE
+    @LoggedIn
     @Path("{id}")
     @Transactional(rollbackOn = [Throwable::class])
     open fun deletar(@PathParam("id") id: UUID) {
