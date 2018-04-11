@@ -10,4 +10,4 @@ import kotlin.annotation.AnnotationTarget.FUNCTION
 @InterceptorBinding
 @Retention(RUNTIME)
 @Target(FUNCTION, CLASS)
-annotation class LoggedIn
+annotation class Logado

@@ -5,6 +5,6 @@
        bean-discovery-mode="all">
 
     <interceptors>
-        <class>rest.security.LoggedInInterceptor</class>
+        <class>rest.security.LogadoInterceptor</class>
     </interceptors>
 </beans>

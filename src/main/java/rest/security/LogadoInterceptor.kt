@@ -8,15 +8,21 @@ import javax.interceptor.Interceptor
 import javax.interceptor.InvocationContext
 import javax.servlet.http.HttpServletRequest
 
-@LoggedIn
+@Logado
 @Interceptor
-class LoggedInInterceptor {
+class LogadoInterceptor protected constructor() {
 
     @AroundInvoke
     @Throws(Exception::class)
     fun manage(ic: InvocationContext): Any {
         val header = header() ?: throw UnauthorizedException()
         val token = token(header) ?: throw UnauthorizedException()
+
+        try {
+            Autenticador.instance().autenticar(token)
+        } catch (e: Throwable) {
+            throw UnauthorizedException(e)
+        }
 
         return ic.proceed()
     }
