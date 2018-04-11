@@ -14,7 +14,7 @@ abstract class CrudDAO<E> {
     open fun obter(id: UUID): E? = em.find(entityClass, id)
 
     open fun pesquisar(): List<E> {
-        val jpql = " select e from ${entityClass.simpleName} e "
+        val jpql = " select e from ${entityClass.name} e "
         val query = em.createQuery(jpql, entityClass)
 
         return query.resultList

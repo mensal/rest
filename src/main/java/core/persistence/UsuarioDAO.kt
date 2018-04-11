@@ -9,7 +9,7 @@ open class UsuarioDAO protected constructor() : CrudDAO<Usuario>() {
     override val entityClass = Usuario::class.java
 
     open fun obter(email: String): Usuario? {
-        val jpql = " select e from ${entityClass.simpleName} e where e.email = :email "
+        val jpql = " select e from ${entityClass.name} e where e.email = :email "
         val query = em.createQuery(jpql, entityClass)
         query.setParameter("email", email)
 

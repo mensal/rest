@@ -15,10 +15,8 @@ open class Autenticador protected constructor() {
 
     open var logado: Usuario? = null
 
-    private var chave = Base64.getEncoder().encodeToString(System.getenv("AUTENTICACAO_CHAVE_JWT").toByteArray())
-
     open fun autenticar(token: String) {
-        val claims = Jwts.parser().setSigningKey(chave).parseClaimsJws(token)
+        val claims = Jwts.parser().setSigningKey(chave()).parseClaimsJws(token)
 
         val id = UUID.fromString(claims.body.subject)
         logado = UsuarioDAO.instance().obter(id) ?: throw UnauthorizedException()
@@ -28,13 +26,15 @@ open class Autenticador protected constructor() {
         val usuario = UsuarioDAO.instance().obter(login) ?: throw UnauthorizedException()
 
         return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, chave)
+                .signWith(SignatureAlgorithm.HS512, chave())
                 .setSubject(usuario.id.toString())
                 .claim("name", usuario.nome)
                 .setIssuer("http://teste")
                 .setIssuedAt(Date.from(Instant.now()))
                 .compact()
     }
+
+    private fun chave() = Base64.getEncoder().encodeToString(System.getenv("AUTENTICACAO_CHAVE_JWT").toByteArray())
 
     companion object {
 
