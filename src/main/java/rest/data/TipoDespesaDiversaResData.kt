@@ -2,22 +2,15 @@ package rest.data
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.TipoDespesaDiversa
-import java.util.*
 
 @JsonPropertyOrder("id", "nome", "periodo")
-class TipoDespesaDiversaResData : ResData<TipoDespesaDiversa> {
-
-    var id: UUID? = null
+class TipoDespesaDiversaResData : TipoDespesaResData<TipoDespesaDiversa>() {
 
     var nome: String? = null
 
-    var periodo: PeriodoResData? = null
-
     override fun preencherCom(entidade: TipoDespesaDiversa?) {
-        id = entidade?.id
-        nome = entidade?.nome
+        super.preencherCom(entidade)
 
-        if (periodo == null) periodo = PeriodoResData()
-        periodo!!.preencherCom(entidade?.periodo)
+        nome = entidade?.nome
     }
 }

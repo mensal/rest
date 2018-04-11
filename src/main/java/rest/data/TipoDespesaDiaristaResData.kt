@@ -3,22 +3,15 @@ package rest.data
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.TipoDespesaDiarista
 import java.math.BigDecimal
-import java.util.*
 
-@JsonPropertyOrder("id", "nome", "periodo")
-class TipoDespesaDiaristaResData : ResData<TipoDespesaDiarista> {
-
-    var id: UUID? = null
+@JsonPropertyOrder("id", "valor", "periodo")
+class TipoDespesaDiaristaResData : TipoDespesaResData<TipoDespesaDiarista>() {
 
     var valor: BigDecimal? = null
 
-    var periodo: PeriodoResData? = null
-
     override fun preencherCom(entidade: TipoDespesaDiarista?) {
-        id = entidade?.id
-        valor = entidade?.valor
+        super.preencherCom(entidade)
 
-        if (periodo == null) periodo = PeriodoResData()
-        periodo!!.preencherCom(entidade?.periodo)
+        valor = entidade?.valor
     }
 }

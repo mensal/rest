@@ -2,35 +2,18 @@ package rest.data
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.PagamentoDiversa
-import java.time.LocalDate
-import java.util.*
+import core.entity.TipoDespesaDiversa
 
 @JsonPropertyOrder("id", "data", "observacao", "tipo", "valores")
-class PagamentoDiversaResData : ResData<PagamentoDiversa> {
-
-    var id: UUID? = null
-
-    var data: LocalDate? = null
+class PagamentoDiversaResData : PagamentoResData<PagamentoDiversa, TipoDespesaDiversa, TipoDespesaDiversaResData>() {
 
     var observacao: String? = null
 
-    var tipo: TipoDespesaDiversaResData? = null
-
-    var valores: List<UsuarioPagamentoResData>? = null
-
     override fun preencherCom(entidade: PagamentoDiversa?) {
-        id = entidade?.id
-        data = entidade?.data
+        super.preencherCom(entidade)
+
         observacao = entidade?.observacao
-
-        if (tipo == null) tipo = TipoDespesaDiversaResData()
-        tipo?.preencherCom(entidade?.tipo)
-
-        if (valores == null) valores = mutableListOf()
-        valores = entidade?.valores?.map {
-            val data = UsuarioPagamentoResData()
-            data.preencherCom(it)
-            data
-        }
     }
+
+    override fun novoTipoDespesaResponseData() = TipoDespesaDiversaResData()
 }

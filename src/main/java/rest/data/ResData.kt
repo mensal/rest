@@ -1,6 +1,6 @@
 package rest.data
 
-interface ResData<E> {
+interface ResData<in E> {
 
     fun preencherCom(entidade: E?)
 }
