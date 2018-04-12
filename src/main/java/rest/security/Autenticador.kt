@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import rest.UnauthorizedException
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 import java.util.*
 import javax.enterprise.context.RequestScoped
 import javax.enterprise.inject.spi.CDI
@@ -30,6 +31,7 @@ open class Autenticador protected constructor() {
                 .setSubject(usuario.id.toString())
                 .claim("name", usuario.nome)
                 .setIssuer("http://teste")
+                .setExpiration(Date.from(Instant.now().plus(5, ChronoUnit.DAYS)))
                 .setIssuedAt(Date.from(Instant.now()))
                 .compact()
     }
