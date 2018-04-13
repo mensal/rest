@@ -8,8 +8,8 @@ import javax.validation.constraints.NotNull
 @Table(name = "tipo_despesa_fixa")
 open class TipoDespesaFixa : TipoDespesa() {
 
-    @NotNull
-    var nome: String? = null
+//    @NotNull
+//    var nome: String? = null
 
     @NotNull
     var vencimento: Int? = null

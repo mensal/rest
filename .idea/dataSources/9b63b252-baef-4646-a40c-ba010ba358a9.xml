@@ -66,8 +66,8 @@
     </role>
     <schema id="14" parent="6" name="public">
       <ObjectId>2200</ObjectId>
-      <IntrospectionTimestamp>2018-04-13.10:02:26.285</IntrospectionTimestamp>
-      <IntrospectionStateNumber>8704</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-04-13.10:08:49.392</IntrospectionTimestamp>
+      <IntrospectionStateNumber>8752</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -87,81 +87,81 @@
       <ObjectId>12976</ObjectId>
     </schema>
     <table id="20" parent="14" name="pagamento">
-      <ObjectId>30242</ObjectId>
-      <StateNumber>8703</StateNumber>
+      <ObjectId>30376</ObjectId>
+      <StateNumber>8751</StateNumber>
     </table>
     <table id="21" parent="14" name="pagamento_combustivel">
-      <ObjectId>30247</ObjectId>
-      <StateNumber>8692</StateNumber>
+      <ObjectId>30381</ObjectId>
+      <StateNumber>8740</StateNumber>
     </table>
     <table id="22" parent="14" name="pagamento_diarista">
-      <ObjectId>30252</ObjectId>
-      <StateNumber>8694</StateNumber>
+      <ObjectId>30386</ObjectId>
+      <StateNumber>8742</StateNumber>
     </table>
     <table id="23" parent="14" name="pagamento_diversa">
-      <ObjectId>30257</ObjectId>
-      <StateNumber>8696</StateNumber>
+      <ObjectId>30391</ObjectId>
+      <StateNumber>8744</StateNumber>
     </table>
     <table id="24" parent="14" name="pagamento_fixa">
-      <ObjectId>30262</ObjectId>
-      <StateNumber>8698</StateNumber>
+      <ObjectId>30396</ObjectId>
+      <StateNumber>8746</StateNumber>
     </table>
     <table id="25" parent="14" name="tipo_despesa">
-      <ObjectId>30267</ObjectId>
-      <StateNumber>8702</StateNumber>
+      <ObjectId>30401</ObjectId>
+      <StateNumber>8750</StateNumber>
     </table>
     <table id="26" parent="14" name="tipo_despesa_combustivel">
-      <ObjectId>30272</ObjectId>
-      <StateNumber>8699</StateNumber>
+      <ObjectId>30406</ObjectId>
+      <StateNumber>8747</StateNumber>
     </table>
     <table id="27" parent="14" name="tipo_despesa_diarista">
-      <ObjectId>30277</ObjectId>
-      <StateNumber>8700</StateNumber>
+      <ObjectId>30411</ObjectId>
+      <StateNumber>8748</StateNumber>
     </table>
     <table id="28" parent="14" name="tipo_despesa_diversa">
-      <ObjectId>30282</ObjectId>
-      <StateNumber>8701</StateNumber>
+      <ObjectId>30416</ObjectId>
+      <StateNumber>8749</StateNumber>
     </table>
     <table id="29" parent="14" name="tipo_despesa_fixa">
-      <ObjectId>30287</ObjectId>
-      <StateNumber>8702</StateNumber>
+      <ObjectId>30421</ObjectId>
+      <StateNumber>8750</StateNumber>
     </table>
     <table id="30" parent="14" name="usuario">
-      <ObjectId>30292</ObjectId>
-      <StateNumber>8704</StateNumber>
+      <ObjectId>30426</ObjectId>
+      <StateNumber>8752</StateNumber>
     </table>
     <table id="31" parent="14" name="usuario_pagamento">
-      <ObjectId>30300</ObjectId>
-      <StateNumber>8704</StateNumber>
+      <ObjectId>30434</ObjectId>
+      <StateNumber>8752</StateNumber>
     </table>
     <column id="32" parent="20" name="id">
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8679</StateNumber>
+      <StateNumber>8727</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="33" parent="20" name="atualizado_em">
       <Position>2</Position>
       <DataType>timestamp with time zone|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8679</StateNumber>
+      <StateNumber>8727</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <column id="34" parent="20" name="data">
       <Position>3</Position>
       <DataType>date|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8679</StateNumber>
+      <StateNumber>8727</StateNumber>
       <TypeId>1082</TypeId>
     </column>
     <index id="35" parent="20" name="pagamento_pkey">
-      <ObjectId>30245</ObjectId>
+      <ObjectId>30379</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="36" parent="20" name="pagamento_pkey">
-      <ObjectId>30246</ObjectId>
+      <ObjectId>30380</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pagamento_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -169,53 +169,53 @@
     <column id="37" parent="21" name="litros">
       <Position>1</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>8680</StateNumber>
+      <StateNumber>8728</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="38" parent="21" name="odometro">
       <Position>2</Position>
       <DataType>integer|0</DataType>
-      <StateNumber>8680</StateNumber>
+      <StateNumber>8728</StateNumber>
       <TypeId>23</TypeId>
     </column>
     <column id="39" parent="21" name="id">
       <Position>3</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8680</StateNumber>
+      <StateNumber>8728</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="40" parent="21" name="id_tipo">
       <Position>4</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8680</StateNumber>
+      <StateNumber>8728</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="41" parent="21" name="pagamento_combustivel_pkey">
-      <ObjectId>30250</ObjectId>
+      <ObjectId>30384</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="42" parent="21" name="pagamento_combustivel_pkey">
-      <ObjectId>30251</ObjectId>
+      <ObjectId>30385</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pagamento_combustivel_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="43" parent="21" name="fkrmrbkbeiwwg99iuixj06mcg48">
-      <ObjectId>30310</ObjectId>
+      <ObjectId>30444</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30242</RefTableId>
+      <RefTableId>30376</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>pagamento</RefTableName>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="44" parent="21" name="fkpqw462c1sc09m3mg1vg2ilo7s">
-      <ObjectId>30305</ObjectId>
+      <ObjectId>30439</ObjectId>
       <ColNames>id_tipo</ColNames>
-      <RefTableId>30272</RefTableId>
+      <RefTableId>30406</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>tipo_despesa_combustivel</RefTableName>
       <RefKeyName>tipo_despesa_combustivel_pkey</RefKeyName>
@@ -225,40 +225,40 @@
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8681</StateNumber>
+      <StateNumber>8729</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="46" parent="22" name="id_tipo">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8681</StateNumber>
+      <StateNumber>8729</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="47" parent="22" name="pagamento_diarista_pkey">
-      <ObjectId>30255</ObjectId>
+      <ObjectId>30389</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="48" parent="22" name="pagamento_diarista_pkey">
-      <ObjectId>30256</ObjectId>
+      <ObjectId>30390</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pagamento_diarista_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="49" parent="22" name="fklx7g5pdoll1k8bh3yj8ldpy7r">
-      <ObjectId>30320</ObjectId>
+      <ObjectId>30454</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30242</RefTableId>
+      <RefTableId>30376</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>pagamento</RefTableName>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="50" parent="22" name="fkx2fdxiq77s92wyalxs0mtxc2">
-      <ObjectId>30315</ObjectId>
+      <ObjectId>30449</ObjectId>
       <ColNames>id_tipo</ColNames>
-      <RefTableId>30277</RefTableId>
+      <RefTableId>30411</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>tipo_despesa_diarista</RefTableName>
       <RefKeyName>tipo_despesa_diarista_pkey</RefKeyName>
@@ -267,47 +267,47 @@
     <column id="51" parent="23" name="observacao">
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
-      <StateNumber>8682</StateNumber>
+      <StateNumber>8730</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="52" parent="23" name="id">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8682</StateNumber>
+      <StateNumber>8730</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="53" parent="23" name="id_tipo">
       <Position>3</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8682</StateNumber>
+      <StateNumber>8730</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="54" parent="23" name="pagamento_diversa_pkey">
-      <ObjectId>30260</ObjectId>
+      <ObjectId>30394</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="55" parent="23" name="pagamento_diversa_pkey">
-      <ObjectId>30261</ObjectId>
+      <ObjectId>30395</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pagamento_diversa_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="56" parent="23" name="fk7ym7a8rb4pghvu8w027eaadb9">
-      <ObjectId>30330</ObjectId>
+      <ObjectId>30464</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30242</RefTableId>
+      <RefTableId>30376</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>pagamento</RefTableName>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="57" parent="23" name="fkcwy6thwx8le05x1coxip5rdlg">
-      <ObjectId>30325</ObjectId>
+      <ObjectId>30459</ObjectId>
       <ColNames>id_tipo</ColNames>
-      <RefTableId>30282</RefTableId>
+      <RefTableId>30416</RefTableId>
       <RefColPositions>2</RefColPositions>
       <RefTableName>tipo_despesa_diversa</RefTableName>
       <RefKeyName>tipo_despesa_diversa_pkey</RefKeyName>
@@ -317,40 +317,40 @@
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8683</StateNumber>
+      <StateNumber>8731</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="59" parent="24" name="id_tipo">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
-      <StateNumber>8683</StateNumber>
+      <StateNumber>8731</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="60" parent="24" name="pagamento_fixa_pkey">
-      <ObjectId>30265</ObjectId>
+      <ObjectId>30399</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="61" parent="24" name="pagamento_fixa_pkey">
-      <ObjectId>30266</ObjectId>
+      <ObjectId>30400</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>pagamento_fixa_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="62" parent="24" name="fk2fyphoa1i34i2g7vbp79wqtk3">
-      <ObjectId>30340</ObjectId>
+      <ObjectId>30474</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30242</RefTableId>
+      <RefTableId>30376</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>pagamento</RefTableName>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
     <foreign-key id="63" parent="24" name="fk8xglnx5np5lrlhcnm9ctrea4f">
-      <ObjectId>30335</ObjectId>
+      <ObjectId>30469</ObjectId>
       <ColNames>id_tipo</ColNames>
-      <RefTableId>30287</RefTableId>
-      <RefColPositions>3</RefColPositions>
+      <RefTableId>30421</RefTableId>
+      <RefColPositions>2</RefColPositions>
       <RefTableName>tipo_despesa_fixa</RefTableName>
       <RefKeyName>tipo_despesa_fixa_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
@@ -359,23 +359,23 @@
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8684</StateNumber>
+      <StateNumber>8732</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <column id="65" parent="25" name="atualizado_em">
       <Position>2</Position>
       <DataType>timestamp with time zone|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8684</StateNumber>
+      <StateNumber>8732</StateNumber>
       <TypeId>1184</TypeId>
     </column>
     <index id="66" parent="25" name="tipo_despesa_pkey">
-      <ObjectId>30270</ObjectId>
+      <ObjectId>30404</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="67" parent="25" name="tipo_despesa_pkey">
-      <ObjectId>30271</ObjectId>
+      <ObjectId>30405</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>tipo_despesa_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
@@ -384,31 +384,31 @@
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8685</StateNumber>
+      <StateNumber>8733</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="69" parent="26" name="id">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8685</StateNumber>
+      <StateNumber>8733</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="70" parent="26" name="tipo_despesa_combustivel_pkey">
-      <ObjectId>30275</ObjectId>
+      <ObjectId>30409</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="71" parent="26" name="tipo_despesa_combustivel_pkey">
-      <ObjectId>30276</ObjectId>
+      <ObjectId>30410</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>tipo_despesa_combustivel_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="72" parent="26" name="fk36v90nr5clgwl20k2ie7d5386">
-      <ObjectId>30345</ObjectId>
+      <ObjectId>30479</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30267</RefTableId>
+      <RefTableId>30401</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>tipo_despesa</RefTableName>
       <RefKeyName>tipo_despesa_pkey</RefKeyName>
@@ -418,31 +418,31 @@
       <Position>1</Position>
       <DataType>numeric(8,2)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8686</StateNumber>
+      <StateNumber>8734</StateNumber>
       <TypeId>1700</TypeId>
     </column>
     <column id="74" parent="27" name="id">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8686</StateNumber>
+      <StateNumber>8734</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="75" parent="27" name="tipo_despesa_diarista_pkey">
-      <ObjectId>30280</ObjectId>
+      <ObjectId>30414</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="76" parent="27" name="tipo_despesa_diarista_pkey">
-      <ObjectId>30281</ObjectId>
+      <ObjectId>30415</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>tipo_despesa_diarista_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="77" parent="27" name="fk2w7my6rf32qi5ei1b74e8u7pq">
-      <ObjectId>30350</ObjectId>
+      <ObjectId>30484</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30267</RefTableId>
+      <RefTableId>30401</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>tipo_despesa</RefTableName>
       <RefKeyName>tipo_despesa_pkey</RefKeyName>
@@ -452,156 +452,149 @@
       <Position>1</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8687</StateNumber>
+      <StateNumber>8735</StateNumber>
       <TypeId>1043</TypeId>
     </column>
     <column id="79" parent="28" name="id">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8687</StateNumber>
+      <StateNumber>8735</StateNumber>
       <TypeId>2950</TypeId>
     </column>
     <index id="80" parent="28" name="tipo_despesa_diversa_pkey">
-      <ObjectId>30285</ObjectId>
+      <ObjectId>30419</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
     <key id="81" parent="28" name="tipo_despesa_diversa_pkey">
-      <ObjectId>30286</ObjectId>
+      <ObjectId>30420</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>tipo_despesa_diversa_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
     <foreign-key id="82" parent="28" name="fki4hwxwwu8gownjrnuuufmlarw">
-      <ObjectId>30355</ObjectId>
+      <ObjectId>30489</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30267</RefTableId>
+      <RefTableId>30401</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>tipo_despesa</RefTableName>
       <RefKeyName>tipo_despesa_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="83" parent="29" name="nome">
+    <column id="83" parent="29" name="vencimento">
       <Position>1</Position>
-      <DataType>varchar(255)|0</DataType>
-      <NotNull>1</NotNull>
-      <StateNumber>8688</StateNumber>
-      <TypeId>1043</TypeId>
-    </column>
-    <column id="84" parent="29" name="vencimento">
-      <Position>2</Position>
       <DataType>integer|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8688</StateNumber>
+      <StateNumber>8736</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="85" parent="29" name="id">
-      <Position>3</Position>
+    <column id="84" parent="29" name="id">
+      <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8688</StateNumber>
+      <StateNumber>8736</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <index id="86" parent="29" name="tipo_despesa_fixa_pkey">
-      <ObjectId>30290</ObjectId>
+    <index id="85" parent="29" name="tipo_despesa_fixa_pkey">
+      <ObjectId>30424</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="87" parent="29" name="tipo_despesa_fixa_pkey">
-      <ObjectId>30291</ObjectId>
+    <key id="86" parent="29" name="tipo_despesa_fixa_pkey">
+      <ObjectId>30425</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>tipo_despesa_fixa_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="88" parent="29" name="fk3lapw0lfoe1lu9nwfedrgjpd0">
-      <ObjectId>30360</ObjectId>
+    <foreign-key id="87" parent="29" name="fk3lapw0lfoe1lu9nwfedrgjpd0">
+      <ObjectId>30494</ObjectId>
       <ColNames>id</ColNames>
-      <RefTableId>30267</RefTableId>
+      <RefTableId>30401</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>tipo_despesa</RefTableName>
       <RefKeyName>tipo_despesa_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="89" parent="30" name="id">
+    <column id="88" parent="30" name="id">
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8689</StateNumber>
+      <StateNumber>8737</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="90" parent="30" name="email">
+    <column id="89" parent="30" name="email">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8689</StateNumber>
+      <StateNumber>8737</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="91" parent="30" name="nome">
+    <column id="90" parent="30" name="nome">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8689</StateNumber>
+      <StateNumber>8737</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="92" parent="30" name="usuario_pkey">
-      <ObjectId>30298</ObjectId>
+    <index id="91" parent="30" name="usuario_pkey">
+      <ObjectId>30432</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="93" parent="30" name="usuario_pkey">
-      <ObjectId>30299</ObjectId>
+    <key id="92" parent="30" name="usuario_pkey">
+      <ObjectId>30433</ObjectId>
       <ColNames>id</ColNames>
       <UnderlyingIndexName>usuario_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="94" parent="31" name="id_pagamento">
+    <column id="93" parent="31" name="id_pagamento">
       <Position>1</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8690</StateNumber>
+      <StateNumber>8738</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="95" parent="31" name="id_usuario">
+    <column id="94" parent="31" name="id_usuario">
       <Position>2</Position>
       <DataType>uuid|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8690</StateNumber>
+      <StateNumber>8738</StateNumber>
       <TypeId>2950</TypeId>
     </column>
-    <column id="96" parent="31" name="valor">
+    <column id="95" parent="31" name="valor">
       <Position>3</Position>
       <DataType>numeric(8,2)|0</DataType>
       <NotNull>1</NotNull>
-      <StateNumber>8690</StateNumber>
+      <StateNumber>8738</StateNumber>
       <TypeId>1700</TypeId>
     </column>
-    <index id="97" parent="31" name="usuario_pagamento_pkey">
-      <ObjectId>30303</ObjectId>
+    <index id="96" parent="31" name="usuario_pagamento_pkey">
+      <ObjectId>30437</ObjectId>
       <ColNames>id_pagamento
 id_usuario</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="98" parent="31" name="usuario_pagamento_pkey">
-      <ObjectId>30304</ObjectId>
+    <key id="97" parent="31" name="usuario_pagamento_pkey">
+      <ObjectId>30438</ObjectId>
       <ColNames>id_pagamento
 id_usuario</ColNames>
       <UnderlyingIndexName>usuario_pagamento_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="99" parent="31" name="fkf7l1s8s4yapeapu15llkq55ub">
-      <ObjectId>30365</ObjectId>
+    <foreign-key id="98" parent="31" name="fkf7l1s8s4yapeapu15llkq55ub">
+      <ObjectId>30499</ObjectId>
       <ColNames>id_pagamento</ColNames>
-      <RefTableId>30242</RefTableId>
+      <RefTableId>30376</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>pagamento</RefTableName>
       <RefKeyName>pagamento_pkey</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <foreign-key id="100" parent="31" name="fkeiw20d8ijjofe5s8lxxhqn05h">
-      <ObjectId>30370</ObjectId>
+    <foreign-key id="99" parent="31" name="fkeiw20d8ijjofe5s8lxxhqn05h">
+      <ObjectId>30504</ObjectId>
       <ColNames>id_usuario</ColNames>
-      <RefTableId>30292</RefTableId>
+      <RefTableId>30426</RefTableId>
       <RefColPositions>1</RefColPositions>
       <RefTableName>usuario</RefTableName>
       <RefKeyName>usuario_pkey</RefKeyName>
