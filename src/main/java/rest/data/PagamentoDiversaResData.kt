@@ -9,11 +9,11 @@ class PagamentoDiversaResData : PagamentoResData<PagamentoDiversa, TipoDespesaDi
 
     var observacao: String? = null
 
+    override fun novoTipoDespesaResponseData() = TipoDespesaDiversaResData()
+
     override fun preencherCom(entidade: PagamentoDiversa?) {
         super.preencherCom(entidade)
 
         observacao = entidade?.observacao
     }
-
-    override fun novoTipoDespesaResponseData() = TipoDespesaDiversaResData()
 }
