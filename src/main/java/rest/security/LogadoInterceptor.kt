@@ -14,7 +14,7 @@ class LogadoInterceptor protected constructor() {
 
     @AroundInvoke
     @Throws(Exception::class)
-    fun manage(ic: InvocationContext): Any {
+    fun manage(ic: InvocationContext): Any? {
         val header = header() ?: throw UnauthorizedException()
         val token = token(header) ?: throw UnauthorizedException()
 
