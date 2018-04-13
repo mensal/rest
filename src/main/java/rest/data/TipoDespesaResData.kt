@@ -9,12 +9,12 @@ abstract class TipoDespesaResData<in E : TipoDespesa> : ResData<E> {
 
     var id: UUID? = null
 
-    var periodo: PeriodoResData? = null
+//    var periodo: PeriodoResData? = null
 
     override fun preencherCom(entidade: E?) {
         id = entidade?.id
 
-        if (periodo == null) periodo = PeriodoResData()
-        periodo!!.preencherCom(entidade?.periodo)
+//        if (periodo == null) periodo = PeriodoResData()
+//        periodo!!.preencherCom(entidade?.periodo)
     }
 }
