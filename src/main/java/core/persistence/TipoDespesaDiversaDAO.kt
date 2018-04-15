@@ -6,6 +6,8 @@ open class TipoDespesaDiversaDAO protected constructor() : CrudDAO<TipoDespesaDi
 
     override val entityClass = TipoDespesaDiversa::class.java
 
+    override var orderBy = "nome asc"
+
 //    companion object {
 //        fun instance() = CDI.current().select(TipoDespesaDiversaDAO::class.java).get()!!
 //    }

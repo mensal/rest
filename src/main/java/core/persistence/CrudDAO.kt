@@ -1,5 +1,6 @@
 package core.persistence
 
+import org.apache.commons.lang.StringUtils.isEmpty
 import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
@@ -11,10 +12,12 @@ abstract class CrudDAO<E> {
     @PersistenceContext
     protected open lateinit var em: EntityManager
 
+    protected open var orderBy: String = ""
+
     open fun obter(id: UUID): E? = em.find(entityClass, id)
 
     open fun pesquisar(): List<E> {
-        val jpql = " select e from ${entityClass.name} e "
+        val jpql = " select e from ${entityClass.name} e " + if (!isEmpty(orderBy)) "order by $orderBy" else ""
         val query = em.createQuery(jpql, entityClass)
 
         return query.resultList
