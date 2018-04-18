@@ -20,11 +20,11 @@ INSERT INTO tipo_despesa (id, atualizado_em)
 VALUES ('b15c0699-d86c-49a0-9475-3d4936edd5fd', now());
 
 INSERT INTO tipo_despesa_fixa (id, nome, vencimento)
-VALUES ('b15c0699-d86c-49a0-9475-3d4936edd5fd', 'Gás', 5);
+VALUES ('b15c0699-d86c-49a0-9475-3d4936edd5fd', 'Gás', 15);
 
 INSERT INTO tipo_despesa (id, atualizado_em)
 VALUES ('5695d83f-529b-4a91-acd7-79116033f301', now());
 
 INSERT INTO tipo_despesa_fixa (id, nome, vencimento)
-VALUES ('5695d83f-529b-4a91-acd7-79116033f301', 'Netflix', 5);
+VALUES ('5695d83f-529b-4a91-acd7-79116033f301', 'Netflix', 30);
 
