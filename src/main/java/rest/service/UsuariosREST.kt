@@ -5,14 +5,15 @@ import rest.data.UsuarioResData
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
+import javax.ws.rs.QueryParam
 
 @Path("usuarios")
 open class UsuariosREST {
 
     @GET
     @Produces("application/json")
-    open fun pesquisar(): List<UsuarioResData>? {
-        val resultado = UsuarioDAO.instance().pesquisar().map {
+    open fun pesquisar(@QueryParam("ano") ano: Int, @QueryParam("mes") mes: Int): List<UsuarioResData>? {
+        val resultado = UsuarioDAO.instance().pesquisar(ano, mes).map {
             val data = UsuarioResData()
             data.preencherCom(it)
             data

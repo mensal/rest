@@ -1,0 +1,10 @@
+oc get pods
+
+oc rsh postgresql-7-2wqc2
+
+pg_dump despesas > /var/lib/pgsql/data/backup.sql
+
+pg_dump -Fc despesas > /var/lib/pgsql/data/backup.dump
+
+oc rsync postgresql-7-2wqc2:/var/lib/pgsql/data/backup.dump ~/Downloads/
+

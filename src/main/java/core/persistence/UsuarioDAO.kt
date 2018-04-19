@@ -8,7 +8,7 @@ open class UsuarioDAO protected constructor() : CrudDAO<Usuario>() {
 
     override val entityClass = Usuario::class.java
 
-    override var orderBy = "nome asc"
+    override fun pesquisarOrderBy(ano: Int, mes: Int) = "nome asc"
 
     open fun obter(email: String): Usuario? {
         val jpql = " select e from ${entityClass.name} e where e.email = :email "

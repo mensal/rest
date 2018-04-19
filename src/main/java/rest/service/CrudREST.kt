@@ -11,6 +11,7 @@ import rest.security.Logado
 import java.util.*
 import javax.transaction.Transactional
 import javax.validation.Valid
+import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 
@@ -39,8 +40,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     @GET
     @Logado
     @Produces("application/json")
-    open fun pesquisar(): List<RES>? {
-        var persistidos = dao.pesquisar()
+    open fun pesquisar(@NotNull @QueryParam("ano") ano: Int, @NotNull @QueryParam("mes") mes: Int): List<RES>? {
+        var persistidos = dao.pesquisar(ano, mes)
         persistidos = depoisDePesquisar(persistidos)
 
         val resultado = persistidos.map {

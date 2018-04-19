@@ -12,12 +12,19 @@ abstract class CrudDAO<E> {
     @PersistenceContext
     protected open lateinit var em: EntityManager
 
-    protected open var orderBy: String = ""
-
     open fun obter(id: UUID): E? = em.find(entityClass, id)
 
-    open fun pesquisar(): List<E> {
-        val jpql = " select e from ${entityClass.name} e " + if (!isEmpty(orderBy)) "order by $orderBy" else ""
+//    protected open var pesquisarOrderBy = ""
+
+    protected open fun pesquisarWhere(ano: Int, mes: Int) = ""
+
+    protected open fun pesquisarOrderBy(ano: Int, mes: Int) = ""
+
+    open fun pesquisar(ano: Int, mes: Int): List<E> {
+        val pesquisarWhere = pesquisarWhere(ano, mes)
+        val pesquisarOrderBy = pesquisarOrderBy(ano, mes)
+
+        val jpql = " select e from ${entityClass.name} e" + (if (!isEmpty(pesquisarWhere)) " where $pesquisarWhere" else "") + (if (!isEmpty(pesquisarOrderBy)) " order by $pesquisarOrderBy" else "")
         val query = em.createQuery(jpql, entityClass)
 
         return query.resultList

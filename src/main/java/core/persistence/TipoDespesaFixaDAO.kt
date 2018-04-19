@@ -6,7 +6,7 @@ open class TipoDespesaFixaDAO protected constructor() : CrudDAO<TipoDespesaFixa>
 
     override val entityClass = TipoDespesaFixa::class.java
 
-    override var orderBy = "vencimento desc, nome asc"
+    override fun pesquisarOrderBy(ano: Int, mes: Int) = "vencimento desc, nome asc"
 
 //    companion object {
 //        fun instance() = CDI.current().select(TipoDespesaDiversaDAO::class.java).get()!!

@@ -18,8 +18,6 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
         return entidade
     }
 
-    override fun depoisDePesquisar(entidades: List<ENT>) = entidades.sortedBy { it.data }
-
     override fun antesDeExcluir(entidade: ENT) {
         UsuarioPagamentoDAO.instance().excluir(entidade)
     }

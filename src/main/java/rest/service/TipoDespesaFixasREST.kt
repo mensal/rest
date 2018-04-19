@@ -1,7 +1,6 @@
 package rest.service
 
 import core.entity.TipoDespesaFixa
-import core.persistence.PagamentoFixaDAO
 import core.persistence.TipoDespesaFixaDAO
 import rest.data.TipoDespesaFixaReqData
 import rest.data.TipoDespesaFixaResData
@@ -21,6 +20,6 @@ open class TipoDespesaFixasREST : CrudREST<TipoDespesaFixa, TipoDespesaFixaReqDa
     override fun novoResponseData() = TipoDespesaFixaResData()
 
     override fun antesDeExcluir(entidade: TipoDespesaFixa) {
-        if (!PagamentoFixaDAO.instance().buscar(entidade).isEmpty()) violationException.addViolation("Existem pagamentos associados a este tipo de despesa")
+//        if (!PagamentoFixaDAO.instance().buscar(entidade).isEmpty()) violationException.addViolation("Existem pagamentos associados a este tipo de despesa")
     }
 }
