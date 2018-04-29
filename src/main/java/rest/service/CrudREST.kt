@@ -17,9 +17,10 @@ import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 import kotlin.reflect.full.createInstance
-import kotlin.reflect.full.superclasses
 
 abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<ENT>, out DAO : CrudDAO<ENT>> {
+
+    protected open val violationException = UnprocessableEntityException()
 
     protected open val dao: DAO
         get() = CDI.current().select(Reflections.argument<DAO>(this, CrudREST::class, 3).java).get()!!
@@ -40,18 +41,12 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
-    protected open val violationException = UnprocessableEntityException()
-
     @GET
     @Logado
     @Produces("application/json")
     open fun pesquisar(@NotNull @QueryParam("ano") ano: Int, @NotNull @QueryParam("mes") mes: Int): List<RES>? {
         var persistidos = dao.pesquisar(ano, mes)
         persistidos = depoisDePesquisar(persistidos)
-
-
-        print("cccc")
-        print(this::class.superclasses[0].simpleName)
 
         val resultado = persistidos.map {
             val entidade = depoisDePesquisar(it)
@@ -74,6 +69,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
         data.escreverEm(entidade)
 
         antesDePersistir(entidade, data)
+        lancarExcecaoSeNecessario()
         dao.inserir(entidade)
         depoisDePersistir(entidade, data)
         lancarExcecaoSeNecessario()
@@ -88,7 +84,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     @GET
     @Logado
-    @Path("{id}")
+    @Path("{id: $uuidRegex}")
     @Produces("application/json")
     open fun obter(@PathParam("id") id: UUID): Response {
         var persistido = carregar(id)
@@ -103,7 +99,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     @PUT
     @Logado
-    @Path("{id}")
+    @Path("{id: $uuidRegex}")
     @Consumes("application/json")
     @Produces("application/json")
     @Transactional(rollbackOn = [Throwable::class])
@@ -131,7 +127,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     @DELETE
     @Logado
-    @Path("{id}")
+    @Path("{id: $uuidRegex}")
     @Transactional(rollbackOn = [Throwable::class])
     open fun deletar(@PathParam("id") id: UUID) {
         val persistido = carregar(id)
@@ -157,5 +153,9 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     private fun lancarExcecaoSeNecessario() {
         if (!violationException.violations.isEmpty()) throw violationException
+    }
+
+    companion object {
+        const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
     }
 }
