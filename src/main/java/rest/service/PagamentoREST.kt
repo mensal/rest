@@ -6,12 +6,15 @@ import core.entity.UsuarioPagamento
 import core.persistence.CrudDAO
 import core.persistence.UsuarioDAO
 import core.persistence.UsuarioPagamentoDAO
+import core.util.Reflections
 import rest.data.PagamentoReqData
 import rest.data.ResData
+import javax.enterprise.inject.spi.CDI
 
-abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>, TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
+abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
 
-    protected abstract var tipoDAO: TDAO
+    protected open val tipoDAO: TDAO
+        get() = CDI.current().select(Reflections.argument<TDAO>(this, PagamentoREST::class, 5).java).get()!!
 
     override fun depoisDePesquisar(entidade: ENT): ENT {
         entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)

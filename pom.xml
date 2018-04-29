@@ -158,6 +158,11 @@
             <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-reflect</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
 
         <!-- Tests -->
         <dependency>
@@ -175,7 +180,7 @@
     </dependencies>
 
     <properties>
-        <kotlin.version>1.2.31</kotlin.version>
+        <kotlin.version>1.2.41</kotlin.version>
         <jackson.version>2.9.5</jackson.version>
         <wildfly.version>10.1.0.Final</wildfly.version>
 

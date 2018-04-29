@@ -6,21 +6,20 @@ import core.persistence.PagamentoCombustivelDAO
 import core.persistence.TipoDespesaCombustivelDAO
 import rest.data.PagamentoCombustivelReqData
 import rest.data.PagamentoCombustivelResData
-import javax.inject.Inject
 import javax.ws.rs.Path
 
 @Path("pagamento/combustiveis")
 open class PagamentoCombustiveisREST : PagamentoREST<PagamentoCombustivel, TipoDespesaCombustivel, PagamentoCombustivelReqData, PagamentoCombustivelResData, PagamentoCombustivelDAO, TipoDespesaCombustivelDAO>() {
 
-    @Inject
-    override lateinit var dao: PagamentoCombustivelDAO
+//    @Inject
+//    protected override lateinit var dao: PagamentoCombustivelDAO
 
-    @Inject
-    override lateinit var tipoDAO: TipoDespesaCombustivelDAO
+//    @Inject
+//    override lateinit var tipoDAO: TipoDespesaCombustivelDAO
 
-    override fun novaEntidade() = PagamentoCombustivel()
+//    override fun novaEntidade() = PagamentoCombustivel()
 
-    override fun novoRequestData() = PagamentoCombustivelReqData()
+//    override fun novoRequestData() = PagamentoCombustivelReqData()
 
-    override fun novoResponseData() = PagamentoCombustivelResData()
+//    override fun novoResponseData() = PagamentoCombustivelResData()
 }

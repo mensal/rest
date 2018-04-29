@@ -2,6 +2,7 @@ package rest.service
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
+import core.util.Reflections
 import org.apache.commons.lang.time.DateUtils
 import rest.PreconditionFailedException
 import rest.UnprocessableEntityException
@@ -9,21 +10,25 @@ import rest.data.ReqData
 import rest.data.ResData
 import rest.security.Logado
 import java.util.*
+import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.*
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.full.superclasses
 
-abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<ENT>, DAO : CrudDAO<ENT>> {
+abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<ENT>, out DAO : CrudDAO<ENT>> {
 
-    protected abstract var dao: DAO
+    protected open val dao: DAO
+        get() = CDI.current().select(Reflections.argument<DAO>(this, CrudREST::class, 3).java).get()!!
 
-    protected abstract fun novaEntidade(): ENT
+    protected open fun novaEntidade() = Reflections.argument<ENT>(this, CrudREST::class, 0).createInstance()
 
-    protected abstract fun novoRequestData(): REQ
+    protected open fun novoRequestData() = Reflections.argument<REQ>(this, CrudREST::class, 1).createInstance()
 
-    protected abstract fun novoResponseData(): RES
+    protected open fun novoResponseData() = Reflections.argument<RES>(this, CrudREST::class, 2).createInstance()
 
     protected open fun antesDePersistir(entidade: ENT, requestData: REQ) {}
 
@@ -43,6 +48,10 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     open fun pesquisar(@NotNull @QueryParam("ano") ano: Int, @NotNull @QueryParam("mes") mes: Int): List<RES>? {
         var persistidos = dao.pesquisar(ano, mes)
         persistidos = depoisDePesquisar(persistidos)
+
+
+        print("cccc")
+        print(this::class.superclasses[0].simpleName)
 
         val resultado = persistidos.map {
             val entidade = depoisDePesquisar(it)

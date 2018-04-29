@@ -6,7 +6,7 @@ import java.time.LocalDate
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
-abstract class PagamentoReqData<E : Pagamento<*>> : ReqData<E> {
+abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
 
     @NotNull
     lateinit var data: LocalDate
