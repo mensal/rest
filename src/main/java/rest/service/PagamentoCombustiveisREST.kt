@@ -9,17 +9,4 @@ import rest.data.PagamentoCombustivelResData
 import javax.ws.rs.Path
 
 @Path("pagamento/combustiveis")
-open class PagamentoCombustiveisREST : PagamentoREST<PagamentoCombustivel, TipoDespesaCombustivel, PagamentoCombustivelReqData, PagamentoCombustivelResData, PagamentoCombustivelDAO, TipoDespesaCombustivelDAO>() {
-
-//    @Inject
-//    protected override lateinit var dao: PagamentoCombustivelDAO
-
-//    @Inject
-//    override lateinit var tipoDAO: TipoDespesaCombustivelDAO
-
-//    override fun novaEntidade() = PagamentoCombustivel()
-
-//    override fun novoRequestData() = PagamentoCombustivelReqData()
-
-//    override fun novoResponseData() = PagamentoCombustivelResData()
-}
+open class PagamentoCombustiveisREST : PagamentoREST<PagamentoCombustivel, TipoDespesaCombustivel, PagamentoCombustivelReqData, PagamentoCombustivelResData, PagamentoCombustivelDAO, TipoDespesaCombustivelDAO>()
