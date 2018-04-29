@@ -5,7 +5,7 @@ import javax.enterprise.inject.spi.CDI
 
 open class PagamentoCombustivelDAO protected constructor() : CrudDAO<PagamentoCombustivel>() {
 
-    override val entityClass = PagamentoCombustivel::class.java
+//    override val entityClass = PagamentoCombustivel::class.java
 
     override fun pesquisarWhere(ano: Int, mes: Int) = "year(data) = $ano and month(data) = $mes"
 

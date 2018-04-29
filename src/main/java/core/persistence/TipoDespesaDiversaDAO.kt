@@ -4,7 +4,7 @@ import core.entity.TipoDespesaDiversa
 
 open class TipoDespesaDiversaDAO protected constructor() : CrudDAO<TipoDespesaDiversa>() {
 
-    override val entityClass = TipoDespesaDiversa::class.java
+//    override val entityClass = TipoDespesaDiversa::class.java
 
     override fun pesquisarOrderBy(ano: Int, mes: Int) = "nome asc"
 

@@ -1,11 +1,10 @@
 package core.persistence
 
 import core.entity.PagamentoDiarista
+import java.math.BigDecimal
 import javax.enterprise.inject.spi.CDI
 
 open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiarista>() {
-
-    override val entityClass = PagamentoDiarista::class.java
 
     override fun pesquisarWhere(ano: Int, mes: Int) = "year(data) = $ano and month(data) = $mes"
 
@@ -18,6 +17,16 @@ open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiari
 //
 //        return query.resultList
 //    }
+
+    open fun saldo(ano: Int, mes: Int): BigDecimal {
+        var jpql = ""
+
+        jpql += " select e from PagamentoDiarista e where e.tipo = :tipo order by e.data desc "
+
+        val query = em.createQuery(jpql, BigDecimal::class.java)
+
+        return query.singleResult
+    }
 
     companion object {
         fun instance() = CDI.current().select(PagamentoDiaristaDAO::class.java).get()!!

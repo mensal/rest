@@ -13,7 +13,6 @@ import java.util.*
 import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
 import javax.validation.Valid
-import javax.validation.constraints.NotNull
 import javax.ws.rs.*
 import javax.ws.rs.core.*
 import kotlin.reflect.full.createInstance
@@ -44,8 +43,11 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     @GET
     @Logado
     @Produces("application/json")
-    open fun pesquisar(@NotNull @QueryParam("ano") ano: Int, @NotNull @QueryParam("mes") mes: Int): List<RES>? {
-        var persistidos = dao.pesquisar(ano, mes)
+    open fun pesquisar(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<RES>? {
+        valida(ano, mes)
+        lancarExcecaoSeNecessario()
+
+        var persistidos = dao.pesquisar(ano!!, mes!!)
         persistidos = depoisDePesquisar(persistidos)
 
         val resultado = persistidos.map {
@@ -151,7 +153,12 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
         }
     }
 
-    private fun lancarExcecaoSeNecessario() {
+    protected open fun valida(ano: Int?, mes: Int?) {
+        if (ano == null) violationException.addViolation("ano", "parâmetro obrigatório")
+        if (mes == null) violationException.addViolation("mes", "parâmetro obrigatório")
+    }
+
+    protected open fun lancarExcecaoSeNecessario() {
         if (!violationException.violations.isEmpty()) throw violationException
     }
 
