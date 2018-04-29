@@ -22,6 +22,6 @@ open class PagamentoDiaristaREST : PagamentoREST<PagamentoDiarista, TipoDespesaD
         valida(ano, mes)
         lancarExcecaoSeNecessario()
 
-        return dao.saldo(ano!!, mes!!)
+        return dao.pagoAte(ano!!, mes!!) - dao.devidoAte(ano, mes)
     }
 }
