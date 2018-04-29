@@ -39,7 +39,6 @@ class ObjectMapperProducer private constructor() {
 
     companion object {
 
-        @JvmStatic
         fun get() = CDI.current().select(ObjectMapper::class.java).get()!!
     }
 }
