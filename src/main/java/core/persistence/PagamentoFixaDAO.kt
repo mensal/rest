@@ -9,7 +9,7 @@ open class PagamentoFixaDAO protected constructor() : CrudDAO<PagamentoFixa>() {
 
     override fun pesquisarWhere(ano: Int, mes: Int) = "year(data) = $ano and month(data) = $mes"
 
-    override fun pesquisarOrderBy(ano: Int, mes: Int) = "data desc"
+    override fun pesquisarOrderBy(ano: Int, mes: Int) = "data asc"
 
 //    open fun buscar(tipo: TipoDespesaFixa): List<PagamentoFixa> {
 //        val jpql = " select e from ${entityClass.name} e where e.tipo = :tipo order by e.data desc "
