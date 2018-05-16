@@ -87,8 +87,8 @@
     <schema id="19" parent="2" name="public">
       <ObjectId>2200</ObjectId>
       <Comment>standard public schema</Comment>
-      <IntrospectionTimestamp>2018-05-06.17:56:02.672</IntrospectionTimestamp>
-      <IntrospectionStateNumber>8988</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2018-05-06.18:48:14.788</IntrospectionTimestamp>
+      <IntrospectionStateNumber>8990</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -98,7 +98,7 @@
     </table>
     <table id="21" parent="19" name="pagamento_combustivel">
       <ObjectId>30781</ObjectId>
-      <StateNumber>8988</StateNumber>
+      <StateNumber>8990</StateNumber>
     </table>
     <table id="22" parent="19" name="pagamento_diarista">
       <ObjectId>30784</ObjectId>
@@ -174,8 +174,8 @@
     </key>
     <column id="37" parent="21" name="litros">
       <Position>1</Position>
-      <DataType>numeric(6,2 digit)|0s</DataType>
-      <StateNumber>8988</StateNumber>
+      <DataType>numeric(6,3 digit)|0s</DataType>
+      <StateNumber>8990</StateNumber>
       <TypeId>1700</TypeId>
     </column>
     <column id="38" parent="21" name="odometro">

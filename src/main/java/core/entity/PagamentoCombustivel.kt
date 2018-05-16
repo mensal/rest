@@ -1,10 +1,7 @@
 package core.entity
 
 import java.math.BigDecimal
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -18,5 +15,6 @@ open class PagamentoCombustivel : Pagamento<TipoDespesaCombustivel>() {
 
     var odometro: Int? = null
 
+    @Column(scale = 6, precision = 3)
     var litros: BigDecimal? = null
 }
