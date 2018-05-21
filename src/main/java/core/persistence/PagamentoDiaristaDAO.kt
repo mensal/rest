@@ -12,14 +12,6 @@ open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiari
 
     override fun pesquisarOrderBy(ano: Int, mes: Int) = "data asc"
 
-//    open fun buscar(tipo: TipoDespesaDiarista): List<PagamentoDiarista> {
-//        val jpql = " select e from ${entityClass.name} e where e.tipo = :tipo order by e.data desc "
-//        val query = em.createQuery(jpql, PagamentoDiarista::class.java)
-//        query.setParameter("tipo", tipo)
-//
-//        return query.resultList
-//    }
-
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""
         ultimoDia(ano, mes)

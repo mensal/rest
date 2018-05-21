@@ -6,8 +6,6 @@ import javax.persistence.NoResultException
 
 open class UsuarioDAO protected constructor() : CrudDAO<Usuario>() {
 
-//    override val entityClass = Usuario::class.java
-
     override fun pesquisarOrderBy(ano: Int, mes: Int) = "nome asc"
 
     open fun obter(email: String): Usuario? {
