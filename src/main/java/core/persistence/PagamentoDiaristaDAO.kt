@@ -1,9 +1,8 @@
 package core.persistence
 
+import core.entity.Pagamento.Companion.ultimoDia
 import core.entity.PagamentoDiarista
 import java.math.BigDecimal
-import java.time.LocalDate
-import java.time.YearMonth
 import javax.enterprise.inject.spi.CDI
 
 open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiarista>() {
@@ -14,7 +13,6 @@ open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiari
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""
-        ultimoDia(ano, mes)
 
         jpql += " select sum(up.valor) "
         jpql += "   from UsuarioPagamento up "
@@ -31,7 +29,6 @@ open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiari
 
     open fun devidoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""
-        ultimoDia(ano, mes)
 
         jpql += " select sum(t.valor) "
         jpql += "   from PagamentoDiarista pd "
@@ -43,8 +40,6 @@ open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiari
 
         return query.singleResult
     }
-
-    internal open fun ultimoDia(ano: Int, mes: Int) = LocalDate.of(ano, mes, YearMonth.of(ano, mes).lengthOfMonth())
 
     companion object {
         fun instance() = CDI.current().select(PagamentoDiaristaDAO::class.java).get()!!

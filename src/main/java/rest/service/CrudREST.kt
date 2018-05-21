@@ -4,6 +4,7 @@ import core.entity.Versionado
 import core.persistence.CrudDAO
 import core.util.Reflections
 import org.apache.commons.lang.time.DateUtils
+import rest.ClientViolationException
 import rest.PreconditionFailedException
 import rest.UnprocessableEntityException
 import rest.data.ReqData
@@ -154,15 +155,23 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     }
 
     protected open fun valida(ano: Int?, mes: Int?) {
-        if (ano == null) violationException.addViolation("ano", "parâmetro obrigatório")
-        if (mes == null) violationException.addViolation("mes", "parâmetro obrigatório")
+        Companion.valida(ano, mes, violationException)
     }
 
     protected open fun lancarExcecaoSeNecessario() {
-        if (!violationException.violations.isEmpty()) throw violationException
+        Companion.lancarExcecaoSeNecessario(violationException)
     }
 
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
+
+        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
+            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
+            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
+        }
+
+        fun lancarExcecaoSeNecessario(exception: ClientViolationException) {
+            if (!exception.violations.isEmpty()) throw exception
+        }
     }
 }

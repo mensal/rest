@@ -1,6 +1,7 @@
 package core.entity
 
 import java.time.LocalDate
+import java.time.YearMonth
 import javax.persistence.Entity
 import javax.persistence.Inheritance
 import javax.persistence.InheritanceType.JOINED
@@ -20,4 +21,10 @@ abstract class Pagamento<T : TipoDespesa> : Versionado() {
 
     @Transient
     var valores: List<UsuarioPagamento>? = null
+
+    companion object {
+        fun primeiroDia(ano: Int, mes: Int) = LocalDate.of(ano, mes, 1)!!
+
+        fun ultimoDia(ano: Int, mes: Int) = LocalDate.of(ano, mes, YearMonth.of(ano, mes).lengthOfMonth())!!
+    }
 }
