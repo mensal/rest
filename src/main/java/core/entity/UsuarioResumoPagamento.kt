@@ -6,13 +6,13 @@ class UsuarioResumoPagamento {
 
     var usuario: Usuario
 
-    var valor: BigDecimal
+    var atual: BigDecimal
 
     var anterior: BigDecimal
 
-    constructor(usuario: Usuario, valor: BigDecimal, anterior: BigDecimal) {
+    constructor(usuario: Usuario, atual: BigDecimal, anterior: BigDecimal) {
         this.usuario = usuario
-        this.valor = valor
+        this.atual = atual
         this.anterior = anterior
     }
 }

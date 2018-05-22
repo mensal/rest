@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.UsuarioResumoPagamento
 import java.math.BigDecimal
 
-@JsonPropertyOrder("usuario", "valor", "anterior")
+@JsonPropertyOrder("usuario", "atual", "atual")
 open class UsuarioResumoPagamentoResData : ResData<UsuarioResumoPagamento> {
 
     var usuario: UsuarioResData? = null
 
-    var valor: BigDecimal? = null
+    var atual: BigDecimal? = null
 
     var anterior: BigDecimal? = null
 
@@ -17,7 +17,7 @@ open class UsuarioResumoPagamentoResData : ResData<UsuarioResumoPagamento> {
         if (usuario == null) usuario = UsuarioResData()
         usuario!!.preencherCom(entidade?.usuario)
 
-        valor = entidade?.valor
+        atual = entidade?.atual
         anterior = entidade?.anterior
     }
 }

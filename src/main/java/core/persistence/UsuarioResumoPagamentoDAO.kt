@@ -17,20 +17,20 @@ open class UsuarioResumoPagamentoDAO protected constructor() {
 
     open fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
 
-        val anterior = anterior(ano, mes)
+        val atual = atual(ano, mes)
         val corrente = corrente(ano, mes)
 
-        val menor: BigDecimal = anterior?.map { it.anterior }?.min() ?: ZERO
+        val menor: BigDecimal = atual?.map { it.anterior }?.min() ?: ZERO
         val usuarios = UsuarioDAO.instance().pesquisar(ano, mes)
 
         return usuarios.map { u ->
             UsuarioResumoPagamento(u,
-                    corrente?.firstOrNull { u.id == it.usuario.id }?.valor ?: ZERO,
-                    (anterior?.firstOrNull { u.id == it.usuario.id }?.valor ?: ZERO) - menor)
+                    corrente?.firstOrNull { u.id == it.usuario.id }?.atual ?: ZERO,
+                    (atual?.firstOrNull { u.id == it.usuario.id }?.atual ?: ZERO) - menor)
         }
     }
 
-    protected open fun anterior(ano: Int, mes: Int): List<UsuarioResumoPagamento>? {
+    protected open fun atual(ano: Int, mes: Int): List<UsuarioResumoPagamento>? {
         var jpql = ""
 
         jpql += " select "
