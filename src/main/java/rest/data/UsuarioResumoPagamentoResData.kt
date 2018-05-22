@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.UsuarioResumoPagamento
 import java.math.BigDecimal
 
-@JsonPropertyOrder("usuario", "atual", "atual")
+@JsonPropertyOrder("usuario", "atual", "anterior")
 open class UsuarioResumoPagamentoResData : ResData<UsuarioResumoPagamento> {
 
     var usuario: UsuarioResData? = null
