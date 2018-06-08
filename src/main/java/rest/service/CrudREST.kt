@@ -16,20 +16,28 @@ import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
 import javax.ws.rs.core.*
+import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 
-abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<ENT>, out DAO : CrudDAO<ENT>> {
+abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>> {
 
     protected open val violationException = UnprocessableEntityException()
 
+    protected open val entityClass: KClass<ENT>
+        get() = Reflections.argument(this, CrudREST::class, 0)
+
+    protected open val resClass: KClass<RES>
+        get() = Reflections.argument(this, CrudREST::class, 2)
+
+    protected open val daoClass: KClass<DAO>
+        get() = Reflections.argument(this, CrudREST::class, 3)
+
     protected open val dao: DAO
-        get() = CDI.current().select(Reflections.argument<DAO>(this, CrudREST::class, 3).java).get()!!
+        get() = CDI.current().select(daoClass.java).get()!!
 
-    protected open fun novaEntidade() = Reflections.argument<ENT>(this, CrudREST::class, 0).createInstance()
+    protected open fun novaEntidade() = entityClass.createInstance()
 
-    protected open fun novoRequestData() = Reflections.argument<REQ>(this, CrudREST::class, 1).createInstance()
-
-    protected open fun novoResponseData() = Reflections.argument<RES>(this, CrudREST::class, 2).createInstance()
+    protected open fun novoResponseData() = resClass.createInstance()
 
     protected open fun antesDePersistir(entidade: ENT, requestData: REQ) {}
 
@@ -62,29 +70,6 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
         return if (resultado.isEmpty()) null else resultado
     }
 
-    @POST
-    @Logado
-    @Consumes("application/json")
-    @Produces("application/json")
-    @Transactional(rollbackOn = [Throwable::class])
-    open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
-        val entidade = novaEntidade()
-        data.escreverEm(entidade)
-
-        antesDePersistir(entidade, data)
-        lancarExcecaoSeNecessario()
-        dao.inserir(entidade)
-        depoisDePersistir(entidade, data)
-        lancarExcecaoSeNecessario()
-
-        val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
-        val responseData = novoResponseData()
-        responseData.preencherCom(entidade)
-
-        val atualizadoEm = Date.from(entidade.atualizadoEm!!.toInstant())
-        return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
-    }
-
     @GET
     @Logado
     @Path("{id: $uuidRegex}")
@@ -98,6 +83,23 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
         val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
         return Response.ok().entity(resultado).lastModified(atualizadoEm).build()
+    }
+
+    @POST
+    @Logado
+    @Consumes("application/json")
+    @Produces("application/json")
+    @Transactional(rollbackOn = [Throwable::class])
+    open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
+        val entidade = novaEntidade()
+
+        return inserir(uriInfo, data, resClass as KClass<ResData<ENT>>, entidade, daoClass as KClass<CrudDAO<ENT>>, { e, d ->
+            antesDePersistir(e, d)
+            lancarExcecaoSeNecessario()
+        }, { e, d ->
+            depoisDePersistir(e, d)
+            lancarExcecaoSeNecessario()
+        })
     }
 
     @PUT
@@ -142,18 +144,6 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
-    private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
-        headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
-
-        return try {
-            val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant())
-            request.evaluatePreconditions(DateUtils.truncate(atualizadoEm, Calendar.SECOND))
-        } catch (cause: Exception) {
-            cause.printStackTrace()
-            throw PreconditionFailedException()
-        }
-    }
-
     protected open fun valida(ano: Int?, mes: Int?) {
         Companion.valida(ano, mes, violationException)
     }
@@ -165,9 +155,44 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, out RES : ResData<
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
 
+        fun <E : Versionado, D : CrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
+
+        fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
+                                                     reqData: R,
+                                                     resClass: KClass<ResData<E>>,
+                                                     entidade: E,
+                                                     daoClass: KClass<CrudDAO<E>>,
+                                                     antes: ((E, R) -> Unit)? = null,
+                                                     depois: ((E, R) -> Unit)? = null): Response {
+            reqData.escreverEm(entidade)
+
+            antes?.invoke(entidade, reqData)
+            dao(daoClass).inserir(entidade)
+            depois?.invoke(entidade, reqData)
+
+            val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
+            val responseData = resClass.createInstance()
+            responseData.preencherCom(entidade)
+
+            val atualizadoEm = Date.from(entidade.atualizadoEm!!.toInstant())
+            return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
+        }
+
         fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
             if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
             if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
+        }
+
+        private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
+            headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
+
+            return try {
+                val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant())
+                request.evaluatePreconditions(DateUtils.truncate(atualizadoEm, Calendar.SECOND))
+            } catch (cause: Exception) {
+//                cause.printStackTrace()
+                throw PreconditionFailedException()
+            }
         }
 
         fun lancarExcecaoSeNecessario(exception: ClientViolationException) {

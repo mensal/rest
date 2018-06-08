@@ -11,7 +11,7 @@ import rest.data.PagamentoReqData
 import rest.data.ResData
 import javax.enterprise.inject.spi.CDI
 
-abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, out RES : ResData<ENT>, out DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
+abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
 
     protected open val tipoDAO: TDAO
         get() = CDI.current().select(Reflections.argument<TDAO>(this, PagamentoREST::class, 5).java).get()!!
