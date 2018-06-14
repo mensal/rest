@@ -19,6 +19,6 @@ class UsuarioResData : ResData<Usuario> {
     override fun preencherCom(entidade: Usuario?) {
         id = entidade?.id
         nome = entidade?.nome
-//        atualizadoEm = entidade?.atualizadoEm
+        atualizadoEm = entidade?.atualizadoEm
     }
 }
