@@ -3,7 +3,6 @@ package core.entity
 import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.*
-import javax.validation.constraints.NotNull
 
 @MappedSuperclass
 abstract class Versionado {
@@ -14,7 +13,7 @@ abstract class Versionado {
     var id: UUID? = null
 
     @Version
-    @NotNull
+//    @NotNull
     @Column(name = "atualizado_em", columnDefinition = "timestamp with time zone")
     var atualizadoEm: ZonedDateTime? = null
 }

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "usuario")
-open class Usuario() {
+open class Usuario {
 
     @Id
     @GeneratedValue
@@ -20,8 +20,4 @@ open class Usuario() {
     @Email
     @NotNull
     var email: String? = null
-
-    constructor(id: UUID) : this() {
-        this.id = id
-    }
 }

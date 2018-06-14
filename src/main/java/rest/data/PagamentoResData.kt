@@ -1,12 +1,14 @@
 package rest.data
 
+import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import core.entity.Pagamento
 import core.entity.TipoDespesa
 import java.time.LocalDate
+import java.time.ZonedDateTime
 import java.util.*
 
-@JsonPropertyOrder("id", "data", "tipo", "valores")
+@JsonPropertyOrder("id", "data", "tipo", "valores", "atualizado_em")
 abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDespesaResData<T>> : ResData<E> {
 
     var id: UUID? = null
@@ -16,6 +18,9 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
     var tipo: R? = null
 
     var valores: List<UsuarioPagamentoResData>? = null
+
+    @JsonProperty("atualizado_em")
+    var atualizadoEm: ZonedDateTime? = null
 
     abstract fun novoTipoDespesaResponseData(): R
 
@@ -32,5 +37,7 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
             data.preencherCom(it)
             data
         }
+
+        atualizadoEm = entidade?.atualizadoEm
     }
 }
