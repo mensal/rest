@@ -1,18 +1,13 @@
 package core.entity
 
 import org.hibernate.validator.constraints.Email
-import java.util.*
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.Table
 import javax.validation.constraints.NotNull
 
 @Entity
 @Table(name = "usuario")
-open class Usuario {
-
-    @Id
-    @GeneratedValue
-    @Column(columnDefinition = "uuid", updatable = false)
-    var id: UUID? = null
+open class Usuario : Versionado() {
 
     @NotNull
     var nome: String? = null
