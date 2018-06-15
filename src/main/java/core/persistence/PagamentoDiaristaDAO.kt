@@ -4,13 +4,12 @@ import core.entity.Pagamento.Companion.ultimoDia
 import core.entity.PagamentoDiarista
 import java.math.BigDecimal
 import javax.enterprise.inject.spi.CDI
-import javax.ws.rs.core.MultivaluedMap
 
 open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiarista>() {
 
-    override fun pesquisarWhere(params: MultivaluedMap<String, String>) = "year(data) = ${params["ano"]?.first()} and month(data) = ${params["mes"]?.first()}"
+    override fun pesquisarWhere(params: Map<String, String>) = "year(data) = ${params["ano"]} and month(data) = ${params["mes"]}"
 
-    override fun pesquisarOrderBy(params: MultivaluedMap<String, String>) = "data asc"
+    override fun pesquisarOrderBy(params: Map<String, String>) = "data asc"
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""

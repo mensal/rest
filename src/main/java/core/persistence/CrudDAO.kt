@@ -6,7 +6,6 @@ import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
-import javax.ws.rs.core.MultivaluedMap
 import kotlin.reflect.KClass
 
 @Transactional
@@ -20,16 +19,13 @@ abstract class CrudDAO<E : Any> {
 
     open fun obter(id: UUID): E? = em.find(entityClass.java, id)
 
-    protected open fun pesquisarWhere(params: MultivaluedMap<String, String>) = ""
+    protected open fun pesquisarWhere(params: Map<String, String>) = ""
 
-    protected open fun pesquisarOrderBy(params: MultivaluedMap<String, String>) = ""
+    protected open fun pesquisarOrderBy(params: Map<String, String>) = ""
 
-    //    open fun pesquisar(ano: Int, mes: Int): List<E> {
-    open fun pesquisar(params: MultivaluedMap<String, String>): List<E> {
+    open fun pesquisar(params: Map<String, String> = emptyMap()): List<E> {
         val pesquisarWhere = pesquisarWhere(params)
-//        val pesquisarWhere = pesquisarWhere(ano, mes)
         val pesquisarOrderBy = pesquisarOrderBy(params)
-//        val pesquisarOrderBy = pesquisarOrderBy(ano, mes)
 
         val jpql = " select e from ${entityClass.qualifiedName} e" + (if (!isEmpty(pesquisarWhere)) " where $pesquisarWhere" else "") + (if (!isEmpty(pesquisarOrderBy)) " order by $pesquisarOrderBy" else "")
         val query = em.createQuery(jpql, entityClass.java)

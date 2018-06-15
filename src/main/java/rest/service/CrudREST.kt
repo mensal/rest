@@ -52,15 +52,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     @GET
     @Logado
     @Produces("application/json")
-//    open fun pesquisar(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<RES>? {
     open fun pesquisar(@Context uriInfo: UriInfo): List<RES>? {
-        val params = uriInfo.queryParameters
+        val params = mutableMapOf<String, String>()
+        uriInfo.queryParameters.forEach { params[it.key] = it.value.first() }
+
         valida(params)
 
         lancarExcecaoSeNecessario()
 
         var persistidos = dao.pesquisar(params)
-//        var persistidos = dao.pesquisar(ano!!, mes!!)
         persistidos = depoisDePesquisar(persistidos)
 
         val resultado = persistidos.map {
@@ -148,12 +148,12 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
-    protected open fun valida(params: MultivaluedMap<String, String>) {
+    protected open fun valida(params: Map<String, String>) {
 //        Companion.valida(params, violationException)
     }
 
     protected open fun lancarExcecaoSeNecessario() {
-        Companion.lancarExcecaoSeNecessario(violationException)
+        lancarExcecaoSeNecessario(violationException)
     }
 
     companion object {

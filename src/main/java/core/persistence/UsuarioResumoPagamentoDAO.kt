@@ -8,7 +8,6 @@ import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
-import javax.ws.rs.core.MultivaluedHashMap
 
 @Transactional
 open class UsuarioResumoPagamentoDAO protected constructor() {
@@ -21,12 +20,8 @@ open class UsuarioResumoPagamentoDAO protected constructor() {
         val atual = atual(ano, mes)
         val corrente = corrente(ano, mes)
 
-        var params = MultivaluedHashMap<String, String>()
-        params.add("ano", ano.toString())
-        params.add("mes", mes.toString())
-
         val menor: BigDecimal = atual?.map { it.anterior }?.min() ?: ZERO
-        val usuarios = UsuarioDAO.instance().pesquisar(params)
+        val usuarios = UsuarioDAO.instance().pesquisar()
 
         return usuarios.map { u ->
             UsuarioResumoPagamento(u,
