@@ -15,6 +15,6 @@ open class PagamentoCombustivel : Pagamento<TipoDespesaCombustivel>() {
 
     var odometro: Int? = null
 
-    @Column(scale = 6, precision = 3)
+    @Column(precision = 6, scale = 3)
     var litros: BigDecimal? = null
 }

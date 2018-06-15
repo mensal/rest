@@ -5,7 +5,7 @@ import rest.UnprocessableEntityException
 import rest.data.UsuarioResumoPagamentoResData
 import rest.security.Logado
 import rest.service.CrudREST.Companion.lancarExcecaoSeNecessario
-import rest.service.CrudREST.Companion.valida
+//import rest.service.CrudREST.Companion.valida
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
@@ -20,7 +20,7 @@ open class PagamentoResumoREST {
     @Logado
     @Produces("application/json")
     open fun resumo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<UsuarioResumoPagamentoResData>? {
-        valida(ano, mes, violationException)
+//        valida(ano, mes, violationException)
         lancarExcecaoSeNecessario(violationException)
 
         var persistidos = UsuarioResumoPagamentoDAO.instance().pesquisar(ano!!, mes!!)

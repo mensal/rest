@@ -52,11 +52,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     @GET
     @Logado
     @Produces("application/json")
-    open fun pesquisar(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<RES>? {
-        valida(ano, mes)
+//    open fun pesquisar(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<RES>? {
+    open fun pesquisar(@Context uriInfo: UriInfo): List<RES>? {
+        val params = uriInfo.queryParameters
+        valida(params)
+
         lancarExcecaoSeNecessario()
 
-        var persistidos = dao.pesquisar(ano!!, mes!!)
+        var persistidos = dao.pesquisar(params)
+//        var persistidos = dao.pesquisar(ano!!, mes!!)
         persistidos = depoisDePesquisar(persistidos)
 
         val resultado = persistidos.map {
@@ -144,8 +148,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
-    protected open fun valida(ano: Int?, mes: Int?) {
-        Companion.valida(ano, mes, violationException)
+    protected open fun valida(params: MultivaluedMap<String, String>) {
+//        Companion.valida(params, violationException)
     }
 
     protected open fun lancarExcecaoSeNecessario() {
@@ -178,10 +182,10 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
             return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
         }
 
-        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
-            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
-            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
-        }
+//        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
+//            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
+//            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
+//        }
 
         private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
             headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()

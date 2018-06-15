@@ -21,7 +21,7 @@ open class PagamentoDiaristaREST : PagamentoREST<PagamentoDiarista, TipoDespesaD
     @Path("saldo")
     @Produces("application/json")
     open fun saldo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): BigDecimal {
-        valida(ano, mes)
+//        valida(ano, mes)
         lancarExcecaoSeNecessario()
 
         return dao.pagoAte(ano!!, mes!!) - dao.devidoAte(ano, mes)
