@@ -4,7 +4,7 @@ import core.entity.Usuario
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.NoResultException
 
-open class UsuarioDAO protected constructor() : CrudDAO<Usuario>() {
+open class UsuarioDAO protected constructor() : VersionadoCrudDAO<Usuario>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"
 

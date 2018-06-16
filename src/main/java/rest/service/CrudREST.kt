@@ -2,6 +2,7 @@ package rest.service
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
+import core.persistence.VersionadoCrudDAO
 import core.util.Reflections
 import org.apache.commons.lang.time.DateUtils
 import rest.ClientViolationException
@@ -96,7 +97,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
         val entidade = novaEntidade()
 
-        return inserir(uriInfo, data, resClass as KClass<ResData<ENT>>, entidade, daoClass as KClass<CrudDAO<ENT>>, { e, d ->
+        return inserir(uriInfo, data, resClass as KClass<ResData<ENT>>, entidade, daoClass as KClass<VersionadoCrudDAO<ENT>>, { e, d ->
             antesDePersistir(e, d)
             lancarExcecaoSeNecessario()
         }, { e, d ->
@@ -158,13 +159,13 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
 
-        fun <E : Versionado, D : CrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
+        fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
 
         fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
                                                      reqData: R,
                                                      resClass: KClass<ResData<E>>,
                                                      entidade: E,
-                                                     daoClass: KClass<CrudDAO<E>>,
+                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
                                                      antes: ((E, R) -> Unit)? = null,
                                                      depois: ((E, R) -> Unit)? = null): Response {
             reqData.escreverEm(entidade)

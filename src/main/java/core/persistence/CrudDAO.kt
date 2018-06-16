@@ -1,7 +1,6 @@
 package core.persistence
 
 import core.util.Reflections
-import org.apache.commons.lang.StringUtils.isEmpty
 import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
@@ -20,9 +19,9 @@ abstract class CrudDAO<E : Any> {
 
     open fun obter(id: UUID): E? = em.find(entityClass.java, id)
 
-    protected open fun pesquisarWhere(params: Map<String, String>) = ""
+    protected open fun pesquisarWhere(params: Map<String, String>): String? = null
 
-    protected open fun pesquisarOrderBy(params: Map<String, String>) = ""
+    protected open fun pesquisarOrderBy(params: Map<String, String>): String? = null
 
     protected open fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {}
 
@@ -30,7 +29,10 @@ abstract class CrudDAO<E : Any> {
         val pesquisarWhere = pesquisarWhere(params)
         val pesquisarOrderBy = pesquisarOrderBy(params)
 
-        val jpql = " select e from ${entityClass.qualifiedName} e" + (if (!isEmpty(pesquisarWhere)) " where $pesquisarWhere" else "") + (if (!isEmpty(pesquisarOrderBy)) " order by $pesquisarOrderBy" else "")
+        val strPesquisarWhere = if (!pesquisarWhere.isNullOrBlank()) "where $pesquisarWhere" else ""
+        val strPesquisarOrderBy = if (!pesquisarOrderBy.isNullOrBlank()) "order by $pesquisarOrderBy" else ""
+
+        val jpql = "from ${entityClass.qualifiedName} $strPesquisarWhere $strPesquisarOrderBy"
         val query = em.createQuery(jpql, entityClass.java)
         antesDePesquisar(params, query)
 
