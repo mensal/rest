@@ -5,6 +5,7 @@ import org.apache.commons.lang.StringUtils.isEmpty
 import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
+import javax.persistence.TypedQuery
 import javax.transaction.Transactional
 import kotlin.reflect.KClass
 
@@ -23,12 +24,15 @@ abstract class CrudDAO<E : Any> {
 
     protected open fun pesquisarOrderBy(params: Map<String, String>) = ""
 
+    protected open fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {}
+
     open fun pesquisar(params: Map<String, String> = emptyMap()): List<E> {
         val pesquisarWhere = pesquisarWhere(params)
         val pesquisarOrderBy = pesquisarOrderBy(params)
 
         val jpql = " select e from ${entityClass.qualifiedName} e" + (if (!isEmpty(pesquisarWhere)) " where $pesquisarWhere" else "") + (if (!isEmpty(pesquisarOrderBy)) " order by $pesquisarOrderBy" else "")
         val query = em.createQuery(jpql, entityClass.java)
+        antesDePesquisar(params, query)
 
         return query.resultList
     }

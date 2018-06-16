@@ -5,11 +5,7 @@ import core.entity.PagamentoDiarista
 import java.math.BigDecimal
 import javax.enterprise.inject.spi.CDI
 
-open class PagamentoDiaristaDAO protected constructor() : CrudDAO<PagamentoDiarista>() {
-
-    override fun pesquisarWhere(params: Map<String, String>) = "year(data) = ${params["ano"]} and month(data) = ${params["mes"]}"
-
-    override fun pesquisarOrderBy(params: Map<String, String>) = "data asc"
+open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<PagamentoDiarista>() {
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""

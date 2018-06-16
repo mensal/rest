@@ -10,7 +10,6 @@ import rest.UnprocessableEntityException
 import rest.data.ReqData
 import rest.data.ResData
 import rest.security.Logado
-import java.net.URLEncoder
 import java.util.*
 import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
@@ -55,10 +54,9 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     @Produces("application/json")
     open fun pesquisar(@Context uriInfo: UriInfo): List<RES>? {
         val params = mutableMapOf<String, String>()
-        uriInfo.queryParameters.forEach { params[it.key] = URLEncoder.encode(it.value.first(), "utf-8") }
+        uriInfo.queryParameters.forEach { params[it.key] = it.value.first() }
 
         valida(params)
-
         lancarExcecaoSeNecessario()
 
         var persistidos = dao.pesquisar(params)
