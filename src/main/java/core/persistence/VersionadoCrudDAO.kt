@@ -16,7 +16,7 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
             criterios.add("atualizado_em > :atualizado_apos")
         }
 
-        return criterios.joinToString(" and ")
+        return if (criterios.isEmpty()) null else criterios.joinToString(" and ")
     }
 
     override fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<V>) {

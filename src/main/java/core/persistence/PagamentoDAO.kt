@@ -17,7 +17,7 @@ open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCr
             criterios.add("month(data) = :mes")
         }
 
-        return criterios.joinToString(" and ")
+        return if (criterios.isEmpty()) null else criterios.joinToString(" and ")
     }
 
     override fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {
