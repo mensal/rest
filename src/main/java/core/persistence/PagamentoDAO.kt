@@ -5,9 +5,9 @@ import javax.persistence.TypedQuery
 
 open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCrudDAO<E>() {
 
-    override fun pesquisarWhere(params: Map<String, String>): String? {
-        var criterios = mutableListOf<String?>()
-        super.pesquisarWhere(params)?.let { criterios.add(it) }
+    override fun pesquisarWhere(params: Map<String, String>): String {
+        var criterios = mutableListOf<String>()
+        super.pesquisarWhere(params).let { if (it.isNotBlank()) criterios.add(it) }
 
         if (params.containsKey("ano")) {
             criterios.add("year(data) = :ano")
@@ -17,7 +17,7 @@ open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCr
             criterios.add("month(data) = :mes")
         }
 
-        return if (criterios.isEmpty()) null else criterios.joinToString(" and ")
+        return criterios.let { if (it.isEmpty()) "" else criterios.joinToString(" and ") }
     }
 
     override fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {

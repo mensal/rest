@@ -19,9 +19,9 @@ abstract class CrudDAO<E : Any> {
 
     open fun obter(id: UUID): E? = em.find(entityClass.java, id)
 
-    protected open fun pesquisarWhere(params: Map<String, String>): String? = null
+    protected open fun pesquisarWhere(params: Map<String, String>): String = ""
 
-    protected open fun pesquisarOrderBy(params: Map<String, String>): String? = null
+    protected open fun pesquisarOrderBy(params: Map<String, String>): String = ""
 
     protected open fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {}
 
@@ -29,8 +29,8 @@ abstract class CrudDAO<E : Any> {
         val pesquisarWhere = pesquisarWhere(params)
         val pesquisarOrderBy = pesquisarOrderBy(params)
 
-        val strPesquisarWhere = if (!pesquisarWhere.isNullOrBlank()) "where $pesquisarWhere" else ""
-        val strPesquisarOrderBy = if (!pesquisarOrderBy.isNullOrBlank()) "order by $pesquisarOrderBy" else ""
+        val strPesquisarWhere = if (pesquisarWhere.isNotBlank()) "where $pesquisarWhere" else ""
+        val strPesquisarOrderBy = if (pesquisarOrderBy.isNotBlank()) "order by $pesquisarOrderBy" else ""
 
         val jpql = "from ${entityClass.qualifiedName} $strPesquisarWhere $strPesquisarOrderBy"
         val query = em.createQuery(jpql, entityClass.java)

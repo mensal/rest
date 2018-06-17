@@ -17,7 +17,9 @@ class PagamentoCombustivelResData : PagamentoResData<PagamentoCombustivel, TipoD
     override fun preencherCom(entidade: PagamentoCombustivel?) {
         super.preencherCom(entidade)
 
-        odometro = entidade?.odometro
-        litros = entidade?.litros
+        if (excluidoEm == null) {
+            odometro = entidade?.odometro
+            litros = entidade?.litros
+        }
     }
 }

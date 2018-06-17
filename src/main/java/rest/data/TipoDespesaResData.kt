@@ -14,14 +14,20 @@ abstract class TipoDespesaResData<in E : TipoDespesa> : ResData<E> {
     @JsonProperty("atualizado_em")
     var atualizadoEm: ZonedDateTime? = null
 
+    @JsonProperty("excluido_em")
+    var excluidoEm: ZonedDateTime? = null
+
 //    var periodo: PeriodoResData? = null
 
     override fun preencherCom(entidade: E?) {
         id = entidade?.id
+        excluidoEm = entidade?.excluidoEm
 
+        if (excluidoEm == null) {
 //        if (periodo == null) periodo = PeriodoResData()
 //        periodo!!.preencherCom(entidade?.periodo)
 
-        atualizadoEm = entidade?.atualizadoEm
+            atualizadoEm = entidade?.atualizadoEm
+        }
     }
 }

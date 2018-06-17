@@ -11,6 +11,8 @@ class TipoDespesaCombustivelResData : TipoDespesaResData<TipoDespesaCombustivel>
     override fun preencherCom(entidade: TipoDespesaCombustivel?) {
         super.preencherCom(entidade)
 
-        veiculo = entidade?.veiculo
+        if (excluidoEm == null) {
+            veiculo = entidade?.veiculo
+        }
     }
 }

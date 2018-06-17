@@ -22,22 +22,29 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
     @JsonProperty("atualizado_em")
     var atualizadoEm: ZonedDateTime? = null
 
+    @JsonProperty("excluido_em")
+    var excluidoEm: ZonedDateTime? = null
+
     abstract fun novoTipoDespesaResponseData(): R
 
     override fun preencherCom(entidade: E?) {
         id = entidade?.id
-        data = entidade?.data
+        excluidoEm = entidade?.excluidoEm
 
-        if (tipo == null) tipo = novoTipoDespesaResponseData()
-        tipo?.preencherCom(entidade?.tipo)
+        if (excluidoEm == null) {
+            data = entidade?.data
 
-        if (valores == null) valores = mutableListOf()
-        valores = entidade?.valores?.map {
-            val data = UsuarioPagamentoResData()
-            data.preencherCom(it)
-            data
+            if (tipo == null) tipo = novoTipoDespesaResponseData()
+            tipo?.preencherCom(entidade?.tipo)
+
+            if (valores == null) valores = mutableListOf()
+            valores = entidade?.valores?.map {
+                val data = UsuarioPagamentoResData()
+                data.preencherCom(it)
+                data
+            }
+
+            atualizadoEm = entidade?.atualizadoEm
         }
-
-        atualizadoEm = entidade?.atualizadoEm
     }
 }

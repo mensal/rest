@@ -8,15 +8,19 @@ import javax.transaction.Transactional
 @Transactional
 abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
 
-    override fun pesquisarWhere(params: Map<String, String>): String? {
-        var criterios = mutableListOf<String?>()
-        super.pesquisarWhere(params)?.let { criterios.add(it) }
+    override fun pesquisarWhere(params: Map<String, String>): String {
+        var criterios = mutableListOf<String>()
+        super.pesquisarWhere(params).let { if (it.isNotBlank()) criterios.add(it) }
 
         if (params.containsKey("atualizado_apos")) {
             criterios.add("atualizado_em > :atualizado_apos")
         }
 
-        return if (criterios.isEmpty()) null else criterios.joinToString(" and ")
+        if (!params.containsKey("mostrar_excluidos") || !params["mostrar_excluidos"]!!.toBoolean()) {
+            criterios.add("excluido_em is null")
+        }
+
+        return criterios.let { if (it.isEmpty()) "" else criterios.joinToString(" and ") }
     }
 
     override fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<V>) {
@@ -28,4 +32,8 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
     }
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "atualizado_em asc"
+
+    override fun excluir(entidade: V) {
+        entidade.excluidoEm = ZonedDateTime.now()
+    }
 }

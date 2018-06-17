@@ -17,4 +17,7 @@ abstract class Versionado {
     @NotNull
     @Column(name = "atualizado_em", columnDefinition = "timestamp with time zone")
     var atualizadoEm: ZonedDateTime? = null
+
+    @Column(name = "excluido_em", columnDefinition = "timestamp with time zone")
+    var excluidoEm: ZonedDateTime? = null
 }

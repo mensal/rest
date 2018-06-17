@@ -16,9 +16,15 @@ class UsuarioResData : ResData<Usuario> {
     @JsonProperty("atualizado_em")
     var atualizadoEm: ZonedDateTime? = null
 
+    @JsonProperty("excluido_em")
+    var excluidoEm: ZonedDateTime? = null
+
     override fun preencherCom(entidade: Usuario?) {
         id = entidade?.id
-        nome = entidade?.nome
-        atualizadoEm = entidade?.atualizadoEm
+
+        if (excluidoEm == null) {
+            nome = entidade?.nome
+            atualizadoEm = entidade?.atualizadoEm
+        }
     }
 }

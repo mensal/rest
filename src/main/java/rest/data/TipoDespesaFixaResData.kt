@@ -13,7 +13,9 @@ class TipoDespesaFixaResData : TipoDespesaResData<TipoDespesaFixa>() {
     override fun preencherCom(entidade: TipoDespesaFixa?) {
         super.preencherCom(entidade)
 
-        nome = entidade?.nome
-        vencimento = entidade?.vencimento
+        if (excluidoEm == null) {
+            nome = entidade?.nome
+            vencimento = entidade?.vencimento
+        }
     }
 }
