@@ -6,7 +6,7 @@ import core.entity.Usuario
 import java.time.ZonedDateTime
 import java.util.*
 
-@JsonPropertyOrder("id", "nome", "atualizado_em")
+@JsonPropertyOrder("id", "nome", "atualizado_em", "excluido_em")
 class UsuarioResData : ResData<Usuario> {
 
     var id: UUID? = null
