@@ -2,6 +2,8 @@ package core.persistence
 
 import core.entity.Versionado
 import java.time.ZonedDateTime
+import java.util.*
+import javax.persistence.NoResultException
 import javax.persistence.TypedQuery
 import javax.transaction.Transactional
 
@@ -32,6 +34,18 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
     }
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "atualizado_em asc"
+
+    override fun obter(id: UUID): V? {
+        val jpql = "from ${entityClass.qualifiedName} where id = :id and excluidoEm is null"
+        val query = em.createQuery(jpql, entityClass.java)
+        query.setParameter("id", id)
+
+        return try {
+            query.singleResult
+        } catch (e: NoResultException) {
+            null
+        }
+    }
 
     override fun excluir(entidade: V) {
         entidade.excluidoEm = ZonedDateTime.now()
