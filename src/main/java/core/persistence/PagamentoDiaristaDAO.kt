@@ -16,6 +16,7 @@ open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<Pagamento
         jpql += "        PagamentoDiarista pd "
         jpql += "  where p.id = pd.id "
         jpql += "    and pd.data < :data "
+        jpql += "    and pd.excluidoEm is null "
 
         val query = em.createQuery(jpql, BigDecimal::class.java)
         query.setParameter("data", ultimoDia(ano, mes))
@@ -30,6 +31,7 @@ open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<Pagamento
         jpql += "   from PagamentoDiarista pd "
         jpql += "   join pd.tipo t "
         jpql += "  where pd.data < :data "
+        jpql += "    and pd.excluidoEm is null "
 
         val query = em.createQuery(jpql, BigDecimal::class.java)
         query.setParameter("data", ultimoDia(ano, mes))
