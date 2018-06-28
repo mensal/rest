@@ -15,11 +15,11 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
         super.pesquisarWhere(params).let { if (it.isNotBlank()) criterios.add(it) }
 
         if (params.containsKey("atualizado_apos")) {
-            criterios.add("atualizado_em > :atualizado_apos")
+            criterios.add("atualizadoEm > :atualizado_apos")
         }
 
         if (!params.containsKey("mostrar_excluidos") || !params["mostrar_excluidos"]!!.toBoolean()) {
-            criterios.add("excluido_em is null")
+            criterios.add("excluidoEm is null")
         }
 
         return criterios.let { if (it.isEmpty()) "" else criterios.joinToString(" and ") }
@@ -33,7 +33,7 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
         }
     }
 
-    override fun pesquisarOrderBy(params: Map<String, String>) = "atualizado_em asc"
+    override fun pesquisarOrderBy(params: Map<String, String>) = "atualizadoEm asc"
 
     override fun obter(id: UUID): V? {
         val jpql = "from ${entityClass.qualifiedName} where id = :id and excluidoEm is null"

@@ -32,5 +32,5 @@ open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCr
         }
     }
 
-    override fun pesquisarOrderBy(params: Map<String, String>) = "data asc, atualizado_em asc"
+    override fun pesquisarOrderBy(params: Map<String, String>) = "data asc, atualizadoEm asc"
 }
