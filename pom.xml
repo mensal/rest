@@ -188,7 +188,7 @@
     <properties>
         <kotlin.version>1.2.50</kotlin.version>
         <jackson.version>2.9.5</jackson.version>
-        <wildfly.version>10.1.0.Final</wildfly.version>
+        <wildfly.version>13.0.0.Final</wildfly.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
