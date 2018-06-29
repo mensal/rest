@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/despesas</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="mensal@localhost" uuid="89d9b0ef-352e-4c16-abcc-10858fc1c233">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/mensal</jdbc-url>
+    </data-source>
   </component>
 </project>
