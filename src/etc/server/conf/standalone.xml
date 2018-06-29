@@ -536,9 +536,4 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
-    <deployments>
-        <deployment name="ROOT" runtime-name="ROOT.war">
-            <fs-exploded path="/Users/zyc/Workspace/mensal/rest/target/ROOT"/>
-        </deployment>
-    </deployments>
 </server>
