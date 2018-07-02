@@ -9,6 +9,7 @@ import core.persistence.UsuarioPagamentoDAO
 import core.util.Reflections
 import rest.data.PagamentoReqData
 import rest.data.ResData
+import java.time.ZonedDateTime
 import javax.enterprise.inject.spi.CDI
 
 abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
@@ -44,6 +45,9 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
                 usuarioPagamentoDAO.inserirOuAtualizar(UsuarioPagamento(usuario, entidade, it.valor))
             }
         }
+
+        entidade.atualizadoEm = ZonedDateTime.now()
+        dao.atualizar(entidade)
 
         entidade.valores = usuarioPagamentoDAO.buscar(entidade)
     }
