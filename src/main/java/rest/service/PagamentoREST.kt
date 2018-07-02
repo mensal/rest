@@ -33,6 +33,7 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
     override fun depoisDePersistir(entidade: ENT, requestData: REQ) {
         val usuarioDAO = UsuarioDAO.instance()
         val usuarioPagamentoDAO = UsuarioPagamentoDAO.instance()
+        usuarioPagamentoDAO.excluir(entidade)
 
         requestData.valores.forEach {
             val usuario = usuarioDAO.obter(it.usuario.id)
