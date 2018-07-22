@@ -22,9 +22,9 @@ class UsuarioResData : ResData<Usuario> {
     override fun preencherCom(entidade: Usuario?) {
         id = entidade?.id
 
-        if (excluidoEm == null) {
+//        if (excluidoEm == null) {
             nome = entidade?.nome
             atualizadoEm = entidade?.atualizadoEm
-        }
+//        }
     }
 }

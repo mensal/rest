@@ -14,8 +14,8 @@ class PagamentoDiversaResData : PagamentoResData<PagamentoDiversa, TipoDespesaDi
     override fun preencherCom(entidade: PagamentoDiversa?) {
         super.preencherCom(entidade)
 
-        if (excluidoEm == null) {
+//        if (excluidoEm == null) {
             observacao = entidade?.observacao
-        }
+//        }
     }
 }

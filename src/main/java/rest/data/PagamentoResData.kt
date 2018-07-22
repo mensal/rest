@@ -31,7 +31,7 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
         id = entidade?.id
         excluidoEm = entidade?.excluidoEm
 
-        if (excluidoEm == null) {
+//        if (excluidoEm == null) {
             data = entidade?.data
 
             if (tipo == null) tipo = novoTipoDespesaResponseData()
@@ -45,6 +45,6 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
             }
 
             atualizadoEm = entidade?.atualizadoEm
-        }
+//        }
     }
 }

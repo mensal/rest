@@ -23,11 +23,11 @@ abstract class TipoDespesaResData<in E : TipoDespesa> : ResData<E> {
         id = entidade?.id
         excluidoEm = entidade?.excluidoEm
 
-        if (excluidoEm == null) {
+//        if (excluidoEm == null) {
 //        if (periodo == null) periodo = PeriodoResData()
 //        periodo!!.preencherCom(entidade?.periodo)
 
             atualizadoEm = entidade?.atualizadoEm
         }
-    }
+//    }
 }
