@@ -49,5 +49,6 @@ abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
 
     override fun excluir(entidade: V) {
         entidade.excluidoEm = ZonedDateTime.now()
+        entidade.atualizadoEm = entidade.excluidoEm
     }
 }
