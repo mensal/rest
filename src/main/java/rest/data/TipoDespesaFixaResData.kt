@@ -14,8 +14,8 @@ class TipoDespesaFixaResData : TipoDespesaResData<TipoDespesaFixa>() {
         super.preencherCom(entidade)
 
 //        if (excluidoEm == null) {
-            nome = entidade?.nome
-            vencimento = entidade?.vencimento
+        nome = entidade?.nome
+        vencimento = entidade?.vencimento
 //        }
     }
 }

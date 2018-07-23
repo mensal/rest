@@ -137,13 +137,19 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     @DELETE
     @Logado
     @Path("{id: $uuidRegex}")
+    @Produces("application/json")
     @Transactional(rollbackOn = [Throwable::class])
-    open fun deletar(@PathParam("id") id: UUID) {
+    open fun deletar(@PathParam("id") id: UUID): RES {
         val persistido = carregar(id)
 
         antesDeExcluir(persistido)
         dao.excluir(persistido)
         lancarExcecaoSeNecessario()
+
+        val responseData = novoResponseData()
+        responseData.preencherCom(persistido)
+
+        return responseData
     }
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()

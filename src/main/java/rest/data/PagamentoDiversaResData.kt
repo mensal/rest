@@ -15,7 +15,7 @@ class PagamentoDiversaResData : PagamentoResData<PagamentoDiversa, TipoDespesaDi
         super.preencherCom(entidade)
 
 //        if (excluidoEm == null) {
-            observacao = entidade?.observacao
+        observacao = entidade?.observacao
 //        }
     }
 }

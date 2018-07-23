@@ -32,19 +32,19 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
         excluidoEm = entidade?.excluidoEm
 
 //        if (excluidoEm == null) {
-            data = entidade?.data
+        data = entidade?.data
 
-            if (tipo == null) tipo = novoTipoDespesaResponseData()
-            tipo?.preencherCom(entidade?.tipo)
+        if (tipo == null) tipo = novoTipoDespesaResponseData()
+        tipo?.preencherCom(entidade?.tipo)
 
-            if (valores == null) valores = mutableListOf()
-            valores = entidade?.valores?.map {
-                val data = UsuarioPagamentoResData()
-                data.preencherCom(it)
-                data
-            }
+        if (valores == null) valores = mutableListOf()
+        valores = entidade?.valores?.map {
+            val data = UsuarioPagamentoResData()
+            data.preencherCom(it)
+            data
+        }
 
-            atualizadoEm = entidade?.atualizadoEm
+        atualizadoEm = entidade?.atualizadoEm
 //        }
     }
 }

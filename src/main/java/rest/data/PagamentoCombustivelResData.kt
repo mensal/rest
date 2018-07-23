@@ -18,8 +18,8 @@ class PagamentoCombustivelResData : PagamentoResData<PagamentoCombustivel, TipoD
         super.preencherCom(entidade)
 
 //        if (excluidoEm == null) {
-            odometro = entidade?.odometro
-            litros = entidade?.litros
+        odometro = entidade?.odometro
+        litros = entidade?.litros
 //        }
     }
 }

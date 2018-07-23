@@ -13,7 +13,7 @@ class TipoDespesaDiaristaResData : TipoDespesaResData<TipoDespesaDiarista>() {
         super.preencherCom(entidade)
 
 //        if (excluidoEm == null) {
-            valor = entidade?.valor
+        valor = entidade?.valor
 //        }
     }
 }

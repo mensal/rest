@@ -27,7 +27,7 @@ abstract class TipoDespesaResData<in E : TipoDespesa> : ResData<E> {
 //        if (periodo == null) periodo = PeriodoResData()
 //        periodo!!.preencherCom(entidade?.periodo)
 
-            atualizadoEm = entidade?.atualizadoEm
-        }
+        atualizadoEm = entidade?.atualizadoEm
+    }
 //    }
 }

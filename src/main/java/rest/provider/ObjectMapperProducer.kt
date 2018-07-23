@@ -21,7 +21,6 @@ class ObjectMapperProducer private constructor() {
 
         val objectMapper = ObjectMapper()
         with(objectMapper) {
-            //            registerModule(module)
             registerModule(JavaTimeModule())
 
             configure(INDENT_OUTPUT, true)

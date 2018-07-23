@@ -12,7 +12,7 @@ class TipoDespesaCombustivelResData : TipoDespesaResData<TipoDespesaCombustivel>
         super.preencherCom(entidade)
 
 //        if (excluidoEm == null) {
-            veiculo = entidade?.veiculo
+        veiculo = entidade?.veiculo
 //        }
     }
 }

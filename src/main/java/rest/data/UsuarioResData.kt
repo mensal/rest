@@ -23,8 +23,8 @@ class UsuarioResData : ResData<Usuario> {
         id = entidade?.id
 
 //        if (excluidoEm == null) {
-            nome = entidade?.nome
-            atualizadoEm = entidade?.atualizadoEm
+        nome = entidade?.nome
+        atualizadoEm = entidade?.atualizadoEm
 //        }
     }
 }
