@@ -149,8 +149,8 @@
                         <flush-strategy>IdleConnections</flush-strategy>
                     </pool>
                     <security>
-                        <user-name>postgres</user-name>
-                        <password>postgres</password>
+                        <user-name>${mensal.db.usr}</user-name>
+                        <password>${mensal.db.pwd}</password>
                     </security>
                     <validation>
                         <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>

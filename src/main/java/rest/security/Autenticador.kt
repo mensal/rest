@@ -36,7 +36,7 @@ open class Autenticador protected constructor() {
                 .compact()
     }
 
-    private fun chave() = Base64.getEncoder().encodeToString(System.getenv("AUTENTICACAO_CHAVE_JWT").toByteArray())
+    private fun chave() = Base64.getEncoder().encodeToString(System.getProperty("mensal.jwt.key").toByteArray())
 
     companion object {
 
