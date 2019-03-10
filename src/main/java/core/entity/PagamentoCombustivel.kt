@@ -13,8 +13,8 @@ open class PagamentoCombustivel : Pagamento<TipoDespesaCombustivel>() {
     @JoinColumn(name = "id_tipo")
     override var tipo: TipoDespesaCombustivel? = null
 
-    var odometro: Int? = null
+    open var odometro: Int? = null
 
     @Column(precision = 6, scale = 3)
-    var litros: BigDecimal? = null
+    open var litros: BigDecimal? = null
 }

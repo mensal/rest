@@ -10,9 +10,9 @@ import javax.validation.constraints.NotNull
 open class Usuario : Versionado() {
 
     @NotNull
-    var nome: String? = null
+    open var nome: String? = null
 
     @Email
     @NotNull
-    var email: String? = null
+    open var email: String? = null
 }

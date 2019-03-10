@@ -15,5 +15,5 @@ open class PagamentoDiversa : Pagamento<TipoDespesaDiversa>() {
     @JoinColumn(name = "id_tipo")
     override var tipo: TipoDespesaDiversa? = null
 
-    var observacao: String? = null
+    open var observacao: String? = null
 }

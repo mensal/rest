@@ -15,12 +15,12 @@ import javax.validation.constraints.NotNull
 abstract class Pagamento<T : TipoDespesa> : Versionado() {
 
     @NotNull
-    var data: LocalDate? = null
+    open var data: LocalDate? = null
 
     abstract var tipo: T?
 
     @Transient
-    var valores: List<UsuarioPagamento>? = null
+    open var valores: List<UsuarioPagamento>? = null
 
     companion object {
         fun primeiroDia(ano: Int, mes: Int) = LocalDate.of(ano, mes, 1)!!

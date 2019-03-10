@@ -24,7 +24,7 @@ open class UsuarioPagamento() {
 
     @NotNull
     @Column(precision = 8, scale = 2)
-    var valor: BigDecimal? = null
+    open var valor: BigDecimal? = null
 
     constructor(usuario: Usuario, pagamento: Pagamento<*>?, valor: BigDecimal) : this() {
         this.usuario = usuario

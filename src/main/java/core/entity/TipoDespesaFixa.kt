@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull
 open class TipoDespesaFixa : TipoDespesa() {
 
     @NotNull
-    var nome: String? = null
+    open var nome: String? = null
 
     @NotNull
-    var vencimento: Int? = null
+    open var vencimento: Int? = null
 }
