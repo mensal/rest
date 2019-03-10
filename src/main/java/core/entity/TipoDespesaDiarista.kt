@@ -12,5 +12,5 @@ open class TipoDespesaDiarista : TipoDespesa() {
 
     @NotNull
     @Column(precision = 8, scale = 2)
-    var valor: BigDecimal? = null
+    open var valor: BigDecimal? = null
 }
