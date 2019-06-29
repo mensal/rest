@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.1" last-position="164,0" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<role name="mensal"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<database name="mensal" encoding="UTF8" lc-collate="en_GB.UTF-8" lc-ctype="en_GB.UTF-8" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="pagamento">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="65" y="188"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="atualizado_em" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="excluido_em">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="data" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="pagamento_pkey" type="pk-constr" table="public.pagamento">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pagamento_combustivel">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="464" y="426"/>
+	<column name="litros">
+		<type name="numeric" length="6" precision="3"/>
+	</column>
+	<column name="odometro">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="id_tipo" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="pagamento_combustivel_pkey" type="pk-constr" table="public.pagamento_combustivel">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pagamento_diarista">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="464" y="306"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="id_tipo" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="pagamento_diarista_pkey" type="pk-constr" table="public.pagamento_diarista">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pagamento_diversa">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="464" y="166"/>
+	<column name="observacao">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="id_tipo" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="pagamento_diversa_pkey" type="pk-constr" table="public.pagamento_diversa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="pagamento_fixa">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="464" y="27"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="id_tipo">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="pagamento_fixa_pkey" type="pk-constr" table="public.pagamento_fixa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_despesa">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="1250" y="234"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="atualizado_em" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="excluido_em">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<constraint name="tipo_despesa_pkey" type="pk-constr" table="public.tipo_despesa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_despesa_combustivel">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="865" y="448"/>
+	<column name="veiculo" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="tipo_despesa_combustivel_pkey" type="pk-constr" table="public.tipo_despesa_combustivel">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_despesa_diarista">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="864" y="308"/>
+	<column name="valor" not-null="true">
+		<type name="numeric" length="8" precision="2"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="tipo_despesa_diarista_pkey" type="pk-constr" table="public.tipo_despesa_diarista">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_despesa_diversa">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="864" y="178"/>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="tipo_despesa_diversa_pkey" type="pk-constr" table="public.tipo_despesa_diversa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tipo_despesa_fixa">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="865" y="15"/>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="vencimento" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<constraint name="tipo_despesa_fixa_pkey" type="pk-constr" table="public.tipo_despesa_fixa">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuario">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="65" y="509"/>
+	<column name="id" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="atualizado_em" not-null="true">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="excluido_em">
+		<type name="timestamp with time zone" length="0" with-timezone="true"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="nome" not-null="true">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="usuario_pkey" type="pk-constr" table="public.usuario">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="usuario_pagamento">
+	<schema name="public"/>
+	<role name="mensal"/>
+	<position x="66" y="346"/>
+	<column name="id_pagamento" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="id_usuario" not-null="true">
+		<type name="uuid" length="0"/>
+	</column>
+	<column name="valor" not-null="true">
+		<type name="numeric" length="8" precision="2"/>
+	</column>
+	<constraint name="usuario_pagamento_pkey" type="pk-constr" table="public.usuario_pagamento">
+		<columns names="id_pagamento,id_usuario" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<constraint name="fkpqw462c1sc09m3mg1vg2ilo7s" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa_combustivel" table="public.pagamento_combustivel">
+	<columns names="id_tipo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkrmrbkbeiwwg99iuixj06mcg48" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pagamento" table="public.pagamento_combustivel">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkx2fdxiq77s92wyalxs0mtxc2" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa_diarista" table="public.pagamento_diarista">
+	<columns names="id_tipo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fklx7g5pdoll1k8bh3yj8ldpy7r" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pagamento" table="public.pagamento_diarista">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkcwy6thwx8le05x1coxip5rdlg" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa_diversa" table="public.pagamento_diversa">
+	<columns names="id_tipo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk7ym7a8rb4pghvu8w027eaadb9" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pagamento" table="public.pagamento_diversa">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk8xglnx5np5lrlhcnm9ctrea4f" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa_fixa" table="public.pagamento_fixa">
+	<columns names="id_tipo" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk2fyphoa1i34i2g7vbp79wqtk3" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pagamento" table="public.pagamento_fixa">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk36v90nr5clgwl20k2ie7d5386" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa" table="public.tipo_despesa_combustivel">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk2w7my6rf32qi5ei1b74e8u7pq" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa" table="public.tipo_despesa_diarista">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fki4hwxwwu8gownjrnuuufmlarw" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa" table="public.tipo_despesa_diversa">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fk3lapw0lfoe1lu9nwfedrgjpd0" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipo_despesa" table="public.tipo_despesa_fixa">
+	<columns names="id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkf7l1s8s4yapeapu15llkq55ub" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.pagamento" table="public.usuario_pagamento">
+	<columns names="id_pagamento" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="fkeiw20d8ijjofe5s8lxxhqn05h" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.usuario" table="public.usuario_pagamento">
+	<columns names="id_usuario" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="rel_pagamento_combustivel_tipo_despesa_combustivel" type="relfk"
+	 custom-color="#0a268e"
+	 src-table="public.pagamento_combustivel"
+	 dst-table="public.tipo_despesa_combustivel" reference-fk="fkpqw462c1sc09m3mg1vg2ilo7s"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_combustivel_pagamento" type="relfk"
+	 custom-color="#ca8900"
+	 src-table="public.pagamento_combustivel"
+	 dst-table="public.pagamento" reference-fk="fkrmrbkbeiwwg99iuixj06mcg48"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_diarista_tipo_despesa_diarista" type="relfk"
+	 custom-color="#565206"
+	 src-table="public.pagamento_diarista"
+	 dst-table="public.tipo_despesa_diarista" reference-fk="fkx2fdxiq77s92wyalxs0mtxc2"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_diarista_pagamento" type="relfk"
+	 custom-color="#b812ce"
+	 src-table="public.pagamento_diarista"
+	 dst-table="public.pagamento" reference-fk="fklx7g5pdoll1k8bh3yj8ldpy7r"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_diversa_tipo_despesa_diversa" type="relfk"
+	 custom-color="#7b3cd2"
+	 src-table="public.pagamento_diversa"
+	 dst-table="public.tipo_despesa_diversa" reference-fk="fkcwy6thwx8le05x1coxip5rdlg"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_diversa_pagamento" type="relfk"
+	 custom-color="#f6964e"
+	 src-table="public.pagamento_diversa"
+	 dst-table="public.pagamento" reference-fk="fk7ym7a8rb4pghvu8w027eaadb9"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_fixa_tipo_despesa_fixa" type="relfk"
+	 custom-color="#d0f268"
+	 src-table="public.pagamento_fixa"
+	 dst-table="public.tipo_despesa_fixa" reference-fk="fk8xglnx5np5lrlhcnm9ctrea4f"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_pagamento_fixa_pagamento" type="relfk"
+	 custom-color="#5033dc"
+	 src-table="public.pagamento_fixa"
+	 dst-table="public.pagamento" reference-fk="fk2fyphoa1i34i2g7vbp79wqtk3"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tipo_despesa_combustivel_tipo_despesa" type="relfk"
+	 custom-color="#6ec037"
+	 src-table="public.tipo_despesa_combustivel"
+	 dst-table="public.tipo_despesa" reference-fk="fk36v90nr5clgwl20k2ie7d5386"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tipo_despesa_diarista_tipo_despesa" type="relfk"
+	 custom-color="#0d0fe4"
+	 src-table="public.tipo_despesa_diarista"
+	 dst-table="public.tipo_despesa" reference-fk="fk2w7my6rf32qi5ei1b74e8u7pq"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tipo_despesa_diversa_tipo_despesa" type="relfk"
+	 custom-color="#58aad6"
+	 src-table="public.tipo_despesa_diversa"
+	 dst-table="public.tipo_despesa" reference-fk="fki4hwxwwu8gownjrnuuufmlarw"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_tipo_despesa_fixa_tipo_despesa" type="relfk"
+	 custom-color="#ff2693"
+	 src-table="public.tipo_despesa_fixa"
+	 dst-table="public.tipo_despesa" reference-fk="fk3lapw0lfoe1lu9nwfedrgjpd0"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_usuario_pagamento_pagamento" type="relfk"
+	 custom-color="#2a8b68"
+	 src-table="public.usuario_pagamento"
+	 dst-table="public.pagamento" reference-fk="fkf7l1s8s4yapeapu15llkq55ub"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_usuario_pagamento_usuario" type="relfk"
+	 custom-color="#7bfce9"
+	 src-table="public.usuario_pagamento"
+	 dst-table="public.usuario" reference-fk="fkeiw20d8ijjofe5s8lxxhqn05h"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

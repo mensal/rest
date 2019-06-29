@@ -12,6 +12,9 @@ abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
     lateinit var data: LocalDate
 
     @Valid
+    lateinit var coordenada: CoordenadaReqData
+
+    @Valid
     @NotNull
     lateinit var tipo: IdReqData
 

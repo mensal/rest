@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="despesas@localhost" uuid="9b63b252-baef-4646-a40c-ba010ba358a9">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/despesas</jdbc-url>
-    </data-source>
-    <data-source source="LOCAL" name="mensal@localhost" uuid="89d9b0ef-352e-4c16-abcc-10858fc1c233">
+    <data-source source="LOCAL" name="local" uuid="89d9b0ef-352e-4c16-abcc-10858fc1c233">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

@@ -2,11 +2,8 @@ package core.entity
 
 import java.time.LocalDate
 import java.time.YearMonth
-import javax.persistence.Entity
-import javax.persistence.Inheritance
+import javax.persistence.*
 import javax.persistence.InheritanceType.JOINED
-import javax.persistence.Table
-import javax.persistence.Transient
 import javax.validation.constraints.NotNull
 
 @Entity
@@ -16,6 +13,10 @@ abstract class Pagamento<T : TipoDespesa> : Versionado() {
 
     @NotNull
     open var data: LocalDate? = null
+
+    @NotNull
+    @Embedded
+    var coordenada: Coordenada? = null
 
     abstract var tipo: T?
 
