@@ -1,5 +1,6 @@
 package rest.data
 
+import core.entity.Coordenada
 import core.entity.Pagamento
 import org.hibernate.validator.constraints.NotEmpty
 import java.time.LocalDate
@@ -24,5 +25,11 @@ abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
 
     override fun escreverEm(entidade: E) {
         entidade.data = data
+
+        if (entidade.coordenada == null) {
+            entidade.coordenada = Coordenada()
+        }
+
+        coordenada.escreverEm(entidade.coordenada!!)
     }
 }
