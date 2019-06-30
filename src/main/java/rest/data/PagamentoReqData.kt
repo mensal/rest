@@ -13,7 +13,7 @@ abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
     lateinit var data: LocalDate
 
     @Valid
-    lateinit var coordenada: CoordenadaReqData
+    var coordenada: CoordenadaReqData? = null
 
     @Valid
     @NotNull
@@ -30,6 +30,6 @@ abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
             entidade.coordenada = Coordenada()
         }
 
-        coordenada.escreverEm(entidade.coordenada!!)
+        coordenada?.escreverEm(entidade.coordenada!!)
     }
 }
