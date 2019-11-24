@@ -276,13 +276,13 @@
             <bean-validation enabled="true"/>
             <default-workmanager>
                 <short-running-threads>
-                    <core-threads count="50"/>
+                    <app.core-threads count="50"/>
                     <queue-length count="50"/>
                     <max-threads count="50"/>
                     <keepalive-time time="10" unit="seconds"/>
                 </short-running-threads>
                 <long-running-threads>
-                    <core-threads count="50"/>
+                    <app.core-threads count="50"/>
                     <queue-length count="50"/>
                     <max-threads count="50"/>
                     <keepalive-time time="10" unit="seconds"/>
@@ -356,11 +356,11 @@
             </security-domains>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:transactions:3.0">
-            <core-environment>
+            <app.core-environment>
                 <process-id>
                     <uuid/>
                 </process-id>
-            </core-environment>
+            </app.core-environment>
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:undertow:3.1">

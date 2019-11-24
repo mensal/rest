@@ -8,11 +8,20 @@
     <artifactId>mensal-rest</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <packaging>war</packaging>
+    <!--<packaging>war</packaging>-->
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.1.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
     <build>
-        <finalName>ROOT</finalName>
+        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <!--<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>-->
         <plugins>
+            <!--
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
@@ -42,12 +51,12 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.version}</version>
                 <executions>
-                    <!-- Replacing default-compile as it is treated specially by maven -->
+                    Replacing default-compile as it is treated specially by maven
                     <execution>
                         <id>default-compile</id>
                         <phase>none</phase>
                     </execution>
-                    <!-- Replacing default-testCompile as it is treated specially by maven -->
+                    Replacing default-testCompile as it is treated specially by maven
                     <execution>
                         <id>default-testCompile</id>
                         <phase>none</phase>
@@ -69,9 +78,34 @@
                     </execution>
                 </executions>
             </plugin>
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
+                <configuration>
+                    <args>
+                        <arg>-Xjsr305=strict</arg>
+                    </args>
+                    <compilerPlugins>
+                        <plugin>spring</plugin>
+                    </compilerPlugins>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
 
+            <!--
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -83,17 +117,72 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+            -->
 
     <dependencies>
+        <!-- Spring Boot -->
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
         <!-- JEE 7 -->
+        <!--
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.joinfaces</groupId>
+            <artifactId>weld-spring-boot-starter</artifactId>
+            <version>4.1.1</version>
+        </dependency>
+        -->
+
+        <!-- RESTEasy -->
+        <!--
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.1</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-spring-boot-starter</artifactId>
+            <version>4.3.0.Final</version>
+        </dependency>
+        -->
 
         <!-- Jackson -->
+        <!--
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
@@ -104,20 +193,30 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>${jackson.version}</version>
         </dependency>
+        -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <!--<version>${jackson.version}</version>-->
+        </dependency>
 
         <!-- CORS -->
+        <!--
         <dependency>
             <groupId>com.thetransactioncompany</groupId>
             <artifactId>cors-filter</artifactId>
             <version>2.6</version>
         </dependency>
+        -->
 
         <!-- GZIP -->
+        <!--
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
             <version>4.0.4</version>
         </dependency>
+        -->
 
         <!-- Logger -->
         <!--
@@ -129,20 +228,36 @@
         -->
 
         <!-- Apache Commons -->
+        <!--
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+        -->
 
-        <!-- Hibernate -->
+        <!-- Validation -->
+        <!--
+        -->
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <!--
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <scope>provided</scope>
+        </dependency>
+        -->
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-validator-provider</artifactId>
+            <version>${resteasy.version}</version>
         </dependency>
 
         <!-- JWT -->
+        <!--
+        -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
@@ -150,23 +265,33 @@
         </dependency>
 
         <!-- Kotlin -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.jetbrains.kotlin</groupId>-->
+            <!--<artifactId>kotlin-stdlib</artifactId>-->
+            <!--<version>${kotlin.version}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
+            <!--<version>${kotlin.version}</version>-->
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-reflect</artifactId>
-            <version>${kotlin.version}</version>
+            <!--<version>${kotlin.version}</version>-->
+        </dependency>
+
+        <!-- Database -->
+        <!--
+        -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <!-- Tests -->
+        <!--
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -185,19 +310,29 @@
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
+        -->
     </dependencies>
 
     <properties>
-        <kotlin.version>1.3.40</kotlin.version>
-        <jackson.version>2.9.5</jackson.version>
-        <wildfly.version>13.0.0.Final</wildfly.version>
+        <java.version>1.8</java.version>
+        <kotlin.version>1.3.50</kotlin.version>
+        <jackson.version>2.10.1</jackson.version>
+        <resteasy.version>4.4.0.Final</resteasy.version>
 
+        <!--
+        <wildfly.version>13.0.0.Final</wildfly.version>
+        -->
+
+        <!--
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.version>3.7.0</maven.compiler.version>
+        -->
 
+        <!--
         <kotlin.compiler.incremental>false</kotlin.compiler.incremental>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        -->
     </properties>
 </project>
 
