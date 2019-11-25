@@ -1,11 +1,12 @@
-//package app.core.persistence
-//
-//import app.core.entity.PagamentoDiversa
+package app.core.persistence
+
+import app.core.entity.PagamentoDiversa
+
 //import javax.enterprise.inject.spi.CDI
-//
-//open class PagamentoDiversaDAO protected constructor() : PagamentoDAO<PagamentoDiversa>() {
-//
+
+class PagamentoDiversaDAO protected constructor() : PagamentoDAO<PagamentoDiversa>() {
+
 //    companion object {
 //        fun instance() = CDI.current().select(PagamentoDiversaDAO::class.java).get()!!
 //    }
-//}
+}

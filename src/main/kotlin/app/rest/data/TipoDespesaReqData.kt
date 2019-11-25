@@ -1,14 +1,14 @@
-//package app.rest.data
-//
-//import app.core.entity.TipoDespesa
-//
-//abstract class TipoDespesaReqData<E : TipoDespesa> : ReqData<E> {
-//
-////    @NotNull
-////    lateinit var periodo: PeriodoReqData
-//
-//    override fun escreverEm(entidade: E) {
-////        if (entidade.periodo == null) entidade.periodo = Periodo()
-////        periodo.escreverEm(entidade.periodo!!)
-//    }
-//}
+package app.rest.data
+
+import app.core.entity.TipoDespesa
+
+abstract class TipoDespesaReqData<E : TipoDespesa> : ReqData<E> {
+
+//    @NotNull
+//    lateinit var periodo: PeriodoReqData
+
+    override fun escreverEm(entidade: E) {
+//        if (entidade.periodo == null) entidade.periodo = Periodo()
+//        periodo.escreverEm(entidade.periodo!!)
+    }
+}

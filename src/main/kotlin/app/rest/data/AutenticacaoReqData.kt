@@ -14,17 +14,7 @@ class AutenticacaoReqData : ReqData<Usuario> {
     @NotBlank
     lateinit var senha: String
 
-    @Valid
-    @NotNull
-    lateinit var x: X
-
     override fun escreverEm(entidade: Usuario) {
         entidade.email = login
     }
-}
-
-class X {
-
-    @NotBlank
-    lateinit var y: String
 }

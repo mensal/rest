@@ -2,36 +2,31 @@ package app.rest.security
 
 import app.core.entity.Usuario
 import app.core.persistence.UsuarioDAO
+import app.rest.UnauthorizedException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import app.rest.UnauthorizedException
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
 
-//import javax.enterprise.context.RequestScoped
-//import javax.enterprise.inject.spi.CDI
-
 @Component
-//@Scope()
 class Autenticador protected constructor() {
 
     @Autowired
     lateinit var usuarioDAO: UsuarioDAO
 
-    open var logado: Usuario? = null
+    var logado: Usuario? = null
 
-    open fun autenticar(token: String) {
+    fun autenticar(token: String) {
         val claims = Jwts.parser().setSigningKey(chave()).parseClaimsJws(token)
 
         val id = UUID.fromString(claims.body.subject)
         logado = usuarioDAO.obter(id) ?: throw UnauthorizedException()
     }
 
-    open fun autenticar(login: String, senha: String): String {
+    fun autenticar(login: String, senha: String): String {
         val usuario = usuarioDAO.obter(login) ?: throw UnauthorizedException()
 
         return Jwts.builder()
@@ -45,9 +40,4 @@ class Autenticador protected constructor() {
     }
 
     private fun chave() = Base64.getEncoder().encodeToString(System.getenv("MENSAL_JWT_KEY").toByteArray())
-
-//    companion object {
-//
-//        fun instance() = CDI.current().select(Autenticador::class.java).get()!!
-//    }
 }

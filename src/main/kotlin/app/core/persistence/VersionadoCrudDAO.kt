@@ -1,11 +1,12 @@
 package app.core.persistence
 
 import app.core.entity.Versionado
+import org.springframework.transaction.annotation.Transactional
 import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.NoResultException
 import javax.persistence.TypedQuery
-import javax.transaction.Transactional
+
 
 @Transactional
 abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
