@@ -2,6 +2,7 @@ package app.core.persistence
 
 import app.core.entity.Pagamento.Companion.primeiroDia
 import app.core.entity.UsuarioResumoPagamento
+import app.core.util.autowired
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.transaction.annotation.Transactional
 import java.math.BigDecimal
@@ -15,8 +16,8 @@ class UsuarioResumoPagamentoDAO protected constructor() {
     @PersistenceContext
     private lateinit var em: EntityManager
 
-    @Autowired
-    private lateinit var usuarioDAO: UsuarioDAO
+//    @Autowired
+//    private lateinit var usuarioDAO: UsuarioDAO
 
     fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
 
@@ -25,7 +26,7 @@ class UsuarioResumoPagamentoDAO protected constructor() {
 
         val menor: BigDecimal = atual?.map { it.anterior }?.min() ?: ZERO
 //        val usuarios = UsuarioDAO.instance().pesquisar()
-        val usuarios = usuarioDAO.pesquisar()
+        val usuarios = autowired(UsuarioDAO::class).pesquisar()
 
         return usuarios.map { u ->
             UsuarioResumoPagamento(u,

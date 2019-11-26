@@ -1,5 +1,6 @@
 package app.rest.service
 
+import app.core.util.autowired
 import app.rest.data.AutenticacaoReqData
 import app.rest.security.Autenticador
 import org.springframework.beans.factory.annotation.Autowired
@@ -13,9 +14,9 @@ import javax.validation.Valid
 @RequestMapping("api/autenticacao")
 class AutenticacaoREST {
 
-    @Autowired
-    lateinit var autenticador: Autenticador
+//    @Autowired
+//    lateinit var autenticador:
 
     @PostMapping(produces = ["application/jwt"])
-    fun autenticar(@RequestBody @Valid data: AutenticacaoReqData) = autenticador.autenticar(data.login, data.senha)
+    fun autenticar(@RequestBody @Valid data: AutenticacaoReqData) = autowired(Autenticador::class).autenticar(data.login, data.senha)
 }

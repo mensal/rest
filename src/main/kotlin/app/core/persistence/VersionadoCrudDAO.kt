@@ -1,6 +1,7 @@
 package app.core.persistence
 
 import app.core.entity.Versionado
+import org.springframework.context.ApplicationContext
 import org.springframework.transaction.annotation.Transactional
 import java.time.ZonedDateTime
 import java.util.*
