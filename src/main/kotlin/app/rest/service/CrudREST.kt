@@ -12,13 +12,13 @@ import app.rest.data.ReqData
 import app.rest.data.ResData
 import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Transactional
 //import app.rest.security.Logado
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.RequestContext
 import java.util.*
 import javax.servlet.http.HttpServletRequest
 //import javax.enterprise.inject.spi.CDI
-import javax.transaction.Transactional
 //import javax.ws.rs.*
 //import javax.ws.rs.app.core.*
 import kotlin.reflect.KClass
@@ -156,7 +156,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 //    @Path("{id: $uuidRegex}")
 //    @Produces("application/json")
     @DeleteMapping("{id:$uuidRegex}")
-    @Transactional(rollbackOn = [Throwable::class])
+//    @Transactional(rollbackOn = [Throwable::class])
+    @Transactional(rollbackFor = [Throwable::class])
     open fun deletar(@PathVariable("id") id: UUID): RES {
         val persistido = carregar(id)
 
@@ -210,7 +211,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 ////            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
 ////            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
 ////        }
-//x
+//
 //        private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
 //            headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
 //
