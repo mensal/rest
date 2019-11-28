@@ -2,22 +2,24 @@ package app.rest.service
 
 import app.core.entity.Versionado
 import app.core.persistence.CrudDAO
+import app.core.persistence.VersionadoCrudDAO
 import app.core.util.Reflections
 import app.core.util.autowired
 //import org.apache.commons.lang.time.DateUtils
 import app.rest.ClientViolationException
 import app.rest.NotFoundException
+import app.rest.PreconditionFailedException
 import app.rest.UnprocessableEntityException
 import app.rest.data.ReqData
 import app.rest.data.ResData
-import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 //import app.rest.security.Logado
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.servlet.support.RequestContext
+import org.springframework.web.context.request.WebRequest
+import java.time.Instant
 import java.util.*
-import javax.servlet.http.HttpServletRequest
+import javax.validation.Valid
 //import javax.enterprise.inject.spi.CDI
 //import javax.ws.rs.*
 //import javax.ws.rs.app.core.*
@@ -122,34 +124,37 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 //        })
 //    }
 //
-////    @PUT
-////    @Logado
-////    @Path("{id: $uuidRegex}")
-////    @Consumes("application/json")
-////    @Produces("application/json")
-//    @PutMapping("{id: $uuidRegex}")
+//    @PUT
+//    @Logado
+//    @Path("{id: $uuidRegex}")
+//    @Consumes("application/json")
+//    @Produces("application/json")
+    @PutMapping("{id:$uuidRegex}")
 //    @Transactional(rollbackOn = [Throwable::class])
-//    open fun atualizar(@PathVariable("id") id: UUID, @Valid data: REQ, @Context headers: HttpHeaders, @Context request: Request): Response {
-//        var persistido = carregar(id)
-//        var builder = buildSeModificado(request, headers, persistido)
-//
+    @Transactional()
+    open fun atualizar(@PathVariable("id") id: UUID, @RequestBody @Valid data: REQ, request: WebRequest): ResponseEntity<RES> {
+        var persistido = carregar(id)
+//        var builder = validaSeModificado(request, persistido)
+        validaSeModificado(request, persistido)
+
 //        if (builder == null) {
-//            data.escreverEm(persistido)
-//
-//            antesDePersistir(persistido, data)
-//            persistido = dao.atualizar(persistido)
-//            depoisDePersistir(persistido, data)
-//            lancarExcecaoSeNecessario()
-//
-//            val responseData = novoResponseData()
-//            responseData.preencherCom(persistido)
-//
+            data.escreverEm(persistido)
+
+            antesDePersistir(persistido, data)
+            persistido = dao.atualizar(persistido)
+            depoisDePersistir(persistido, data)
+            lancarExcecaoSeNecessario()
+
+            val responseData = novoResponseData()
+            responseData.preencherCom(persistido)
+
 //            val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
 //            builder = Response.ok().entity(responseData).lastModified(atualizadoEm)
+            return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(responseData)
 //        }
-//
+
 //        return builder!!.build()
-//    }
+    }
 
 //    @DELETE
 //    @Logado
@@ -183,8 +188,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
-//
-//        fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
+
+        fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = autowired(daoClass)
 //
 //        fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
 //                                                     reqData: R,
@@ -212,20 +217,25 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 ////            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
 ////        }
 //
-//        private fun buildSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
+        private fun validaSeModificado(request: WebRequest, versionado: Versionado) {
+//        private fun validaSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
 //            headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
-//
+
+            if (!request.checkNotModified(null, versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
+
+//            }
+
 //            return try {
-//                val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant())
+//                val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant()).
 //                request.evaluatePreconditions(DateUtils.truncate(atualizadoEm, Calendar.SECOND))
 //            } catch (cause: Exception) {
 ////                cause.printStackTrace()
 //                throw PreconditionFailedException()
 //            }
-//        }
+        }
 //
         fun lancarExcecaoSeNecessario(exception: ClientViolationException) {
-            if (!exception.violations.isEmpty()) throw exception
+            if (exception.violations.isNotEmpty()) throw exception
         }
     }
 }
