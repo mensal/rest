@@ -1,8 +1,8 @@
 package app.rest.data
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import app.core.entity.PagamentoCombustivel
 import app.core.entity.TipoDespesaCombustivel
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import java.math.BigDecimal
 
 @JsonPropertyOrder("id", "data", "odometro", "litros", "tipo", "valores")

@@ -18,12 +18,15 @@ private class ContextProvider : ApplicationContextAware {
 
         private lateinit var context: ApplicationContext
 
-        fun <T: Any> getBean(beanClass: KClass<T>): T {
+        fun <T : Any> getBean(beanClass: KClass<T>): T {
             return context.getBean(beanClass.java)
         }
     }
 }
 
-fun <T: Any> autowired(beanClass: KClass<T>): T {
-    return ContextProvider.getBean(beanClass)
-}
+//companion object {
+//    fun <T : Any> Any.Companion.autowired(): T = ContextProvider.getBean(this::class) as T
+//}
+//fun <T: Any> KClass<T>.autowired(): T = ContextProvider.getBean(this)
+
+fun <T : Any> autowired(beanClass: KClass<T>): T = ContextProvider.getBean(beanClass)

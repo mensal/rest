@@ -2,10 +2,8 @@ package app.rest.service
 
 import app.core.entity.Versionado
 import app.core.persistence.CrudDAO
-import app.core.persistence.VersionadoCrudDAO
 import app.core.util.Reflections
 import app.core.util.autowired
-//import org.apache.commons.lang.time.DateUtils
 import app.rest.ClientViolationException
 import app.rest.NotFoundException
 import app.rest.PreconditionFailedException
@@ -14,19 +12,11 @@ import app.rest.data.ReqData
 import app.rest.data.ResData
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
-//import app.rest.security.Logado
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder
-import org.springframework.web.util.UriBuilder
-import org.springframework.web.util.UriComponentsBuilder
-import java.time.Instant
 import java.util.*
-import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
-//import javax.enterprise.inject.spi.CDI
-//import javax.ws.rs.*
-//import javax.ws.rs.app.core.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
 
@@ -43,14 +33,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     protected open val daoClass: KClass<DAO>
         get() = Reflections.argument(this, CrudREST::class, 3)
 
-//    @Autowired
-//    protected open lateinit var dao: DAO
-
-//    @Autowired
-//    protected open lateinit var context: ApplicationContext
-
     protected open val dao: DAO
-        get() = autowired(daoClass) //CDI.current().select(daoClass.java).get()!!
+        get() = autowired(daoClass)
 
     protected open fun novaEntidade() = entityClass.createInstance()
 
@@ -66,16 +50,8 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
-//    @GET
-//    @Logado
-//    @Produces("application/json")
     @GetMapping
     open fun pesquisar(@RequestParam params: Map<String, String>): List<RES>? {
-
-//    open fun pesquisar(@Context uriInfo: UriInfo): List<RES>? {
-//        val params = mutableMapOf<String, String>()
-//        uriInfo.queryParameters.forEach { params[it.key] = it.value.first() }
-
         valida(params)
         lancarExcecaoSeNecessario()
 
@@ -93,10 +69,6 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         return if (resultado.isEmpty()) null else resultado
     }
 
-//    @GET
-//    @Logado
-//    @Path("{id: $uuidRegex}")
-//    @Produces("application/json")
     @GetMapping("{id:$uuidRegex}")
     open fun obter(@PathVariable("id") id: UUID): ResponseEntity<RES> {
         var persistido = carregar(id)
@@ -105,22 +77,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         val resultado = novoResponseData()
         resultado.preencherCom(persistido)
 
-        val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant()).toInstant()
-//        return Response.ok().entity(resultado).lastModified(atualizadoEm).build()
-        return ResponseEntity.ok().lastModified(atualizadoEm).body(resultado)
+        return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(resultado)
     }
 
-//    @POST
-//    @Logado
-//    @Consumes("application/json")
-//    @Produces("application/json")
     @PostMapping
-//    @Transactional(rollbackOn = [Throwable::class])
     @Transactional(rollbackFor = [Throwable::class])
     open fun inserir(@RequestBody @Valid data: REQ): ResponseEntity<RES> {
         val entidade = novaEntidade()
 
-        return inserir(data, resClass, entidade, daoClass as KClass<VersionadoCrudDAO<ENT>>, { e, d ->
+        return inserir(data, resClass, entidade, daoClass, { e, d ->
             antesDePersistir(e, d)
             lancarExcecaoSeNecessario()
         }, { e, d ->
@@ -128,45 +93,27 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
             lancarExcecaoSeNecessario()
         })
     }
-//
-//    @PUT
-//    @Logado
-//    @Path("{id: $uuidRegex}")
-//    @Consumes("application/json")
-//    @Produces("application/json")
+
     @PutMapping("{id:$uuidRegex}")
-//    @Transactional(rollbackOn = [Throwable::class])
     @Transactional(rollbackFor = [Throwable::class])
     open fun atualizar(@PathVariable("id") id: UUID, @RequestBody @Valid data: REQ, request: WebRequest): ResponseEntity<RES> {
         var persistido = carregar(id)
-//        var builder = validaSeModificado(request, persistido)
         validaSeModificado(request, persistido)
 
-//        if (builder == null) {
-            data.escreverEm(persistido)
+        data.escreverEm(persistido)
 
-            antesDePersistir(persistido, data)
-            persistido = dao.atualizar(persistido)
-            depoisDePersistir(persistido, data)
-            lancarExcecaoSeNecessario()
+        antesDePersistir(persistido, data)
+        persistido = dao.atualizar(persistido)
+        depoisDePersistir(persistido, data)
+        lancarExcecaoSeNecessario()
 
-            val responseData = novoResponseData()
-            responseData.preencherCom(persistido)
+        val responseData = novoResponseData()
+        responseData.preencherCom(persistido)
 
-//            val atualizadoEm = Date.from(persistido.atualizadoEm!!.toInstant())
-//            builder = Response.ok().entity(responseData).lastModified(atualizadoEm)
-            return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(responseData)
-//        }
-
-//        return builder!!.build()
+        return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(responseData)
     }
 
-//    @DELETE
-//    @Logado
-//    @Path("{id: $uuidRegex}")
-//    @Produces("application/json")
     @DeleteMapping("{id:$uuidRegex}")
-//    @Transactional(rollbackOn = [Throwable::class])
     @Transactional(rollbackFor = [Throwable::class])
     open fun deletar(@PathVariable("id") id: UUID): RES {
         val persistido = carregar(id)
@@ -194,44 +141,24 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
 
-        fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = autowired(daoClass)
+        private fun <E : Versionado, D : CrudDAO<E>> dao(daoClass: KClass<D>) = autowired(daoClass)
 
-        fun <E : Versionado, R : ReqData<E>, S: ResData<E>> inserir(//uriInfo: UriInfo,
-//                                                    uriBuilder: UriComponentsBuilder,
-                                                     reqData: R,
-                                                     resClass: KClass<S>,
-                                                     entidade: E,
-                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
-                                                     antes: ((E, R) -> Unit)? = null,
-                                                     depois: ((E, R) -> Unit)? = null): ResponseEntity<S> {
-//        fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
-//                                                     reqData: R,
-//                                                     resClass: KClass<ResData<E>>,
-//                                                     entidade: E,
-//                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
-//                                                     antes: ((E, R) -> Unit)? = null,
-//                                                     depois: ((E, R) -> Unit)? = null): Response {
+        fun <E : Versionado, R : ReqData<E>, S : ResData<E>, D : CrudDAO<E>> inserir(reqData: R,
+                                                                                     resClass: KClass<S>,
+                                                                                     entidade: E,
+                                                                                     daoClass: KClass<D>,
+                                                                                     antes: ((E, R) -> Unit)? = null,
+                                                                                     depois: ((E, R) -> Unit)? = null): ResponseEntity<S> {
             reqData.escreverEm(entidade)
 
             antes?.invoke(entidade, reqData)
             dao(daoClass).inserir(entidade)
             depois?.invoke(entidade, reqData)
 
-//            UriBuilder
-
-//            request.
-
-//            uriBuilder.
-
             val location = ServletUriComponentsBuilder.fromCurrentRequest().path("/${entidade.id}").build()
-//            val location = uriBuilder.path("${entidade.id}").build()
-
-//            val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
             val responseData = resClass.createInstance()
             responseData.preencherCom(entidade)
 
-//            val atualizadoEm = Date.from(entidade.atualizadoEm!!.toInstant())
-//            return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
             return ResponseEntity.created(location.toUri()).lastModified(entidade.atualizadoEm!!).body(responseData)
         }
 
@@ -241,22 +168,9 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 //        }
 
         private fun validaSeModificado(request: WebRequest, versionado: Versionado) {
-//        private fun validaSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
-//            headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
-
             if (request.checkNotModified(null, versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
-
-//            }
-
-//            return try {
-//                val atualizadoEm = Date.from(versionado.atualizadoEm!!.toInstant()).
-//                request.evaluatePreconditions(DateUtils.truncate(atualizadoEm, Calendar.SECOND))
-//            } catch (cause: Exception) {
-////                cause.printStackTrace()
-//                throw PreconditionFailedException()
-//            }
         }
-//
+
         fun lancarExcecaoSeNecessario(exception: ClientViolationException) {
             if (exception.violations.isNotEmpty()) throw exception
         }

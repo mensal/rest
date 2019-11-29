@@ -1,9 +1,9 @@
 package app.core.persistence
 
 import app.core.entity.TipoDespesaFixa
-import org.springframework.stereotype.Controller
+import org.springframework.stereotype.Component
 
-@Controller
+@Component
 class TipoDespesaFixaDAO protected constructor() : VersionadoCrudDAO<TipoDespesaFixa>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "vencimento asc, nome asc"

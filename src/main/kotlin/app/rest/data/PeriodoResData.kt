@@ -1,7 +1,7 @@
 package app.rest.data
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import app.core.entity.Periodo
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import java.time.LocalDate
 
 @JsonPropertyOrder("de", "ate")

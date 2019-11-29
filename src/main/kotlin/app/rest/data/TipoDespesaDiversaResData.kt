@@ -1,7 +1,7 @@
 package app.rest.data
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import app.core.entity.TipoDespesaDiversa
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
 
 @JsonPropertyOrder("id", "nome", "periodo")
 class TipoDespesaDiversaResData : TipoDespesaResData<TipoDespesaDiversa>() {

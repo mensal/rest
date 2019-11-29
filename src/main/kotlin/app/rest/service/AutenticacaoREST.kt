@@ -3,7 +3,6 @@ package app.rest.service
 import app.core.util.autowired
 import app.rest.data.AutenticacaoReqData
 import app.rest.security.Autenticador
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping

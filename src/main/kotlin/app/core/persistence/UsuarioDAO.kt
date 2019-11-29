@@ -1,12 +1,12 @@
 package app.core.persistence
 
-import app.core.entity.Usuario
-import org.springframework.stereotype.Controller
-import org.springframework.transaction.annotation.Transactional
 //import javax.enterprise.inject.spi.CDI
+import app.core.entity.Usuario
+import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import javax.persistence.NoResultException
 
-@Controller
+@Component
 class UsuarioDAO protected constructor() : VersionadoCrudDAO<Usuario>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"

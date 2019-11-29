@@ -1,9 +1,9 @@
 package app.core.persistence
 
 import app.core.entity.PagamentoFixa
+import org.springframework.stereotype.Component
 
-//import javax.enterprise.inject.spi.CDI
-
+@Component
 class PagamentoFixaDAO protected constructor() : PagamentoDAO<PagamentoFixa>() {
 
 //    companion object {

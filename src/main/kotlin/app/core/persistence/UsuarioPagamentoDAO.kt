@@ -6,10 +6,12 @@ import app.core.entity.TipoDespesa
 import app.core.entity.Usuario
 import app.core.entity.UsuarioPagamento
 import app.core.entity.UsuarioPagamento.UsuarioPagamentoPk
+import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
+@Component
 @Transactional
 class UsuarioPagamentoDAO protected constructor() {
 

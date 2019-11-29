@@ -1,8 +1,8 @@
 package app.rest.data
 
+import app.core.entity.Usuario
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonPropertyOrder
-import app.core.entity.Usuario
 import java.time.ZonedDateTime
 import java.util.*
 

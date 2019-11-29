@@ -2,10 +2,7 @@ package app.rest.provider
 
 import app.rest.ClientViolationException
 import app.rest.ClientViolationException.Violation
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.http.MediaType.APPLICATION_JSON as APPLICATION_JSON1
@@ -30,8 +27,8 @@ import org.springframework.http.MediaType.APPLICATION_JSON as APPLICATION_JSON1
 @ControllerAdvice
 class ClientViolationExceptionHandler {
 
-    @ExceptionHandler(value = [ ClientViolationException::class ])
-    fun toResponse(exception: ClientViolationException) : ResponseEntity<List<Violation>> {
+    @ExceptionHandler(value = [ClientViolationException::class])
+    fun toResponse(exception: ClientViolationException): ResponseEntity<List<Violation>> {
         return ResponseEntity.status(exception.statusCode).contentType(APPLICATION_JSON1).body(exception.violations)
     }
 }

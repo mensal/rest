@@ -1,7 +1,7 @@
 package app.rest.data
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import app.core.entity.UsuarioResumoPagamento
+import com.fasterxml.jackson.annotation.JsonPropertyOrder
 import java.math.BigDecimal
 
 @JsonPropertyOrder("usuario", "atual", "anterior")
