@@ -13,9 +13,6 @@ import javax.validation.Valid
 @RequestMapping("api/autenticacao")
 class AutenticacaoREST {
 
-//    @Autowired
-//    lateinit var autenticador:
-
     @PostMapping(produces = ["application/jwt"])
     fun autenticar(@RequestBody @Valid data: AutenticacaoReqData) = autowired(Autenticador::class).autenticar(data.login, data.senha)
 }

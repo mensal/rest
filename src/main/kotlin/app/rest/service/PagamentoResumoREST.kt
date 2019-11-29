@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
-//import app.rest.service.CrudREST.Companion.valida
 
 @RestController
 @RequestMapping("api/pagamento/resumo")
@@ -23,7 +22,7 @@ class PagamentoResumoREST {
     fun resumo(@RequestParam("ano") ano: Int?, @RequestParam("mes") mes: Int?): List<UsuarioResumoPagamentoResData>? {
         lancarExcecaoSeNecessario(violationException)
 
-        var persistidos = autowired(UsuarioResumoPagamentoDAO::class).pesquisar(ano!!, mes!!)
+        val persistidos = autowired(UsuarioResumoPagamentoDAO::class).pesquisar(ano!!, mes!!)
 
         val resultado = persistidos.map {
             val entidade = it
