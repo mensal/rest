@@ -17,8 +17,12 @@ import org.springframework.transaction.annotation.Transactional
 //import app.rest.security.Logado
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.WebRequest
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import org.springframework.web.util.UriBuilder
+import org.springframework.web.util.UriComponentsBuilder
 import java.time.Instant
 import java.util.*
+import javax.servlet.http.HttpServletRequest
 import javax.validation.Valid
 //import javax.enterprise.inject.spi.CDI
 //import javax.ws.rs.*
@@ -106,23 +110,24 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         return ResponseEntity.ok().lastModified(atualizadoEm).body(resultado)
     }
 
-////    @POST
-////    @Logado
-////    @Consumes("application/json")
-////    @Produces("application/json")
-//    @PostMapping
+//    @POST
+//    @Logado
+//    @Consumes("application/json")
+//    @Produces("application/json")
+    @PostMapping
 //    @Transactional(rollbackOn = [Throwable::class])
-//    open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
-//        val entidade = novaEntidade()
-//
-//        return inserir(uriInfo, data, resClass as KClass<ResData<ENT>>, entidade, daoClass as KClass<VersionadoCrudDAO<ENT>>, { e, d ->
-//            antesDePersistir(e, d)
-//            lancarExcecaoSeNecessario()
-//        }, { e, d ->
-//            depoisDePersistir(e, d)
-//            lancarExcecaoSeNecessario()
-//        })
-//    }
+    @Transactional(rollbackFor = [Throwable::class])
+    open fun inserir(@RequestBody @Valid data: REQ): ResponseEntity<RES> {
+        val entidade = novaEntidade()
+
+        return inserir(data, resClass, entidade, daoClass as KClass<VersionadoCrudDAO<ENT>>, { e, d ->
+            antesDePersistir(e, d)
+            lancarExcecaoSeNecessario()
+        }, { e, d ->
+            depoisDePersistir(e, d)
+            lancarExcecaoSeNecessario()
+        })
+    }
 //
 //    @PUT
 //    @Logado
@@ -131,7 +136,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 //    @Produces("application/json")
     @PutMapping("{id:$uuidRegex}")
 //    @Transactional(rollbackOn = [Throwable::class])
-    @Transactional()
+    @Transactional(rollbackFor = [Throwable::class])
     open fun atualizar(@PathVariable("id") id: UUID, @RequestBody @Valid data: REQ, request: WebRequest): ResponseEntity<RES> {
         var persistido = carregar(id)
 //        var builder = validaSeModificado(request, persistido)
@@ -190,7 +195,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
 
         fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = autowired(daoClass)
-//
+
+        fun <E : Versionado, R : ReqData<E>, S: ResData<E>> inserir(//uriInfo: UriInfo,
+//                                                    uriBuilder: UriComponentsBuilder,
+                                                     reqData: R,
+                                                     resClass: KClass<S>,
+                                                     entidade: E,
+                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
+                                                     antes: ((E, R) -> Unit)? = null,
+                                                     depois: ((E, R) -> Unit)? = null): ResponseEntity<S> {
 //        fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
 //                                                     reqData: R,
 //                                                     resClass: KClass<ResData<E>>,
@@ -198,30 +211,40 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 //                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
 //                                                     antes: ((E, R) -> Unit)? = null,
 //                                                     depois: ((E, R) -> Unit)? = null): Response {
-//            reqData.escreverEm(entidade)
-//
-//            antes?.invoke(entidade, reqData)
-//            dao(daoClass).inserir(entidade)
-//            depois?.invoke(entidade, reqData)
-//
+            reqData.escreverEm(entidade)
+
+            antes?.invoke(entidade, reqData)
+            dao(daoClass).inserir(entidade)
+            depois?.invoke(entidade, reqData)
+
+//            UriBuilder
+
+//            request.
+
+//            uriBuilder.
+
+            val location = ServletUriComponentsBuilder.fromCurrentRequest().path("/${entidade.id}").build()
+//            val location = uriBuilder.path("${entidade.id}").build()
+
 //            val location = uriInfo.requestUriBuilder.path("${entidade.id}").build()
-//            val responseData = resClass.createInstance()
-//            responseData.preencherCom(entidade)
-//
+            val responseData = resClass.createInstance()
+            responseData.preencherCom(entidade)
+
 //            val atualizadoEm = Date.from(entidade.atualizadoEm!!.toInstant())
 //            return Response.created(location).entity(responseData).lastModified(atualizadoEm).build()
+            return ResponseEntity.created(location.toUri()).lastModified(entidade.atualizadoEm!!).body(responseData)
+        }
+
+//        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
+//            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
+//            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
 //        }
-//
-////        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
-////            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
-////            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
-////        }
-//
+
         private fun validaSeModificado(request: WebRequest, versionado: Versionado) {
 //        private fun validaSeModificado(request: Request, headers: HttpHeaders, versionado: Versionado): Response.ResponseBuilder? {
 //            headers.getHeaderString("If-Unmodified-Since") ?: throw PreconditionFailedException()
 
-            if (!request.checkNotModified(null, versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
+            if (request.checkNotModified(null, versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
 
 //            }
 
