@@ -4,6 +4,7 @@ import app.core.persistence.UsuarioResumoPagamentoDAO
 import app.core.util.autowired
 import app.rest.UnprocessableEntityException
 import app.rest.data.UsuarioResumoPagamentoResData
+import app.rest.security.Logado
 import app.rest.service.CrudREST.Companion.lancarExcecaoSeNecessario
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -17,7 +18,7 @@ class PagamentoResumoREST {
 
     private val violationException = UnprocessableEntityException()
 
-    //    @Logado
+    @Logado
     @GetMapping
     fun resumo(@RequestParam("ano") ano: Int?, @RequestParam("mes") mes: Int?): List<UsuarioResumoPagamentoResData>? {
         lancarExcecaoSeNecessario(violationException)

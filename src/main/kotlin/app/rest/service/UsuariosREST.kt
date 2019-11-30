@@ -1,25 +1,26 @@
-//package app.rest.service
-//
-//import app.core.persistence.UsuarioDAO
-//import app.rest.data.UsuarioResData
-//import app.rest.security.Logado
-//import javax.ws.rs.GET
-//import javax.ws.rs.Path
-//import javax.ws.rs.Produces
-//
-//@Path("usuarios")
-//open class UsuariosREST {
-//
-//    @GET
-//    @Logado
-//    @Produces("application/json")
-//    open fun pesquisar(): List<UsuarioResData>? {
-//        val resultado = UsuarioDAO.instance().pesquisar(emptyMap()).map {
-//            val data = UsuarioResData()
-//            data.preencherCom(it)
-//            data
-//        }
-//
-//        return if (resultado.isEmpty()) null else resultado
-//    }
-//}
+package app.rest.service
+
+import app.core.persistence.UsuarioDAO
+import app.core.util.autowired
+import app.rest.data.UsuarioResData
+import app.rest.security.Logado
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+@RequestMapping("api/usuarios")
+class UsuariosREST {
+
+    @Logado
+    @GetMapping
+    fun pesquisar(): List<UsuarioResData>? {
+        val resultado = autowired(UsuarioDAO::class).pesquisar(emptyMap()).map {
+            val data = UsuarioResData()
+            data.preencherCom(it)
+            data
+        }
+
+        return if (resultado.isEmpty()) null else resultado
+    }
+}

@@ -10,6 +10,7 @@ import app.rest.PreconditionFailedException
 import app.rest.UnprocessableEntityException
 import app.rest.data.ReqData
 import app.rest.data.ResData
+import app.rest.security.Logado
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
@@ -50,6 +51,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
+    @Logado
     @GetMapping
     open fun pesquisar(@RequestParam params: Map<String, String>): List<RES>? {
         valida(params)
@@ -69,8 +71,9 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         return if (resultado.isEmpty()) null else resultado
     }
 
+    @Logado
     @GetMapping("{id:$uuidRegex}")
-    open fun obter(@PathVariable("id") id: UUID): ResponseEntity<RES> {
+    open fun obter(@PathVariable id: UUID): ResponseEntity<RES> {
         var persistido = carregar(id)
         persistido = depoisDePesquisar(persistido)
 
@@ -80,6 +83,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(resultado)
     }
 
+    @Logado
     @PostMapping
     @Transactional(rollbackFor = [Throwable::class])
     open fun inserir(@RequestBody @Valid data: REQ): ResponseEntity<RES> {
@@ -94,9 +98,10 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         })
     }
 
+    @Logado
     @PutMapping("{id:$uuidRegex}")
     @Transactional(rollbackFor = [Throwable::class])
-    open fun atualizar(@PathVariable("id") id: UUID, @RequestBody @Valid data: REQ, request: WebRequest): ResponseEntity<RES> {
+    open fun atualizar(@PathVariable id: UUID, @RequestBody @Valid data: REQ, request: WebRequest): ResponseEntity<RES> {
         var persistido = carregar(id)
         validaSeModificado(request, persistido)
 
@@ -113,10 +118,12 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
         return ResponseEntity.ok().lastModified(persistido.atualizadoEm!!).body(responseData)
     }
 
+    @Logado
     @DeleteMapping("{id:$uuidRegex}")
     @Transactional(rollbackFor = [Throwable::class])
-    open fun deletar(@PathVariable("id") id: UUID): RES {
+    open fun deletar(@PathVariable id: UUID, request: WebRequest): RES {
         val persistido = carregar(id)
+        validaSeModificado(request, persistido)
 
         antesDeExcluir(persistido)
         dao.excluir(persistido)

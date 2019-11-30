@@ -5,6 +5,6 @@
        bean-discovery-mode="all">
 
     <interceptors>
-        <class>app.rest.security.LogadoInterceptor</class>
+        <class>app.rest.security.LogadoAspect</class>
     </interceptors>
 </beans>
