@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.context.request.WebRequest
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder.*
 import java.util.*
 import javax.validation.Valid
 import kotlin.reflect.KClass
@@ -51,24 +51,24 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
+    protected open fun validaParametrosDePesquisa(params: Map<String, String>, exception: ClientViolationException) {}
+
     @Logado
     @GetMapping
     open fun pesquisar(@RequestParam params: Map<String, String>): List<RES>? {
-        valida(params)
+        validaParametrosDePesquisa(params, violationException)
         lancarExcecaoSeNecessario()
 
         var persistidos = dao.pesquisar(params)
         persistidos = depoisDePesquisar(persistidos)
 
-        val resultado = persistidos.map {
+        return persistidos.map {
             val entidade = depoisDePesquisar(it)
 
             val data = novoResponseData()
             data.preencherCom(entidade)
             data
         }
-
-        return if (resultado.isEmpty()) null else resultado
     }
 
     @Logado
@@ -137,9 +137,9 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     private fun carregar(id: UUID) = dao.obter(id) ?: throw NotFoundException()
 
-    protected open fun valida(params: Map<String, String>) {
-//        Companion.valida(params, violationException)
-    }
+//    protected open fun valida(params: Map<String, String>) {
+////        Companion.valida(params, violationException)
+//    }
 
     protected open fun lancarExcecaoSeNecessario() {
         lancarExcecaoSeNecessario(violationException)
@@ -162,20 +162,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
             dao(daoClass).inserir(entidade)
             depois?.invoke(entidade, reqData)
 
-            val location = ServletUriComponentsBuilder.fromCurrentRequest().path("/${entidade.id}").build()
+            val location = fromCurrentRequest().path("/${entidade.id}").build()
             val responseData = resClass.createInstance()
             responseData.preencherCom(entidade)
 
             return ResponseEntity.created(location.toUri()).lastModified(entidade.atualizadoEm!!).body(responseData)
         }
 
-//        fun valida(ano: Int?, mes: Int?, exception: ClientViolationException) {
-//            if (ano == null) exception.addViolation("ano", "parâmetro obrigatório")
-//            if (mes == null) exception.addViolation("mes", "parâmetro obrigatório")
-//        }
-
         private fun validaSeModificado(request: WebRequest, versionado: Versionado) {
-            if (request.checkNotModified(null, versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
+            if (request.checkNotModified(versionado.atualizadoEm!!.toInstant().toEpochMilli())) throw PreconditionFailedException()
         }
 
         fun lancarExcecaoSeNecessario(exception: ClientViolationException) {

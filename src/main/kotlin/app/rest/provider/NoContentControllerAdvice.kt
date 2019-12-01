@@ -12,11 +12,13 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
 @ControllerAdvice
 class NoContentControllerAdvice : ResponseBodyAdvice<Any> {
 
-    override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>) = returnType.isOptional
+    override fun supports(returnType: MethodParameter, converterType: Class<out HttpMessageConverter<*>>) =
+            returnType.isOptional || returnType.parameterType.isAssignableFrom(Collection::class.java)
+
 
     override fun beforeBodyWrite(body: Any?, returnType: MethodParameter, mediaType: MediaType,
                                  converterType: Class<out HttpMessageConverter<*>>, request: ServerHttpRequest, response: ServerHttpResponse): Any? {
-        if (body == null) response.setStatusCode(HttpStatus.NO_CONTENT)
+        if (body == null || (body as? Collection<Any>)?.isEmpty() == true) response.setStatusCode(HttpStatus.NO_CONTENT)
         return body
     }
 }

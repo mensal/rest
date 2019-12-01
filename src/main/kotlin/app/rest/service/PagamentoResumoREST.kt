@@ -25,14 +25,12 @@ class PagamentoResumoREST {
 
         val persistidos = autowired(UsuarioResumoPagamentoDAO::class).pesquisar(ano!!, mes!!)
 
-        val resultado = persistidos.map {
+        return persistidos.map {
             val entidade = it
 
             val data = UsuarioResumoPagamentoResData()
             data.preencherCom(entidade)
             data
         }
-
-        return if (resultado.isEmpty()) null else resultado
     }
 }

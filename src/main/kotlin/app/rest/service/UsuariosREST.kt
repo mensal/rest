@@ -15,12 +15,10 @@ class UsuariosREST {
     @Logado
     @GetMapping
     fun pesquisar(): List<UsuarioResData>? {
-        val resultado = autowired(UsuarioDAO::class).pesquisar(emptyMap()).map {
+        return autowired(UsuarioDAO::class).pesquisar(emptyMap()).map {
             val data = UsuarioResData()
             data.preencherCom(it)
             data
         }
-
-        return if (resultado.isEmpty()) null else resultado
     }
 }
