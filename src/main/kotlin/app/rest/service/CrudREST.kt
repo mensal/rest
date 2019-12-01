@@ -59,12 +59,12 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
 
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
-    protected open fun validaParametrosDePesquisa(params: Map<String, String>, exception: ClientViolationException) {}
+    protected open fun validaParametrosDePesquisa(params: Map<String, String>) {}
 
     @Logado
     @GetMapping
     open fun pesquisar(@RequestParam params: Map<String, String>): List<RES>? {
-        validaParametrosDePesquisa(params, violationException)
+        validaParametrosDePesquisa(params)
         lancarExcecaoSeNecessario()
 
         var persistidos = dao.pesquisar(params)

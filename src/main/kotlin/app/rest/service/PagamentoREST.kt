@@ -8,6 +8,7 @@ import app.core.persistence.UsuarioDAO
 import app.core.persistence.UsuarioPagamentoDAO
 import app.core.util.Reflections
 import app.core.util.autowired
+import app.rest.BadRequestException
 import app.rest.ClientViolationException
 import app.rest.data.PagamentoReqData
 import app.rest.data.ResData
@@ -53,11 +54,15 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
         entidade.valores = usuarioPagamentoDAO.buscar(entidade)
     }
 
-    override fun validaParametrosDePesquisa(params: Map<String, String>, exception: ClientViolationException) {
+    override fun validaParametrosDePesquisa(params: Map<String, String>) {
+        val exception = BadRequestException()
+
         mapOf("mes" to params["mes"], "ano" to params["ano"]).forEach {
             if (it.value != null) {
                 if (it.value!!.toIntOrNull() == null) exception.addViolation(it.key, "informe um número")
             }
         }
+
+        if (exception.violations.isNotEmpty()) throw exception
     }
 }
