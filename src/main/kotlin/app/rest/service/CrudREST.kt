@@ -11,9 +11,13 @@ import app.rest.UnprocessableEntityException
 import app.rest.data.ReqData
 import app.rest.data.ResData
 import app.rest.security.Logado
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.context.annotation.Scope
 import org.springframework.http.ResponseEntity
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.context.WebApplicationContext
+import org.springframework.web.context.WebApplicationContext.*
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder.*
 import java.util.*
@@ -23,7 +27,11 @@ import kotlin.reflect.full.createInstance
 
 abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>> {
 
-    protected open val violationException = UnprocessableEntityException()
+//    @Autowired
+//    protected open lateinit var violationException: UnprocessableEntityException
+
+    protected open val violationException: UnprocessableEntityException
+        get() = autowired(UnprocessableEntityException::class)
 
     protected open val entityClass: KClass<ENT>
         get() = Reflections.argument(this, CrudREST::class, 0)

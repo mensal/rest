@@ -5,6 +5,7 @@ package app.rest.security
 //import javax.interceptor.AroundInvoke
 //import javax.interceptor.Interceptor
 //import javax.interceptor.InvocationContext
+import app.core.util.autowired
 import app.rest.UnauthorizedException
 import org.aspectj.lang.ProceedingJoinPoint
 import org.aspectj.lang.annotation.Around

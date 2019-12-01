@@ -6,13 +6,19 @@ import app.core.util.autowired
 import app.rest.UnauthorizedException
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
+import org.springframework.context.annotation.Scope
+import org.springframework.context.annotation.ScopedProxyMode
+import org.springframework.context.annotation.ScopedProxyMode.*
 import org.springframework.stereotype.Component
+import org.springframework.web.context.WebApplicationContext
+import org.springframework.web.context.WebApplicationContext.*
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
 
 @Component
-class Autenticador protected constructor() {
+@Scope(SCOPE_REQUEST, proxyMode = TARGET_CLASS)
+class Autenticador {
 
     var logado: Usuario? = null
 
