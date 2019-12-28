@@ -24,11 +24,11 @@ class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCrudDAO
         super.antesDePesquisar(params, query)
 
         if (params.containsKey("ano")) {
-            query.setParameter("ano", params["ano"]!!.toInt())
+            query.setParameter("ano", params["ano"]?.toIntOrNull())
         }
 
         if (params.containsKey("mes")) {
-            query.setParameter("mes", params["mes"]!!.toInt())
+            query.setParameter("mes", params["mes"]?.toIntOrNull())
         }
     }
 
