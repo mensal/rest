@@ -4,6 +4,7 @@ package rest.security
 import rest.UnauthorizedException
 import javax.annotation.Priority
 import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 import javax.interceptor.AroundInvoke
 import javax.interceptor.Interceptor
 import javax.interceptor.InvocationContext
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpServletRequest
 @Interceptor
 class LogadoInterceptor {
 
+    @Inject
+    private lateinit var autenticador: Autenticador
+
     @AroundInvoke
     @Throws(Exception::class)
     fun manage(ic: InvocationContext): Any? {
@@ -21,7 +25,7 @@ class LogadoInterceptor {
         val token = token(header) ?: throw UnauthorizedException()
 
         try {
-            Autenticador.instance().autenticar(token)
+            autenticador.autenticar(token)
         } catch (e: Throwable) {
             throw UnauthorizedException(e)
         }

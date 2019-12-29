@@ -4,18 +4,18 @@ import core.entity.Pagamento.Companion.primeiroDia
 import core.entity.UsuarioResumoPagamento
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
-@Dependent
 @Transactional
+@ApplicationScoped
 open class UsuarioResumoPagamentoDAO protected constructor() {
 
     @PersistenceContext
-    protected lateinit var em: EntityManager
+    private lateinit var em: EntityManager
 
     open fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
 

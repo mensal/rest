@@ -3,10 +3,12 @@ package core.persistence
 import core.entity.Pagamento.Companion.ultimoDia
 import core.entity.PagamentoDiarista
 import java.math.BigDecimal
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.inject.spi.CDI
+import javax.transaction.Transactional
 
-@Dependent
+@Transactional
+@ApplicationScoped
 open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<PagamentoDiarista>() {
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {

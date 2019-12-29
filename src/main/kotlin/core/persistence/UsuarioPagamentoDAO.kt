@@ -5,18 +5,18 @@ import core.entity.TipoDespesa
 import core.entity.Usuario
 import core.entity.UsuarioPagamento
 import core.entity.UsuarioPagamento.UsuarioPagamentoPk
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
-@Dependent
 @Transactional
+@ApplicationScoped
 open class UsuarioPagamentoDAO protected constructor() {
 
     @PersistenceContext
-    protected lateinit var em: EntityManager
+    private lateinit var em: EntityManager
 
     open fun <T : TipoDespesa> obter(usuario: Usuario?, pagamento: Pagamento<T>?): UsuarioPagamento? = em.find(UsuarioPagamento::class.java, UsuarioPagamentoPk(usuario?.id, pagamento?.id))
 

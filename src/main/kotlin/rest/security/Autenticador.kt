@@ -10,10 +10,13 @@ import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
 import javax.enterprise.context.RequestScoped
-import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 
 @RequestScoped
-open class Autenticador /* protected constructor() */ {
+open class Autenticador protected constructor() {
+
+    @Inject
+    private lateinit var usuarioDAO: UsuarioDAO
 
     @ConfigProperty(name = "mensal.jwt.key")
     lateinit var jwtKey: String
@@ -24,11 +27,11 @@ open class Autenticador /* protected constructor() */ {
         val claims = Jwts.parser().setSigningKey(chave()).parseClaimsJws(token)
 
         val id = UUID.fromString(claims.body.subject)
-        logado = UsuarioDAO.instance().obter(id) ?: throw UnauthorizedException()
+        logado = usuarioDAO.obter(id) ?: throw UnauthorizedException()
     }
 
     open fun autenticar(login: String, senha: String): String {
-        val usuario = UsuarioDAO.instance().obter(login) ?: throw UnauthorizedException()
+        val usuario = usuarioDAO.obter(login) ?: throw UnauthorizedException()
 
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, chave())
@@ -41,9 +44,4 @@ open class Autenticador /* protected constructor() */ {
     }
 
     private fun chave() = Base64.getEncoder().encodeToString(jwtKey.toByteArray())
-
-    companion object {
-
-        fun instance() = CDI.current().select(Autenticador::class.java).get()!!
-    }
 }

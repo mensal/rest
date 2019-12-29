@@ -1,9 +1,11 @@
 package core.persistence
 
 import core.entity.TipoDespesaCombustivel
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
+import javax.transaction.Transactional
 
-@Dependent
+@Transactional
+@ApplicationScoped
 open class TipoDespesaCombustivelDAO protected constructor() : VersionadoCrudDAO<TipoDespesaCombustivel>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "veiculo asc"

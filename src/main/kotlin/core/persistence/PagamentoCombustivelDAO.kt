@@ -1,10 +1,12 @@
 package core.persistence
 
 import core.entity.PagamentoCombustivel
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.inject.spi.CDI
+import javax.transaction.Transactional
 
-@Dependent
+@Transactional
+@ApplicationScoped
 open class PagamentoCombustivelDAO protected constructor() : PagamentoDAO<PagamentoCombustivel>() {
 
     companion object {

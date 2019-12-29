@@ -3,14 +3,10 @@ package core.persistence
 import core.entity.Versionado
 import java.time.ZonedDateTime
 import java.util.*
-import javax.enterprise.context.Dependent
 import javax.persistence.NoResultException
 import javax.persistence.TypedQuery
-import javax.transaction.Transactional
 
-@Dependent
-@Transactional
-abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
+open abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
 
     override fun pesquisarWhere(params: Map<String, String>): String {
         var criterios = mutableListOf<String>()

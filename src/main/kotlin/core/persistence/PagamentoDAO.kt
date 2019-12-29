@@ -1,10 +1,12 @@
 package core.persistence
 
 import core.entity.Pagamento
-import javax.enterprise.context.Dependent
+import javax.enterprise.context.ApplicationScoped
 import javax.persistence.TypedQuery
+import javax.transaction.Transactional
 
-@Dependent
+@Transactional
+@ApplicationScoped
 open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCrudDAO<E>() {
 
     override fun pesquisarWhere(params: Map<String, String>): String {

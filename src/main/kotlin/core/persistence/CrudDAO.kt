@@ -5,10 +5,8 @@ import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.persistence.TypedQuery
-import javax.transaction.Transactional
 import kotlin.reflect.KClass
 
-@Transactional
 abstract class CrudDAO<E : Any> {
 
     protected open val entityClass: KClass<E>
