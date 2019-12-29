@@ -8,7 +8,7 @@ import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.util.*
 
-@JsonPropertyOrder("id", "data", "tipo", "valores", "atualizado_em", "excluido_em")
+@JsonPropertyOrder("id", "data", "tipo", "valores", "coordenada", "atualizado_em", "excluido_em")
 abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDespesaResData<T>> : ResData<E> {
 
     var id: UUID? = null
@@ -18,6 +18,8 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
     var tipo: R? = null
 
     var valores: List<UsuarioPagamentoResData>? = null
+
+    var coordenada: CoordenadaResData? = null
 
     @JsonProperty("atualizado_em")
     var atualizadoEm: ZonedDateTime? = null
@@ -44,6 +46,7 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
             data
         }
 
+        coordenada?.preencherCom(entidade?.coordenada)
         atualizadoEm = entidade?.atualizadoEm
 //        }
     }

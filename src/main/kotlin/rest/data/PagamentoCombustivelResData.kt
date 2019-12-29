@@ -6,7 +6,7 @@ import core.entity.TipoDespesaCombustivel
 import java.math.BigDecimal
 
 @JsonPropertyOrder("id", "data", "odometro", "litros", "tipo", "valores")
-class PagamentoCombustivelResData : PagamentoResData<PagamentoCombustivel, TipoDespesaCombustivel, TipoDespesaCombustivelResData>() {
+open class PagamentoCombustivelResData : PagamentoResData<PagamentoCombustivel, TipoDespesaCombustivel, TipoDespesaCombustivelResData>() {
 
     var odometro: Int? = null
 

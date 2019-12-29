@@ -2,6 +2,7 @@ package rest.security
 
 
 import rest.UnauthorizedException
+import javax.annotation.Priority
 import javax.enterprise.inject.spi.CDI
 import javax.interceptor.AroundInvoke
 import javax.interceptor.Interceptor
@@ -9,6 +10,7 @@ import javax.interceptor.InvocationContext
 import javax.servlet.http.HttpServletRequest
 
 @Logado
+@Priority(0)
 @Interceptor
 class LogadoInterceptor {
 
