@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<!--<?xml version="1.0" encoding="UTF-8"?>-->
+<!--<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee"-->
+<!--         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">-->
 
-    <distributable/>
+<!--    <distributable/>-->
 
 <!--    <filter>-->
 <!--        <filter-name>CORS</filter-name>-->
 <!--        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>-->
 <!--        <init-param>-->
 <!--            <param-name>cors.configurationFile</param-name>-->
-<!--            <param-value>/WEB-INF/cors.properties</param-value>-->
+<!--            <param-value>/WEB-INF/cors.properties.Backup</param-value>-->
 <!--        </init-param>-->
 <!--    </filter>-->
 <!--    <filter-mapping>-->
@@ -25,4 +25,4 @@
 <!--        <filter-name>GZip Filter</filter-name>-->
 <!--        <url-pattern>/*</url-pattern>-->
 <!--    </filter-mapping>-->
-</web-app>
+<!--</web-app>-->
