@@ -6,7 +6,7 @@ import rest.data.TipoDespesaFixaReqData
 import rest.data.TipoDespesaFixaResData
 import javax.ws.rs.Path
 
-@Path("api/tipo/fixas")
+@Path("tipo/fixas")
 class TipoDespesaFixasREST : CrudREST<TipoDespesaFixa, TipoDespesaFixaReqData, TipoDespesaFixaResData, TipoDespesaFixaDAO>() {
 
     override fun antesDeExcluir(entidade: TipoDespesaFixa) {

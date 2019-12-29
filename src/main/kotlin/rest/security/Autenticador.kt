@@ -9,7 +9,6 @@ import rest.UnauthorizedException
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 import java.util.*
-import javax.enterprise.context.Dependent
 import javax.enterprise.context.RequestScoped
 import javax.enterprise.inject.spi.CDI
 

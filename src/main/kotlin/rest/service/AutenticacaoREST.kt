@@ -10,15 +10,15 @@ import javax.ws.rs.POST
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 
-@Path("api/autenticacao")
+@Path("autenticacao")
 class AutenticacaoREST {
 
-//    @Inject
-//    lateinit var autenticador: Autenticador
+    @Inject
+    lateinit var autenticador: Autenticador
 
     @GZIP
     @POST
     @Consumes("application/json")
     @Produces("application/jwt")
-    fun autenticar(@Valid data: AutenticacaoReqData) = Autenticador.instance().autenticar(data.login, data.senha)
+    fun autenticar(@Valid data: AutenticacaoReqData) = autenticador.autenticar(data.login, data.senha)
 }

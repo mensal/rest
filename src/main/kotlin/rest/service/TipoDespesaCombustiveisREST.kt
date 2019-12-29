@@ -6,7 +6,7 @@ import rest.data.TipoDespesaCombustivelReqData
 import rest.data.TipoDespesaCombustivelResData
 import javax.ws.rs.Path
 
-@Path("api/tipo/combustiveis")
+@Path("tipo/combustiveis")
 class TipoDespesaCombustiveisREST : CrudREST<TipoDespesaCombustivel, TipoDespesaCombustivelReqData, TipoDespesaCombustivelResData, TipoDespesaCombustivelDAO>() {
 
     override fun antesDeExcluir(entidade: TipoDespesaCombustivel) {

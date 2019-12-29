@@ -11,9 +11,9 @@ import javax.ws.rs.ext.Provider
 @Provider
 open class ConstraintViolationExceptionMapper : ExceptionMapper<ConstraintViolationException> {
 
-//    @Inject
-//    private lateinit var mapper: ClientViolationExceptionMapper
-    private var mapper = ClientViolationExceptionMapper()
+    @Inject
+    private lateinit var mapper: ClientViolationExceptionMapper
+//    private var mapper = ClientViolationExceptionMapper()
 
     override fun toResponse(exception: ConstraintViolationException): Response {
         val cvException = UnprocessableEntityException()

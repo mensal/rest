@@ -8,5 +8,5 @@ import rest.data.PagamentoCombustivelReqData
 import rest.data.PagamentoCombustivelResData
 import javax.ws.rs.Path
 
-@Path("api/pagamento/combustiveis")
+@Path("pagamento/combustiveis")
 class PagamentoCombustiveisREST : PagamentoREST<PagamentoCombustivel, TipoDespesaCombustivel, PagamentoCombustivelReqData, PagamentoCombustivelResData, PagamentoCombustivelDAO, TipoDespesaCombustivelDAO>()

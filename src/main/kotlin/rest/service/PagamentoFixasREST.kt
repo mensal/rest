@@ -8,5 +8,5 @@ import rest.data.PagamentoFixaReqData
 import rest.data.PagamentoFixaResData
 import javax.ws.rs.Path
 
-@Path("api/pagamento/fixas")
+@Path("pagamento/fixas")
 class PagamentoFixasREST : PagamentoREST<PagamentoFixa, TipoDespesaFixa, PagamentoFixaReqData, PagamentoFixaResData, PagamentoFixaDAO, TipoDespesaFixaDAO>()

@@ -11,7 +11,7 @@ import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.QueryParam
 
-@Path("api/pagamento/resumo")
+@Path("pagamento/resumo")
 class PagamentoResumoREST {
 
     private val violationException = UnprocessableEntityException()

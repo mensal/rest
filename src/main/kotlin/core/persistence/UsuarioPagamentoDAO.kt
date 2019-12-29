@@ -7,7 +7,6 @@ import core.entity.UsuarioPagamento
 import core.entity.UsuarioPagamento.UsuarioPagamentoPk
 import javax.enterprise.context.Dependent
 import javax.enterprise.inject.spi.CDI
-import javax.inject.Inject
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional

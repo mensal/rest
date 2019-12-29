@@ -6,7 +6,7 @@ import rest.data.TipoDespesaDiversaReqData
 import rest.data.TipoDespesaDiversaResData
 import javax.ws.rs.Path
 
-@Path("api/tipo/diversas")
+@Path("tipo/diversas")
 class TipoDespesaDiversasREST : CrudREST<TipoDespesaDiversa, TipoDespesaDiversaReqData, TipoDespesaDiversaResData, TipoDespesaDiversaDAO>() {
 
     override fun antesDeExcluir(entidade: TipoDespesaDiversa) {
