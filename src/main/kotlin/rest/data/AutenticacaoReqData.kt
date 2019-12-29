@@ -1,7 +1,7 @@
 package rest.data
 
 import core.entity.Usuario
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.NotBlank
 
 class AutenticacaoReqData : ReqData<Usuario> {
 

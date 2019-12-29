@@ -6,6 +6,7 @@ import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 import javax.enterprise.context.Dependent
 import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
@@ -15,7 +16,7 @@ import javax.transaction.Transactional
 open class UsuarioResumoPagamentoDAO protected constructor() {
 
     @PersistenceContext
-    private lateinit var em: EntityManager
+    protected lateinit var em: EntityManager
 
     open fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
 

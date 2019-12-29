@@ -16,7 +16,7 @@ abstract class Pagamento<T : TipoDespesa> : Versionado() {
 
     @NotNull
     @Embedded
-    var coordenada: Coordenada? = null
+    open var coordenada: Coordenada? = null
 
     abstract var tipo: T?
 

@@ -60,16 +60,16 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-undertow</artifactId>
     </dependency>
-    <dependency>
-      <groupId>com.thetransactioncompany</groupId>
-      <artifactId>cors-filter</artifactId>
-      <version>2.6</version>
-    </dependency>
-    <dependency>
-      <groupId>org.tuckey</groupId>
-      <artifactId>urlrewritefilter</artifactId>
-      <version>4.0.4</version>
-    </dependency>
+<!--    <dependency>-->
+<!--      <groupId>com.thetransactioncompany</groupId>-->
+<!--      <artifactId>cors-filter</artifactId>-->
+<!--      <version>2.6</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.tuckey</groupId>-->
+<!--      <artifactId>urlrewritefilter</artifactId>-->
+<!--      <version>4.0.4</version>-->
+<!--    </dependency>-->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
@@ -176,4 +176,12 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>native</id>
+      <properties>
+        <quarkus.package.type>native</quarkus.package.type>
+      </properties>
+    </profile>
+  </profiles>
 </project>

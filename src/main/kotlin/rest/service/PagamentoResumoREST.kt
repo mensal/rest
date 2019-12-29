@@ -19,7 +19,7 @@ class PagamentoResumoREST {
     @GET
     @Logado
     @Produces("application/json")
-    open fun resumo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<UsuarioResumoPagamentoResData>? {
+    fun resumo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): List<UsuarioResumoPagamentoResData>? {
 //        valida(ano, mes, violationException)
         lancarExcecaoSeNecessario(violationException)
 

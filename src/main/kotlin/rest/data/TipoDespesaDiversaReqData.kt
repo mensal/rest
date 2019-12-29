@@ -1,7 +1,7 @@
 package rest.data
 
 import core.entity.TipoDespesaDiversa
-import org.hibernate.validator.constraints.NotBlank
+import javax.validation.constraints.NotBlank
 
 class TipoDespesaDiversaReqData : TipoDespesaReqData<TipoDespesaDiversa>() {
 

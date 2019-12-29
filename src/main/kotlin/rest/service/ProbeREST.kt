@@ -1,5 +1,6 @@
 package rest.service
 
+import org.jboss.resteasy.annotations.GZIP
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 
@@ -8,9 +9,9 @@ class ProbeREST {
 
     @GET
     @Path("readiness")
-    open fun readiness() = null
+    fun readiness() = null
 
     @GET
     @Path("liveness")
-    open fun liveness() = null
+    fun liveness() = null
 }

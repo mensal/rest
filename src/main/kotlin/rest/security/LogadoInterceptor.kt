@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest
 
 @Logado
 @Interceptor
-class LogadoInterceptor private constructor() {
+class LogadoInterceptor {
 
     @AroundInvoke
     @Throws(Exception::class)

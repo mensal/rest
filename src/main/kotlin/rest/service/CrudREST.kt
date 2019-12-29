@@ -5,6 +5,7 @@ import core.persistence.CrudDAO
 import core.persistence.VersionadoCrudDAO
 import core.util.Reflections
 import org.apache.commons.lang.time.DateUtils
+import org.jboss.resteasy.annotations.GZIP
 import rest.ClientViolationException
 import rest.PreconditionFailedException
 import rest.UnprocessableEntityException
@@ -51,6 +52,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     protected open fun depoisDePesquisar(entidades: List<ENT>) = entidades
 
     @GET
+    @GZIP
     @Logado
     @Produces("application/json")
     open fun pesquisar(@Context uriInfo: UriInfo): List<RES>? {

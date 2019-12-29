@@ -11,11 +11,11 @@ import javax.enterprise.inject.spi.CDI
 import javax.inject.Singleton
 
 
-class ObjectMapperProducer private constructor() {
+class ObjectMapperProducer {
 
     @Produces
     @Singleton
-    private fun create(): ObjectMapper {
+    fun create(): ObjectMapper {
 //        val module = SimpleModule("Custom Module")
 //        module.addDeserializer(String::class.java, EmptyStringAsNull())
 

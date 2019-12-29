@@ -5,7 +5,7 @@ import javax.persistence.Column
 import javax.persistence.Embeddable
 
 @Embeddable
-open class Coordenada {
+class Coordenada {
 
     @Column(name = "gps_longitude", precision = 20, scale = 17)
     var longitude: BigDecimal? = null

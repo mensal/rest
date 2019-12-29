@@ -1,5 +1,6 @@
 package rest.service
 
+import org.jboss.resteasy.annotations.GZIP
 import rest.data.AutenticacaoReqData
 import rest.security.Autenticador
 import javax.inject.Inject
@@ -15,6 +16,7 @@ class AutenticacaoREST {
 //    @Inject
 //    lateinit var autenticador: Autenticador
 
+    @GZIP
     @POST
     @Consumes("application/json")
     @Produces("application/jwt")

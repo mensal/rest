@@ -20,7 +20,7 @@ class PagamentoDiaristaREST : PagamentoREST<PagamentoDiarista, TipoDespesaDiaris
     @Logado
     @Path("saldo")
     @Produces("application/json")
-    open fun saldo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): BigDecimal {
+    fun saldo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): BigDecimal {
 //        valida(ano, mes)
         lancarExcecaoSeNecessario()
 

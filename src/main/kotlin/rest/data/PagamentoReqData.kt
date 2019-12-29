@@ -2,9 +2,9 @@ package rest.data
 
 import core.entity.Coordenada
 import core.entity.Pagamento
-import org.hibernate.validator.constraints.NotEmpty
 import java.time.LocalDate
 import javax.validation.Valid
+import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
 
 abstract class PagamentoReqData<in E : Pagamento<*>> : ReqData<E> {
