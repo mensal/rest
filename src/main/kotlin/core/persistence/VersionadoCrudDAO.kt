@@ -3,10 +3,41 @@ package core.persistence
 import core.entity.Versionado
 import java.time.ZonedDateTime
 import java.util.*
+import javax.persistence.EntityManager
 import javax.persistence.NoResultException
 import javax.persistence.TypedQuery
+import kotlin.reflect.KClass
 
 abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
+    companion object {
+        open fun <E : Versionado> pesquisar2(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
+            var ql = StringBuffer()
+
+            ql.append(" select e from ${type.java.canonicalName} u where 1 = 1 ")
+
+            params["atualizado_apos"]?.let { ql.append(" and atualizadoEm > :atualizadoApos ") }
+            params["mostrar_excluidos"]?.let { if (!it.toBoolean()) ql.append(" and excluidoEm is null ") }
+
+            ql.append(" order by atualizadoEm asc ")
+
+            val query = em.createQuery(ql.toString(), type.java)
+
+            params["atualizado_apos"]?.let { query.setParameter("atualizadoApos", ZonedDateTime.parse(it)) }
+
+            return query.resultList
+        }
+
+        open fun <E : Versionado> obter2(id: UUID, type: KClass<E>, em: EntityManager): E? = em.find(type.java, id)
+
+        open fun <E : Versionado> inserir2(entidade: E, em: EntityManager) = em.persist(entidade)
+
+        open fun <E : Versionado> atualizar2(entidade: E, em: EntityManager) = em.merge(entidade)
+
+        open fun <E : Versionado> excluir2(entidade: E, em: EntityManager) {
+            entidade.excluidoEm = ZonedDateTime.now()
+            entidade.atualizadoEm = entidade.excluidoEm
+        }
+    }
 
     override fun pesquisarWhere(params: Map<String, String>): String {
         var criterios = mutableListOf<String>()
