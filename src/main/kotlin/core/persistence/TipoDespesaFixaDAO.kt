@@ -6,7 +6,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class TipoDespesaFixaDAO protected constructor() : VersionadoCrudDAO<TipoDespesaFixa>() {
+open class TipoDespesaFixaDAO : VersionadoCrudDAO<TipoDespesaFixa>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "vencimento asc, nome asc"
 }

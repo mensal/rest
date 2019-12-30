@@ -6,4 +6,4 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoCombustivelDAO protected constructor() : PagamentoDAO<PagamentoCombustivel>()
+open class PagamentoCombustivelDAO : PagamentoDAO<PagamentoCombustivel>()

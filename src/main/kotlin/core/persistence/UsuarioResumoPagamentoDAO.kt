@@ -11,7 +11,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class UsuarioResumoPagamentoDAO protected constructor() {
+open class UsuarioResumoPagamentoDAO {
 
     @Inject
     lateinit var em: EntityManager

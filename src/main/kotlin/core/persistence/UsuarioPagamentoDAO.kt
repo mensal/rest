@@ -12,7 +12,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class UsuarioPagamentoDAO protected constructor() {
+open class UsuarioPagamentoDAO {
 
     @Inject
     lateinit var em: EntityManager

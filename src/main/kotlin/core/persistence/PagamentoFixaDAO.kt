@@ -6,4 +6,4 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoFixaDAO protected constructor() : PagamentoDAO<PagamentoFixa>()
+open class PagamentoFixaDAO : PagamentoDAO<PagamentoFixa>()

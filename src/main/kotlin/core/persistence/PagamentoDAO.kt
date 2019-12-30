@@ -7,7 +7,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoDAO<E : Pagamento<*>> protected constructor() : VersionadoCrudDAO<E>() {
+open class PagamentoDAO<E : Pagamento<*>> : VersionadoCrudDAO<E>() {
 
     override fun pesquisarWhere(params: Map<String, String>): String {
         var criterios = mutableListOf<String>()

@@ -8,7 +8,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<PagamentoDiarista>() {
+open class PagamentoDiaristaDAO : PagamentoDAO<PagamentoDiarista>() {
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""

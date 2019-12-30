@@ -13,7 +13,7 @@ import javax.enterprise.context.RequestScoped
 import javax.inject.Inject
 
 @RequestScoped
-open class Autenticador protected constructor() {
+open class Autenticador {
 
     @Inject
     lateinit var usuarioDAO: UsuarioDAO
