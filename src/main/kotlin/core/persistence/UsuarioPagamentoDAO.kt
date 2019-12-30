@@ -15,7 +15,7 @@ import javax.transaction.Transactional
 open class UsuarioPagamentoDAO {
 
     @Inject
-    lateinit var em: EntityManager
+    open lateinit var em: EntityManager
 
     open fun <T : TipoDespesa> obter(usuario: Usuario?, pagamento: Pagamento<T>?): UsuarioPagamento? = em.find(UsuarioPagamento::class.java, UsuarioPagamentoPk(usuario?.id, pagamento?.id))
 

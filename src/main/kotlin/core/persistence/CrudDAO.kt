@@ -10,9 +10,9 @@ import kotlin.reflect.KClass
 abstract class CrudDAO<E : Any> {
 
     @Inject
-    lateinit var em: EntityManager
+    open lateinit var em: EntityManager
 
-    protected val entityClass: KClass<E>
+    protected open val entityClass: KClass<E>
         get() = Reflections.argument(this, CrudDAO::class, 0)
 
     open fun obter(id: UUID): E? = em.find(entityClass.java, id)

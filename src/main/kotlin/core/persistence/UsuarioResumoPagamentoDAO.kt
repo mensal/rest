@@ -14,10 +14,10 @@ import javax.transaction.Transactional
 open class UsuarioResumoPagamentoDAO {
 
     @Inject
-    lateinit var em: EntityManager
+    open lateinit var em: EntityManager
 
     @Inject
-    lateinit var usuarioDAO: UsuarioDAO
+    open lateinit var usuarioDAO: UsuarioDAO
 
     open fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
         val atual = atual(ano, mes)

@@ -16,10 +16,10 @@ import javax.inject.Inject
 open class Autenticador {
 
     @Inject
-    lateinit var usuarioDAO: UsuarioDAO
+    open lateinit var usuarioDAO: UsuarioDAO
 
-    @ConfigProperty(name = "mensal.jwt.key")
-    lateinit var jwtKey: String
+    @ConfigProperty(name = "app.jwt.key")
+    open lateinit var jwtKey: String
 
     open var logado: Usuario? = null
 

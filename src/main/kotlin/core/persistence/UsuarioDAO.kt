@@ -7,7 +7,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class UsuarioDAO /* */ : VersionadoCrudDAO<Usuario>() {
+open class UsuarioDAO : VersionadoCrudDAO<Usuario>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"
 
