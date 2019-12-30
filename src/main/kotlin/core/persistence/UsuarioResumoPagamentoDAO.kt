@@ -24,7 +24,7 @@ open class UsuarioResumoPagamentoDAO {
         val corrente = corrente(ano, mes)
 
         val menor: BigDecimal = atual?.map { it.anterior }?.min() ?: ZERO
-        val usuarios = usuarioDAO.pesquisar2()
+        val usuarios = usuarioDAO.pesquisar()
 
         return usuarios.map { u ->
             UsuarioResumoPagamento(u,

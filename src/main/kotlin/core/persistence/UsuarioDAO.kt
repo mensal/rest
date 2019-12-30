@@ -10,7 +10,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class UsuarioDAO /*: VersionadoCrudDAO<Usuario>() */ {
+open class UsuarioDAO : VersionadoCrudDAO<Usuario> {
 
 //    override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"
 //
@@ -29,11 +29,11 @@ open class UsuarioDAO /*: VersionadoCrudDAO<Usuario>() */ {
     @Inject
     open lateinit var em2: EntityManager
 
-    open fun pesquisar2(params: Map<String, String> = emptyMap()) = VersionadoCrudDAO.pesquisar2(params, Usuario::class, em2)
+    override fun pesquisar(params: Map<String, String>) = VersionadoCrudDAO.pesquisar2(params, Usuario::class, em2)
 
-    open fun obter2(id: UUID) = VersionadoCrudDAO.obter2(id, Usuario::class, em2)
+    override fun obter(id: UUID) = VersionadoCrudDAO.obter2(id, Usuario::class, em2)
 
-    open fun obter2(email: String): Usuario? {
+    open fun obter(email: String): Usuario? {
         val ql = " select u from Usuario u where u.email = :email "
         val query = em2.createQuery(ql, Usuario::class.java)
         query.setParameter("email", email)
@@ -45,9 +45,9 @@ open class UsuarioDAO /*: VersionadoCrudDAO<Usuario>() */ {
         }
     }
 
-    open fun inserir2(entidade: Usuario) = VersionadoCrudDAO.inserir2(entidade, em2)
+    override fun inserir(entidade: Usuario) = VersionadoCrudDAO.inserir2(entidade, em2)
 
-    open fun atualizar2(entidade: Usuario) = VersionadoCrudDAO.atualizar2(entidade, em2)
+    override fun atualizar(entidade: Usuario) = VersionadoCrudDAO.atualizar2(entidade, em2)
 
-    open fun excluir2(entidade: Usuario) = VersionadoCrudDAO.excluir2(entidade, em2)
+    override fun excluir(entidade: Usuario) = VersionadoCrudDAO.excluir2(entidade, em2)
 }

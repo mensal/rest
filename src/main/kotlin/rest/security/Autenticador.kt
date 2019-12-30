@@ -27,11 +27,11 @@ open class Autenticador {
         val claims = Jwts.parser().setSigningKey(chave()).parseClaimsJws(token)
 
         val id = UUID.fromString(claims.body.subject)
-        logado = usuarioDAO.obter2(id) ?: throw UnauthorizedException()
+        logado = usuarioDAO.obter(id) ?: throw UnauthorizedException()
     }
 
     open fun autenticar(login: String, senha: String): String {
-        val usuario = usuarioDAO.obter2(login) ?: throw UnauthorizedException()
+        val usuario = usuarioDAO.obter(login) ?: throw UnauthorizedException()
 
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, chave())

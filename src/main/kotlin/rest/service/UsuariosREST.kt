@@ -18,7 +18,7 @@ class UsuariosREST {
     @Logado
     @Produces("application/json")
     fun pesquisar(): List<UsuarioResData>? {
-        val resultado = usuarioDAO.pesquisar2().map {
+        val resultado = usuarioDAO.pesquisar().map {
             val data = UsuarioResData()
             data.preencherCom(it)
             data

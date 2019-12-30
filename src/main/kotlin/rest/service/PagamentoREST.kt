@@ -44,7 +44,7 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
         usuarioPagamentoDAO.excluir(entidade)
 
         requestData.valores.forEach {
-            val usuario = usuarioDAO.obter2(it.usuario.id)
+            val usuario = usuarioDAO.obter(it.usuario.id)
 
             if (usuario == null) {
                 violationException.addViolation("tipo.valores.usuario.id", "usuário ${it.usuario.id} inválido")

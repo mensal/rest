@@ -9,7 +9,7 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoDiversaDAO : PagamentoDAO<PagamentoDiversa>() /* : PagamentoDAO<PagamentoDiversa>() */ {
+open class PagamentoDiversaDAO : PagamentoDAO<PagamentoDiversa> {
 
     @Inject
     open lateinit var em2: EntityManager
