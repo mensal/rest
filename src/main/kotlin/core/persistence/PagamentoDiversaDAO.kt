@@ -6,9 +6,4 @@ import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class PagamentoDiversaDAO protected constructor() : PagamentoDAO<PagamentoDiversa>() {
-
-//    companion object {
-//        fun instance() = CDI.current().select(PagamentoDiversaDAO::class.java).get()!!
-//    }
-}
+open class PagamentoDiversaDAO protected constructor() : PagamentoDAO<PagamentoDiversa>()

@@ -9,5 +9,4 @@ import javax.transaction.Transactional
 open class TipoDespesaDiversaDAO protected constructor() : VersionadoCrudDAO<TipoDespesaDiversa>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"
-
 }

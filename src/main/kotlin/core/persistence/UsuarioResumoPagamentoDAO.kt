@@ -5,17 +5,15 @@ import core.entity.UsuarioResumoPagamento
 import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 import javax.enterprise.context.ApplicationScoped
-import javax.enterprise.inject.spi.CDI
 import javax.inject.Inject
 import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
 open class UsuarioResumoPagamentoDAO protected constructor() {
 
-    @PersistenceContext
+    @Inject
     lateinit var em: EntityManager
 
     @Inject
@@ -85,9 +83,5 @@ open class UsuarioResumoPagamentoDAO protected constructor() {
         query.setParameter("mes", mes)
 
         return query.resultList
-    }
-
-    companion object {
-        fun instance() = CDI.current().select(UsuarioResumoPagamentoDAO::class.java).get()!!
     }
 }

@@ -13,6 +13,7 @@ import rest.data.ResData
 import rest.security.Logado
 import java.util.*
 import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
@@ -22,7 +23,8 @@ import kotlin.reflect.full.createInstance
 
 abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>> {
 
-    protected open val violationException = UnprocessableEntityException()
+    @Inject
+    open lateinit var violationException: UnprocessableEntityException
 
     protected open val entityClass: KClass<ENT>
         get() = Reflections.argument(this, CrudREST::class, 0)

@@ -5,6 +5,7 @@ import rest.UnprocessableEntityException
 import rest.data.UsuarioResumoPagamentoResData
 import rest.security.Logado
 import rest.service.CrudREST.Companion.lancarExcecaoSeNecessario
+import javax.inject.Inject
 //import rest.service.CrudREST.Companion.valida
 import javax.ws.rs.GET
 import javax.ws.rs.Path
@@ -14,7 +15,11 @@ import javax.ws.rs.QueryParam
 @Path("pagamento/resumo")
 class PagamentoResumoREST {
 
-    private val violationException = UnprocessableEntityException()
+    @Inject
+    lateinit var usuarioResumoPagamentoDAO: UsuarioResumoPagamentoDAO
+
+    @Inject
+    lateinit var violationException: UnprocessableEntityException
 
     @GET
     @Logado
@@ -23,7 +28,7 @@ class PagamentoResumoREST {
 //        valida(ano, mes, violationException)
         lancarExcecaoSeNecessario(violationException)
 
-        var persistidos = UsuarioResumoPagamentoDAO.instance().pesquisar(ano!!, mes!!)
+        var persistidos = usuarioResumoPagamentoDAO.pesquisar(ano!!, mes!!)
 
         val resultado = persistidos.map {
             val entidade = it

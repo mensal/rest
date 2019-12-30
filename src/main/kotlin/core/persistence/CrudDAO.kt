@@ -2,8 +2,8 @@ package core.persistence
 
 import core.util.Reflections
 import java.util.*
+import javax.inject.Inject
 import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 import javax.persistence.TypedQuery
 import kotlin.reflect.KClass
 
@@ -12,8 +12,8 @@ abstract class CrudDAO<E : Any> {
     protected open val entityClass: KClass<E>
         get() = Reflections.argument(this, CrudDAO::class, 0)
 
-    @PersistenceContext
-    protected open lateinit var em: EntityManager
+    @Inject
+    lateinit var em: EntityManager
 
     open fun obter(id: UUID): E? = em.find(entityClass.java, id)
 

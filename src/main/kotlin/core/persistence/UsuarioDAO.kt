@@ -22,8 +22,4 @@ open class UsuarioDAO /* protected constructor() */ : VersionadoCrudDAO<Usuario>
             null
         }
     }
-
-//    companion object {
-//        fun instance() = CDI.current().select(UsuarioDAO::class.java).get()!!
-//    }
 }

@@ -41,8 +41,4 @@ open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<Pagamento
 
         return query.singleResult ?: BigDecimal.ZERO
     }
-
-//    companion object {
-//        fun instance() = CDI.current().select(PagamentoDiaristaDAO::class.java).get()!!
-//    }
 }

@@ -1,3 +1,6 @@
 package rest
 
-class UnprocessableEntityException : ClientViolationException(422)
+import javax.enterprise.context.RequestScoped
+
+@RequestScoped
+open class UnprocessableEntityException : ClientViolationException(422)
