@@ -2,13 +2,12 @@ package core.persistence
 
 import core.entity.Usuario
 import javax.enterprise.context.ApplicationScoped
-import javax.enterprise.inject.spi.CDI
 import javax.persistence.NoResultException
 import javax.transaction.Transactional
 
 @Transactional
 @ApplicationScoped
-open class UsuarioDAO protected constructor() : VersionadoCrudDAO<Usuario>() {
+open class UsuarioDAO /* protected constructor() */ : VersionadoCrudDAO<Usuario>() {
 
     override fun pesquisarOrderBy(params: Map<String, String>) = "nome asc"
 
@@ -24,7 +23,7 @@ open class UsuarioDAO protected constructor() : VersionadoCrudDAO<Usuario>() {
         }
     }
 
-    companion object {
-        fun instance() = CDI.current().select(UsuarioDAO::class.java).get()!!
-    }
+//    companion object {
+//        fun instance() = CDI.current().select(UsuarioDAO::class.java).get()!!
+//    }
 }

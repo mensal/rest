@@ -6,7 +6,6 @@ import core.entity.Usuario
 import core.entity.UsuarioPagamento
 import core.entity.UsuarioPagamento.UsuarioPagamentoPk
 import javax.enterprise.context.ApplicationScoped
-import javax.enterprise.inject.spi.CDI
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
@@ -16,7 +15,7 @@ import javax.transaction.Transactional
 open class UsuarioPagamentoDAO protected constructor() {
 
     @PersistenceContext
-    private lateinit var em: EntityManager
+    lateinit var em: EntityManager
 
     open fun <T : TipoDespesa> obter(usuario: Usuario?, pagamento: Pagamento<T>?): UsuarioPagamento? = em.find(UsuarioPagamento::class.java, UsuarioPagamentoPk(usuario?.id, pagamento?.id))
 
@@ -47,7 +46,7 @@ open class UsuarioPagamentoDAO protected constructor() {
         query.executeUpdate()
     }
 
-    companion object {
-        fun instance() = CDI.current().select(UsuarioPagamentoDAO::class.java).get()!!
-    }
+//    companion object {
+//        fun instance() = CDI.current().select(UsuarioPagamentoDAO::class.java).get()!!
+//    }
 }

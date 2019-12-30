@@ -4,7 +4,6 @@ import core.entity.Pagamento.Companion.ultimoDia
 import core.entity.PagamentoDiarista
 import java.math.BigDecimal
 import javax.enterprise.context.ApplicationScoped
-import javax.enterprise.inject.spi.CDI
 import javax.transaction.Transactional
 
 @Transactional
@@ -43,7 +42,7 @@ open class PagamentoDiaristaDAO protected constructor() : PagamentoDAO<Pagamento
         return query.singleResult ?: BigDecimal.ZERO
     }
 
-    companion object {
-        fun instance() = CDI.current().select(PagamentoDiaristaDAO::class.java).get()!!
-    }
+//    companion object {
+//        fun instance() = CDI.current().select(PagamentoDiaristaDAO::class.java).get()!!
+//    }
 }

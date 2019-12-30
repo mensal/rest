@@ -12,7 +12,7 @@ import javax.ws.rs.ext.Provider
 open class ConstraintViolationExceptionMapper : ExceptionMapper<ConstraintViolationException> {
 
     @Inject
-    private lateinit var mapper: ClientViolationExceptionMapper
+    lateinit var mapper: ClientViolationExceptionMapper
 //    private var mapper = ClientViolationExceptionMapper()
 
     override fun toResponse(exception: ConstraintViolationException): Response {

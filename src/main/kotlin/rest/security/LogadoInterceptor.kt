@@ -3,25 +3,33 @@ package rest.security
 
 import rest.UnauthorizedException
 import javax.annotation.Priority
-import javax.enterprise.inject.spi.CDI
 import javax.inject.Inject
 import javax.interceptor.AroundInvoke
 import javax.interceptor.Interceptor
 import javax.interceptor.InvocationContext
 import javax.servlet.http.HttpServletRequest
+import kotlin.text.RegexOption.IGNORE_CASE
+
+private const val BEARER_REGEXP = " *(Bearer) +([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]+ *)"
 
 @Logado
+//@Singleton
+//@ApplicationScoped
 @Priority(0)
 @Interceptor
-class LogadoInterceptor {
+open class LogadoInterceptor {
 
     @Inject
-    private lateinit var autenticador: Autenticador
+    lateinit var autenticador: Autenticador
+
+    @Inject
+    lateinit var request: HttpServletRequest
 
     @AroundInvoke
     @Throws(Exception::class)
-    fun manage(ic: InvocationContext): Any? {
-        val header = header() ?: throw UnauthorizedException()
+    open fun manage(ic: InvocationContext): Any? {
+        val header = request.getHeader("Authorization") ?: throw UnauthorizedException()
+//        val header = header() ?: throw UnauthorizedException()
         val token = token(header) ?: throw UnauthorizedException()
 
         try {
@@ -33,7 +41,9 @@ class LogadoInterceptor {
         return ic.proceed()
     }
 
-    private fun header() = CDI.current().select(HttpServletRequest::class.java).get().getHeader("Authorization")
+//    private fun header() = CDI.current().select(HttpServletRequest::class.java).get().getHeader("Authorization")
 
-    private fun token(header: String) = " *(Bearer) +([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]+ *)".toRegex(RegexOption.IGNORE_CASE).matchEntire(header)?.groupValues?.get(2)
+    //    private fun token(header: String) = " *(Bearer) +([A-Za-z0-9-_=]+\\.[A-Za-z0-9-_=]+\\.[A-Za-z0-9-_.+/=]+ *)".toRegex(RegexOption.IGNORE_CASE).matchEntire(header)?.groupValues?.get(2)
+    private fun token(header: String) = BEARER_REGEXP.toRegex(IGNORE_CASE).matchEntire(header)?.groupValues?.get(2)
+
 }

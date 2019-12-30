@@ -11,19 +11,26 @@ import rest.data.PagamentoReqData
 import rest.data.ResData
 import java.time.ZonedDateTime
 import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 
 abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT, REQ, RES, DAO>() {
+
+    @Inject
+    lateinit var usuarioDAO: UsuarioDAO
+
+    @Inject
+    lateinit var usuarioPagamentoDAO: UsuarioPagamentoDAO
 
     protected open val tipoDAO: TDAO
         get() = CDI.current().select(Reflections.argument<TDAO>(this, PagamentoREST::class, 5).java).get()!!
 
     override fun depoisDePesquisar(entidade: ENT): ENT {
-        entidade.valores = UsuarioPagamentoDAO.instance().buscar(entidade)
+        entidade.valores = usuarioPagamentoDAO.buscar(entidade)
         return entidade
     }
 
     override fun antesDeExcluir(entidade: ENT) {
-        UsuarioPagamentoDAO.instance().excluir(entidade)
+        usuarioPagamentoDAO.excluir(entidade)
     }
 
     override fun antesDePersistir(entidade: ENT, requestData: REQ) {
@@ -32,8 +39,8 @@ abstract class PagamentoREST<ENT : Pagamento<T>, T : TipoDespesa, REQ : Pagament
     }
 
     override fun depoisDePersistir(entidade: ENT, requestData: REQ) {
-        val usuarioDAO = UsuarioDAO.instance()
-        val usuarioPagamentoDAO = UsuarioPagamentoDAO.instance()
+//        val usuarioDAO = UsuarioDAO.instance()
+//        val usuarioPagamentoDAO = usuarioPagamentoDAO.instance()
         usuarioPagamentoDAO.excluir(entidade)
 
         requestData.valores.forEach {

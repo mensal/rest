@@ -16,7 +16,7 @@ import javax.inject.Inject
 open class Autenticador protected constructor() {
 
     @Inject
-    private lateinit var usuarioDAO: UsuarioDAO
+    lateinit var usuarioDAO: UsuarioDAO
 
     @ConfigProperty(name = "mensal.jwt.key")
     lateinit var jwtKey: String

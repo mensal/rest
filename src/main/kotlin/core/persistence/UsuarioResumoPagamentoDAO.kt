@@ -6,6 +6,7 @@ import java.math.BigDecimal
 import java.math.BigDecimal.ZERO
 import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.inject.spi.CDI
+import javax.inject.Inject
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 import javax.transaction.Transactional
@@ -15,15 +16,17 @@ import javax.transaction.Transactional
 open class UsuarioResumoPagamentoDAO protected constructor() {
 
     @PersistenceContext
-    private lateinit var em: EntityManager
+    lateinit var em: EntityManager
+
+    @Inject
+    lateinit var usuarioDAO: UsuarioDAO
 
     open fun pesquisar(ano: Int, mes: Int): List<UsuarioResumoPagamento> {
-
         val atual = atual(ano, mes)
         val corrente = corrente(ano, mes)
 
         val menor: BigDecimal = atual?.map { it.anterior }?.min() ?: ZERO
-        val usuarios = UsuarioDAO.instance().pesquisar()
+        val usuarios = usuarioDAO.pesquisar()
 
         return usuarios.map { u ->
             UsuarioResumoPagamento(u,

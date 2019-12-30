@@ -6,7 +6,7 @@ import java.util.*
 import javax.persistence.NoResultException
 import javax.persistence.TypedQuery
 
-open abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
+abstract class VersionadoCrudDAO<V : Versionado> : CrudDAO<V>() {
 
     override fun pesquisarWhere(params: Map<String, String>): String {
         var criterios = mutableListOf<String>()

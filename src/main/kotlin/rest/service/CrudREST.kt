@@ -2,7 +2,6 @@ package rest.service
 
 import core.entity.Versionado
 import core.persistence.CrudDAO
-import core.persistence.VersionadoCrudDAO
 import core.util.Reflections
 import org.apache.commons.lang.time.DateUtils
 import org.jboss.resteasy.annotations.GZIP
@@ -99,7 +98,7 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     open fun inserir(@Valid data: REQ, @Context uriInfo: UriInfo): Response {
         val entidade = novaEntidade()
 
-        return inserir(uriInfo, data, resClass as KClass<ResData<ENT>>, entidade, daoClass as KClass<VersionadoCrudDAO<ENT>>, { e, d ->
+        return inserir(uriInfo, data, resClass, entidade, daoClass, { e, d ->
             antesDePersistir(e, d)
             lancarExcecaoSeNecessario()
         }, { e, d ->
@@ -167,15 +166,15 @@ abstract class CrudREST<ENT : Versionado, REQ : ReqData<ENT>, RES : ResData<ENT>
     companion object {
         const val uuidRegex = "\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}"
 
-        fun <E : Versionado, D : VersionadoCrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
+        fun <E : Versionado, D : CrudDAO<E>> dao(daoClass: KClass<D>) = CDI.current().select(daoClass.java).get()!!
 
-        fun <E : Versionado, R : ReqData<E>> inserir(uriInfo: UriInfo,
-                                                     reqData: R,
-                                                     resClass: KClass<ResData<E>>,
-                                                     entidade: E,
-                                                     daoClass: KClass<VersionadoCrudDAO<E>>,
-                                                     antes: ((E, R) -> Unit)? = null,
-                                                     depois: ((E, R) -> Unit)? = null): Response {
+        fun <E : Versionado, R : ReqData<E>, S : ResData<E>, D : CrudDAO<E>> inserir(uriInfo: UriInfo,
+                                                                                     reqData: R,
+                                                                                     resClass: KClass<S>,
+                                                                                     entidade: E,
+                                                                                     daoClass: KClass<D>,
+                                                                                     antes: ((E, R) -> Unit)? = null,
+                                                                                     depois: ((E, R) -> Unit)? = null): Response {
             reqData.escreverEm(entidade)
 
             antes?.invoke(entidade, reqData)

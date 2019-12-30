@@ -7,7 +7,6 @@ import kotlin.reflect.full.superclasses
 class Reflections private constructor() {
 
     companion object {
-
         fun <A : Any> argument(instance: Any, superType: KClass<*>, position: Int) = instance::class.superclasses.first().allSupertypes.first { it.classifier == superType }.arguments[position].type?.classifier as KClass<A>
     }
 }
