@@ -3,18 +3,18 @@ package core.persistence
 import core.entity.Versionado
 import java.util.*
 import javax.persistence.EntityManager
+import javax.persistence.TypedQuery
 import kotlin.reflect.KClass
 
 interface CrudDAO<E : Any> {
 
     companion object {
-        fun <E : Versionado> pesquisar(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
-            val ql = StringBuffer()
+        fun <E : Versionado> pesquisar(type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: (TypedQuery<E>) -> Unit = {}): List<E> {
+            val ql = "from ${type.java.canonicalName} ${if (where.isNotBlank()) "where $where" else ""} order by ${if (orderBy.isNotBlank()) "$orderBy, " else ""} id asc"
 
-            ql.append(" from ${type.java.canonicalName} where 1 = 1 ")
-            ql.append(" order by id asc ")
+            val query = em.createQuery(ql, type.java)
+            prepare.invoke(query)
 
-            val query = em.createQuery(ql.toString(), type.java)
             return query.resultList
         }
 

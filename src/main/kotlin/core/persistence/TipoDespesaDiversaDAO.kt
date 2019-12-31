@@ -21,7 +21,7 @@ open class TipoDespesaDiversaDAO : VersionadoCrudDAO<TipoDespesaDiversa> {
     @Inject
     open lateinit var em: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = pesquisar(params, TipoDespesaDiversa::class, em)
+    override fun pesquisar(params: Map<String, String>) = pesquisar(params, TipoDespesaDiversa::class, em, "", "nome asc")
     override fun obter(id: UUID) = obter(id, TipoDespesaDiversa::class, em)
     override fun inserir(entidade: TipoDespesaDiversa) = inserir(entidade, em)
     override fun atualizar(entidade: TipoDespesaDiversa) = atualizar(entidade, em)

@@ -16,12 +16,10 @@ import javax.transaction.Transactional
 @ApplicationScoped
 open class TipoDespesaCombustivelDAO : VersionadoCrudDAO<TipoDespesaCombustivel> {
 
-//    override fun pesquisarOrderBy(params: Map<String, String>) = "veiculo asc"
-
     @Inject
     open lateinit var em: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = pesquisar(params, TipoDespesaCombustivel::class, em)
+    override fun pesquisar(params: Map<String, String>) = pesquisar(params, TipoDespesaCombustivel::class, em, "", "veiculo asc")
     override fun obter(id: UUID) = obter(id, TipoDespesaCombustivel::class, em)
     override fun inserir(entidade: TipoDespesaCombustivel) = inserir(entidade, em)
     override fun atualizar(entidade: TipoDespesaCombustivel) = atualizar(entidade, em)

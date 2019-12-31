@@ -7,6 +7,8 @@ import javax.inject.Inject
 import javax.ws.rs.GET
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
+import javax.ws.rs.core.Context
+import javax.ws.rs.core.UriInfo
 
 @Path("usuarios")
 class UsuariosREST {
@@ -17,8 +19,11 @@ class UsuariosREST {
     @GET
     @Logado
     @Produces("application/json")
-    fun pesquisar(): List<UsuarioResData>? {
-        val resultado = usuarioDAO.pesquisar().map {
+    fun pesquisar(@Context uriInfo: UriInfo): List<UsuarioResData>? {
+        val params = mutableMapOf<String, String>()
+        uriInfo.queryParameters.forEach { params[it.key] = it.value.first() }
+
+        val resultado = usuarioDAO.pesquisar(params).map {
             val data = UsuarioResData()
             data.preencherCom(it)
             data

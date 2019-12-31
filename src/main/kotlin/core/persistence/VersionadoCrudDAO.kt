@@ -1,28 +1,27 @@
 package core.persistence
 
 import core.entity.Versionado
+import core.persistence.CrudDAO.Companion.pesquisar
 import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.EntityManager
+import javax.persistence.TypedQuery
 import kotlin.reflect.KClass
 
 interface VersionadoCrudDAO<V : Versionado> : CrudDAO<V> {
     companion object {
-        fun <E : Versionado> pesquisar(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
-            val ql = StringBuffer()
+        fun <E : Versionado> pesquisar(params: Map<String, String>, type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: (TypedQuery<E>) -> Unit = {}): List<E> {
+            var condition = mutableListOf(where)
+            params["atualizado_apos"]?.let { condition.add(" atualizadoEm > :atualizadoApos ") }
+            params["mostrar_excluidos"]?.toBoolean().let { if (it == null || !it) condition.add(" excluidoEm is null ") }
 
-            ql.append(" select e from ${type.java.canonicalName} e where 1 = 1 ")
+            val where = condition.filter { it.isNotBlank() }.joinToString(" and ")
+            val orderBy = "${if (orderBy.isNotBlank()) "$orderBy, " else ""} atualizadoEm asc"
 
-            params["atualizado_apos"]?.let { ql.append(" and e.atualizadoEm > :atualizadoApos ") }
-            params["mostrar_excluidos"]?.let { if (!it.toBoolean()) ql.append(" and e.excluidoEm is null ") }
-
-            ql.append(" order by e.atualizadoEm asc ")
-
-            val query = em.createQuery(ql.toString(), type.java)
-
-            params["atualizado_apos"]?.let { query.setParameter("atualizadoApos", ZonedDateTime.parse(it)) }
-
-            return query.resultList
+            return pesquisar(type, em, where, orderBy) { query ->
+                prepare.invoke(query)
+                params["atualizado_apos"]?.let { query.setParameter("atualizadoApos", ZonedDateTime.parse(it)) }
+            }
         }
 
         fun <E : Versionado> obter(id: UUID, type: KClass<E>, em: EntityManager) = CrudDAO.obter(id, type, em)
