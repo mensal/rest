@@ -14,7 +14,7 @@ interface PagamentoDAO<E : Pagamento<*>> : VersionadoCrudDAO<E> {
 
     companion object {
         fun <E : Pagamento<*>> pesquisar(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
-            var ql = StringBuffer()
+            val ql = StringBuffer()
 
             ql.append(" select e from ${type.java.canonicalName} e where 1 = 1 ")
 
@@ -35,17 +35,9 @@ interface PagamentoDAO<E : Pagamento<*>> : VersionadoCrudDAO<E> {
             return query.resultList
         }
 
-        fun <E : Pagamento<*>> obter(id: UUID, type: KClass<E>, em: EntityManager): E? = em.find(type.java, id)
-
-        fun <E : Pagamento<*>> inserir(entidade: E, em: EntityManager) = em.persist(entidade)
-
-        fun <E : Pagamento<*>> atualizar(entidade: E, em: EntityManager) = em.merge(entidade)
-
-        fun <E : Pagamento<*>> excluir(entidade: E, em: EntityManager) {
-            entidade.excluidoEm = ZonedDateTime.now()
-            entidade.atualizadoEm = entidade.excluidoEm
-
-            VersionadoCrudDAO.atualizar(entidade, em)
-        }
+        fun <E : Pagamento<*>> obter(id: UUID, type: KClass<E>, em: EntityManager) = VersionadoCrudDAO.obter(id, type, em)
+        fun <E : Pagamento<*>> inserir(entidade: E, em: EntityManager) = VersionadoCrudDAO.inserir(entidade, em)
+        fun <E : Pagamento<*>> atualizar(entidade: E, em: EntityManager) = VersionadoCrudDAO.atualizar(entidade, em)
+        fun <E : Pagamento<*>> excluir(entidade: E, em: EntityManager) = VersionadoCrudDAO.excluir(entidade, em)
     }
 }

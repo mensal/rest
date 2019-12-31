@@ -1,6 +1,11 @@
 package core.persistence
 
 import core.entity.TipoDespesaDiarista
+import core.persistence.VersionadoCrudDAO.Companion.atualizar
+import core.persistence.VersionadoCrudDAO.Companion.excluir
+import core.persistence.VersionadoCrudDAO.Companion.inserir
+import core.persistence.VersionadoCrudDAO.Companion.obter
+import core.persistence.VersionadoCrudDAO.Companion.pesquisar
 import java.util.*
 import javax.enterprise.context.ApplicationScoped
 import javax.inject.Inject
@@ -14,15 +19,11 @@ open class TipoDespesaDiaristaDAO : VersionadoCrudDAO<TipoDespesaDiarista> {
 //    override fun pesquisarOrderBy(params: Map<String, String>) = "valor desc"
 
     @Inject
-    open lateinit var em2: EntityManager
+    open lateinit var em: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = VersionadoCrudDAO.pesquisar(params, TipoDespesaDiarista::class, em2)
-
-    override fun obter(id: UUID) = VersionadoCrudDAO.obter(id, TipoDespesaDiarista::class, em2)
-
-    override fun inserir(entidade: TipoDespesaDiarista) = VersionadoCrudDAO.inserir(entidade, em2)
-
-    override fun atualizar(entidade: TipoDespesaDiarista) = VersionadoCrudDAO.atualizar(entidade, em2)
-
-    override fun excluir(entidade: TipoDespesaDiarista) = VersionadoCrudDAO.excluir(entidade, em2)
+    override fun pesquisar(params: Map<String, String>) = pesquisar(params, TipoDespesaDiarista::class, em)
+    override fun obter(id: UUID) = obter(id, TipoDespesaDiarista::class, em)
+    override fun inserir(entidade: TipoDespesaDiarista) = inserir(entidade, em)
+    override fun atualizar(entidade: TipoDespesaDiarista) = atualizar(entidade, em)
+    override fun excluir(entidade: TipoDespesaDiarista) = excluir(entidade, em)
 }

@@ -9,7 +9,7 @@ import kotlin.reflect.KClass
 interface VersionadoCrudDAO<V : Versionado> : CrudDAO<V> {
     companion object {
         fun <E : Versionado> pesquisar(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
-            var ql = StringBuffer()
+            val ql = StringBuffer()
 
             ql.append(" select e from ${type.java.canonicalName} e where 1 = 1 ")
 
@@ -25,11 +25,9 @@ interface VersionadoCrudDAO<V : Versionado> : CrudDAO<V> {
             return query.resultList
         }
 
-        fun <E : Versionado> obter(id: UUID, type: KClass<E>, em: EntityManager): E? = em.find(type.java, id)
-
-        fun <E : Versionado> inserir(entidade: E, em: EntityManager) = em.persist(entidade)
-
-        fun <E : Versionado> atualizar(entidade: E, em: EntityManager): E = em.merge(entidade)
+        fun <E : Versionado> obter(id: UUID, type: KClass<E>, em: EntityManager) = CrudDAO.obter(id, type, em)
+        fun <E : Versionado> inserir(entidade: E, em: EntityManager) = CrudDAO.inserir(entidade, em)
+        fun <E : Versionado> atualizar(entidade: E, em: EntityManager) = CrudDAO.atualizar(entidade, em)
 
         fun <E : Versionado> excluir(entidade: E, em: EntityManager) {
             entidade.excluidoEm = ZonedDateTime.now()
