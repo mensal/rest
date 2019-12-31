@@ -13,7 +13,7 @@ import kotlin.reflect.KClass
 interface PagamentoDAO<E : Pagamento<*>> : VersionadoCrudDAO<E> {
 
     companion object {
-        fun <E : Pagamento<*>> pesquisar2(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
+        fun <E : Pagamento<*>> pesquisar(params: Map<String, String> = emptyMap(), type: KClass<E>, em: EntityManager): List<E> {
             var ql = StringBuffer()
 
             ql.append(" select e from ${type.java.canonicalName} e where 1 = 1 ")
@@ -35,46 +35,17 @@ interface PagamentoDAO<E : Pagamento<*>> : VersionadoCrudDAO<E> {
             return query.resultList
         }
 
-        fun <E : Pagamento<*>> obter2(id: UUID, type: KClass<E>, em: EntityManager): E? = em.find(type.java, id)
+        fun <E : Pagamento<*>> obter(id: UUID, type: KClass<E>, em: EntityManager): E? = em.find(type.java, id)
 
-        fun <E : Pagamento<*>> inserir2(entidade: E, em: EntityManager) = em.persist(entidade)
+        fun <E : Pagamento<*>> inserir(entidade: E, em: EntityManager) = em.persist(entidade)
 
-        fun <E : Pagamento<*>> atualizar2(entidade: E, em: EntityManager) = em.merge(entidade)
+        fun <E : Pagamento<*>> atualizar(entidade: E, em: EntityManager) = em.merge(entidade)
 
-        fun <E : Pagamento<*>> excluir2(entidade: E, em: EntityManager) {
+        fun <E : Pagamento<*>> excluir(entidade: E, em: EntityManager) {
             entidade.excluidoEm = ZonedDateTime.now()
             entidade.atualizadoEm = entidade.excluidoEm
 
-            VersionadoCrudDAO.atualizar2(entidade, em)
+            VersionadoCrudDAO.atualizar(entidade, em)
         }
     }
-
-//    override fun pesquisarWhere(params: Map<String, String>): String {
-//        var criterios = mutableListOf<String>()
-//        super.pesquisarWhere(params).let { if (it.isNotBlank()) criterios.add(it) }
-//
-//        if (params.containsKey("ano")) {
-//            criterios.add("year(data) = :ano")
-//        }
-//
-//        if (params.containsKey("mes")) {
-//            criterios.add("month(data) = :mes")
-//        }
-//
-//        return criterios.let { if (it.isEmpty()) "" else criterios.joinToString(" and ") }
-//    }
-//
-//    override fun antesDePesquisar(params: Map<String, String>, query: TypedQuery<E>) {
-//        super.antesDePesquisar(params, query)
-//
-//        if (params.containsKey("ano")) {
-//            query.setParameter("ano", params["ano"]!!.toInt())
-//        }
-//
-//        if (params.containsKey("mes")) {
-//            query.setParameter("mes", params["mes"]!!.toInt())
-//        }
-//    }
-//
-//    override fun pesquisarOrderBy(params: Map<String, String>) = "data asc, atualizadoEm asc"
 }

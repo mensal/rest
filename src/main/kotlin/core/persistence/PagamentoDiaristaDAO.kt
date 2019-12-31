@@ -16,15 +16,15 @@ open class PagamentoDiaristaDAO : PagamentoDAO<PagamentoDiarista> {
     @Inject
     open lateinit var em2: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = PagamentoDAO.pesquisar2(params, PagamentoDiarista::class, em2)
+    override fun pesquisar(params: Map<String, String>) = PagamentoDAO.pesquisar(params, PagamentoDiarista::class, em2)
 
-    override fun obter(id: UUID) = PagamentoDAO.obter2(id, PagamentoDiarista::class, em2)
+    override fun obter(id: UUID) = PagamentoDAO.obter(id, PagamentoDiarista::class, em2)
 
-    override fun inserir(entidade: PagamentoDiarista) = PagamentoDAO.inserir2(entidade, em2)
+    override fun inserir(entidade: PagamentoDiarista) = PagamentoDAO.inserir(entidade, em2)
 
-    override fun atualizar(entidade: PagamentoDiarista) = PagamentoDAO.atualizar2(entidade, em2)
+    override fun atualizar(entidade: PagamentoDiarista) = PagamentoDAO.atualizar(entidade, em2)
 
-    override fun excluir(entidade: PagamentoDiarista) = PagamentoDAO.excluir2(entidade, em2)
+    override fun excluir(entidade: PagamentoDiarista) = PagamentoDAO.excluir(entidade, em2)
 
     open fun pagoAte(ano: Int, mes: Int): BigDecimal {
         var jpql = ""

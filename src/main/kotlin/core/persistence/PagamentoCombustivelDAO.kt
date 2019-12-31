@@ -14,13 +14,13 @@ open class PagamentoCombustivelDAO : PagamentoDAO<PagamentoCombustivel> {
     @Inject
     open lateinit var em2: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = PagamentoDAO.pesquisar2(params, PagamentoCombustivel::class, em2)
+    override fun pesquisar(params: Map<String, String>) = PagamentoDAO.pesquisar(params, PagamentoCombustivel::class, em2)
 
-    override fun obter(id: UUID) = PagamentoDAO.obter2(id, PagamentoCombustivel::class, em2)
+    override fun obter(id: UUID) = PagamentoDAO.obter(id, PagamentoCombustivel::class, em2)
 
-    override fun inserir(entidade: PagamentoCombustivel) = PagamentoDAO.inserir2(entidade, em2)
+    override fun inserir(entidade: PagamentoCombustivel) = PagamentoDAO.inserir(entidade, em2)
 
-    override fun atualizar(entidade: PagamentoCombustivel) = PagamentoDAO.atualizar2(entidade, em2)
+    override fun atualizar(entidade: PagamentoCombustivel) = PagamentoDAO.atualizar(entidade, em2)
 
-    override fun excluir(entidade: PagamentoCombustivel) = PagamentoDAO.excluir2(entidade, em2)
+    override fun excluir(entidade: PagamentoCombustivel) = PagamentoDAO.excluir(entidade, em2)
 }

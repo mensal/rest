@@ -16,13 +16,13 @@ open class TipoDespesaDiversaDAO : VersionadoCrudDAO<TipoDespesaDiversa> {
     @Inject
     open lateinit var em2: EntityManager
 
-    override fun pesquisar(params: Map<String, String>) = VersionadoCrudDAO.pesquisar2(params, TipoDespesaDiversa::class, em2)
+    override fun pesquisar(params: Map<String, String>) = VersionadoCrudDAO.pesquisar(params, TipoDespesaDiversa::class, em2)
 
-    override fun obter(id: UUID) = VersionadoCrudDAO.obter2(id, TipoDespesaDiversa::class, em2)
+    override fun obter(id: UUID) = VersionadoCrudDAO.obter(id, TipoDespesaDiversa::class, em2)
 
-    override fun inserir(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.inserir2(entidade, em2)
+    override fun inserir(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.inserir(entidade, em2)
 
-    override fun atualizar(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.atualizar2(entidade, em2)
+    override fun atualizar(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.atualizar(entidade, em2)
 
-    override fun excluir(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.excluir2(entidade, em2)
+    override fun excluir(entidade: TipoDespesaDiversa) = VersionadoCrudDAO.excluir(entidade, em2)
 }
