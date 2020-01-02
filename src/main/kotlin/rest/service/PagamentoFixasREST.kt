@@ -36,13 +36,13 @@ class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReq
     @GZIP
     @Logado
     @Produces("application/json")
-    fun pesquisar() = pesquisar(responseType, dao)
+    fun pesquisar() = pesquisar(responseType, dao, this)
 
     @GET
     @Logado
     @Path("{id: ${CrudREST.uuidRegex}}")
     @Produces("application/json")
-    fun obter(@PathParam("id") id: UUID) = obter(id, responseType, dao)
+    fun obter(@PathParam("id") id: UUID) = obter(id, responseType, dao, this)
 
     @PUT
     @Logado
@@ -61,5 +61,5 @@ class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReq
     @Logado
     @Path("{id: ${CrudREST.uuidRegex}}")
     @Produces("application/json")
-    fun deletar(@PathParam("id") id: UUID) = deletar(id, responseType, dao)
+    fun deletar(@PathParam("id") id: UUID) = deletar(id, responseType, dao, this)
 }

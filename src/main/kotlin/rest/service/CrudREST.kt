@@ -180,9 +180,9 @@ interface CrudREST /* <E : Versionado, I : Requested<E>, O : Responsed<E>, D : V
 
         private fun <E : Versionado> carregar(id: UUID, dao: CrudDAO<E>) = dao.obter(id) ?: throw NotFoundException()
 
-        fun <E : Versionado, O : ResponseData<E>> pesquisar(resClass: KClass<O>,
-                                                            dao: CrudDAO<E>,
-                                                            delegate: CrudRESTDelegate<E, RequestData<E>>? = null): List<O>? {
+        fun <E : Versionado, I : RequestData<E>, O : ResponseData<E>> pesquisar(resClass: KClass<O>,
+                                                                                dao: CrudDAO<E>,
+                                                                                delegate: CrudRESTDelegate<E, I>? = null): List<O>? {
             val params = mutableMapOf<String, String>()
 
             val uriInfo = ResteasyProviderFactory.getInstance().getContextData(UriInfo::class.java)
@@ -192,13 +192,11 @@ interface CrudREST /* <E : Versionado, I : Requested<E>, O : Responsed<E>, D : V
 //            lancarExcecaoSeNecessario()
 
             var persistidos = dao.pesquisar(params)
-            delegate?.let { persistidos = it.depoisDePesquisar(persistidos) }
+            delegate?.run { persistidos = depoisDePesquisar(persistidos) }
 
             val resultado = persistidos.map { p ->
                 var entidade = p
-//                delegate?.let { d -> entidade = d.depoisDePesquisar(entidade) }
-
-                delegate?.let { entidade = it.depoisDePesquisar(entidade) }
+                delegate?.run { entidade = depoisDePesquisar(entidade) }
 
                 val data = resClass.createInstance()
                 data.preencherCom(entidade)
@@ -208,10 +206,10 @@ interface CrudREST /* <E : Versionado, I : Requested<E>, O : Responsed<E>, D : V
             return if (resultado.isEmpty()) null else resultado
         }
 
-        fun <E : Versionado, O : ResponseData<E>> obter(@PathParam("id") id: UUID,
-                                                        resClass: KClass<O>,
-                                                        dao: CrudDAO<E>,
-                                                        delegate: CrudRESTDelegate<E, RequestData<E>>? = null): Response {
+        fun <E : Versionado, I : RequestData<E>, O : ResponseData<E>> obter(@PathParam("id") id: UUID,
+                                                                            resClass: KClass<O>,
+                                                                            dao: CrudDAO<E>,
+                                                                            delegate: CrudRESTDelegate<E, I>? = null): Response {
             var persistido = carregar(id, dao)
             delegate?.let { d -> persistido = d.depoisDePesquisar(persistido) }
 
@@ -303,10 +301,10 @@ interface CrudREST /* <E : Versionado, I : Requested<E>, O : Responsed<E>, D : V
             return builder!!.build()
         }
 
-        fun <E : Versionado, O : ResponseData<E>> deletar(@PathParam("id") id: UUID,
-                                                          resClass: KClass<O>,
-                                                          dao: CrudDAO<E>,
-                                                          delegate: CrudRESTDelegate<E, RequestData<E>>? = null): O {
+        fun <E : Versionado, I : RequestData<E>, O : ResponseData<E>> deletar(@PathParam("id") id: UUID,
+                                                                              resClass: KClass<O>,
+                                                                              dao: CrudDAO<E>,
+                                                                              delegate: CrudRESTDelegate<E, I>? = null): O {
             val persistido = carregar(id, dao)
 
             delegate?.antesDeExcluir(persistido)
