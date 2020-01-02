@@ -7,7 +7,7 @@ import java.time.ZonedDateTime
 import java.util.*
 
 @JsonPropertyOrder("id", "nome", "email", "atualizado_em", "excluido_em")
-class UsuarioResData : ResData<Usuario> {
+class UsuarioResData : Responsed<Usuario> {
 
     var id: UUID? = null
 

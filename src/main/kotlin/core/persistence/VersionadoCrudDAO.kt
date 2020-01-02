@@ -5,12 +5,11 @@ import core.persistence.CrudDAO.Companion.pesquisar
 import java.time.ZonedDateTime
 import java.util.*
 import javax.persistence.EntityManager
-import javax.persistence.TypedQuery
 import kotlin.reflect.KClass
 
 interface VersionadoCrudDAO<V : Versionado> : CrudDAO<V> {
     companion object {
-        fun <E : Versionado> pesquisar(params: Map<String, String>, type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: (TypedQuery<E>) -> Unit = {}): List<E> {
+        fun <E : Versionado> pesquisar(params: Map<String, String>, type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: PrepareQuery<E> = {}): List<E> {
             var condition = mutableListOf(where)
             params["atualizado_apos"]?.let { condition.add(" atualizadoEm > :atualizadoApos ") }
             params["mostrar_excluidos"]?.toBoolean().let { if (it == null || !it) condition.add(" excluidoEm is null ") }

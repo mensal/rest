@@ -3,7 +3,7 @@ package rest.data
 import core.entity.Usuario
 import javax.validation.constraints.NotBlank
 
-class AutenticacaoReqData : ReqData<Usuario> {
+class AutenticacaoReqData : Requested<Usuario> {
 
     @NotBlank
     lateinit var login: String

@@ -6,10 +6,12 @@ import javax.persistence.EntityManager
 import javax.persistence.TypedQuery
 import kotlin.reflect.KClass
 
+typealias PrepareQuery<E> = (TypedQuery<E>) -> Unit
+
 interface CrudDAO<E : Any> {
 
     companion object {
-        fun <E : Versionado> pesquisar(type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: (TypedQuery<E>) -> Unit = {}): List<E> {
+        fun <E : Versionado> pesquisar(type: KClass<E>, em: EntityManager, where: String = "", orderBy: String = "", prepare: PrepareQuery<E> = {}): List<E> {
             val ql = "from ${type.java.canonicalName} ${if (where.isNotBlank()) "where $where" else ""} order by ${if (orderBy.isNotBlank()) "$orderBy, " else ""} id asc"
 
             val query = em.createQuery(ql, type.java)

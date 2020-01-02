@@ -2,7 +2,7 @@ package rest.data
 
 import core.entity.TipoDespesa
 
-abstract class TipoDespesaReqData<E : TipoDespesa> : ReqData<E> {
+abstract class TipoDespesaReqData<E : TipoDespesa> : Requested<E> {
 
 //    @NotNull
 //    lateinit var periodo: PeriodoReqData

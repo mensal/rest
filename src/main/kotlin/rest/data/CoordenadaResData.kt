@@ -5,7 +5,7 @@ import core.entity.Coordenada
 import java.math.BigDecimal
 
 @JsonPropertyOrder("latitude", "longitude")
-class CoordenadaResData : ResData<Coordenada> {
+class CoordenadaResData : Responsed<Coordenada> {
 
     var latitude: BigDecimal? = null
 

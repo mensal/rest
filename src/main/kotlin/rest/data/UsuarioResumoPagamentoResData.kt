@@ -5,7 +5,7 @@ import core.entity.UsuarioResumoPagamento
 import java.math.BigDecimal
 
 @JsonPropertyOrder("usuario", "atual", "anterior")
-open class UsuarioResumoPagamentoResData : ResData<UsuarioResumoPagamento> {
+open class UsuarioResumoPagamentoResData : Responsed<UsuarioResumoPagamento> {
 
     var usuario: UsuarioResData? = null
 

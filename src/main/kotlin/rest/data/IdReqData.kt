@@ -4,7 +4,7 @@ import core.entity.TipoDespesa
 import java.util.*
 import javax.validation.constraints.NotNull
 
-class IdReqData : ReqData<TipoDespesa> {
+class IdReqData : Requested<TipoDespesa> {
 
     @NotNull
     lateinit var id: UUID
