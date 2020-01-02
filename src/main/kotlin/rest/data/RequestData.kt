@@ -1,6 +1,6 @@
 package rest.data
 
-interface Requested<in E> {
+interface RequestData<in E> {
 
     fun escreverEm(entidade: E)
 }

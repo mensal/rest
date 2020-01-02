@@ -9,7 +9,7 @@ import java.time.ZonedDateTime
 import java.util.*
 
 @JsonPropertyOrder("id", "data", "tipo", "valores", "coordenada", "atualizado_em", "excluido_em")
-abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDespesaResData<T>> : Responsed<E> {
+abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDespesaResData<T>> : ResponseData<E> {
 
     var id: UUID? = null
 

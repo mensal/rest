@@ -15,11 +15,13 @@ import rest.service.CrudREST.Companion.obter
 import rest.service.CrudREST.Companion.pesquisar
 import java.util.*
 import javax.inject.Inject
+import javax.transaction.Transactional
 import javax.validation.Valid
 import javax.ws.rs.*
 
 @Path("pagamento/fixas")
-class PagamentoFixasREST : PagamentoDelegate<PagamentoFixa, PagamentoFixaReqData, TipoDespesaFixa, PagamentoFixaDAO, TipoDespesaFixaDAO>() /*PagamentoREST<PagamentoFixa, TipoDespesaFixa, PagamentoFixaReqData, PagamentoFixaResData, PagamentoFixaDAO, TipoDespesaFixaDAO>()*/ {
+@Transactional(rollbackOn = [Throwable::class])
+class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReqData, TipoDespesaFixa, PagamentoFixaDAO, TipoDespesaFixaDAO>() /*PagamentoREST<PagamentoFixa, TipoDespesaFixa, PagamentoFixaReqData, PagamentoFixaResData, PagamentoFixaDAO, TipoDespesaFixaDAO>()*/ {
 
     private val entityType = PagamentoFixa::class
     private val responseType = PagamentoFixaResData::class
@@ -29,8 +31,6 @@ class PagamentoFixasREST : PagamentoDelegate<PagamentoFixa, PagamentoFixaReqData
 
     @Inject
     override lateinit var tipoDAO: TipoDespesaFixaDAO
-//        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-//        set(value) {}
 
     @GET
     @GZIP

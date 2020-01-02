@@ -4,7 +4,7 @@ import core.entity.Coordenada
 import java.math.BigDecimal
 import javax.validation.constraints.NotNull
 
-class CoordenadaReqData : Requested<Coordenada> {
+class CoordenadaReqData : RequestData<Coordenada> {
 
     @NotNull
     lateinit var latitude: BigDecimal

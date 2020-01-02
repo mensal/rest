@@ -5,7 +5,7 @@ import core.entity.UsuarioPagamento
 import java.math.BigDecimal
 
 @JsonPropertyOrder("valor", "usuario")
-class UsuarioPagamentoResData : Responsed<UsuarioPagamento> {
+class UsuarioPagamentoResData : ResponseData<UsuarioPagamento> {
 
     var valor: BigDecimal? = null
 

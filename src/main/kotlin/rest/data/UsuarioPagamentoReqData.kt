@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import javax.validation.Valid
 import javax.validation.constraints.NotNull
 
-class UsuarioPagamentoReqData : Requested<UsuarioPagamento> {
+class UsuarioPagamentoReqData : RequestData<UsuarioPagamento> {
 
     @NotNull
     lateinit var valor: BigDecimal

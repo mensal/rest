@@ -11,7 +11,7 @@ import rest.data.PagamentoReqData
 import java.time.ZonedDateTime
 import javax.inject.Inject
 
-abstract class PagamentoDelegate<P : Pagamento<T>, I : PagamentoReqData<P>, T : TipoDespesa, DP : CrudDAO<P>, DT : CrudDAO<T>> : CrudDelegate<P, I>  /*<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT>()*/ {
+abstract class PagamentoRESTDelegate<P : Pagamento<T>, I : PagamentoReqData<P>, T : TipoDespesa, DP : CrudDAO<P>, DT : CrudDAO<T>> : CrudRESTDelegate<P, I>  /*<ENT : Pagamento<T>, T : TipoDespesa, REQ : PagamentoReqData<ENT>, RES : ResData<ENT>, DAO : CrudDAO<ENT>, out TDAO : CrudDAO<T>> : CrudREST<ENT>()*/ {
 
     @Inject
     lateinit var usuarioDAO: UsuarioDAO
@@ -33,8 +33,6 @@ abstract class PagamentoDelegate<P : Pagamento<T>, I : PagamentoReqData<P>, T : 
     }
 
     override fun depoisDePersistir(entidade: P, requestData: I) {
-//        super.depoisDePersistir(entidade, requestData)
-
         usuarioPagamentoDAO.excluir(entidade)
 
         requestData.valores.forEach {
@@ -43,7 +41,8 @@ abstract class PagamentoDelegate<P : Pagamento<T>, I : PagamentoReqData<P>, T : 
             if (usuario == null) {
                 add(Violation("tipo.valores.usuario.id", "usuário ${it.usuario.id} inválido"))
             } else {
-                usuarioPagamentoDAO.inserirOuAtualizar(UsuarioPagamento(usuario, entidade, it.valor))
+                val entidadeP = dao.obter(entidade.id!!)
+                usuarioPagamentoDAO.inserirOuAtualizar(UsuarioPagamento(usuario, entidadeP, it.valor))
             }
         }
 
