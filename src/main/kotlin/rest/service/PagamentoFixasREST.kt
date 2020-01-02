@@ -13,6 +13,7 @@ import rest.service.CrudREST.Companion.deletar
 import rest.service.CrudREST.Companion.inserir
 import rest.service.CrudREST.Companion.obter
 import rest.service.CrudREST.Companion.pesquisar
+import rest.service.CrudREST.Companion.uuidRegex
 import java.util.*
 import javax.inject.Inject
 import javax.transaction.Transactional
@@ -21,7 +22,7 @@ import javax.ws.rs.*
 
 @Path("pagamento/fixas")
 @Transactional(rollbackOn = [Throwable::class])
-class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReqData, TipoDespesaFixa, PagamentoFixaDAO, TipoDespesaFixaDAO>() /*PagamentoREST<PagamentoFixa, TipoDespesaFixa, PagamentoFixaReqData, PagamentoFixaResData, PagamentoFixaDAO, TipoDespesaFixaDAO>()*/ {
+class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReqData, TipoDespesaFixa, PagamentoFixaDAO, TipoDespesaFixaDAO>() {
 
     private val entityType = PagamentoFixa::class
     private val responseType = PagamentoFixaResData::class
@@ -40,13 +41,13 @@ class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReq
 
     @GET
     @Logado
-    @Path("{id: ${CrudREST.uuidRegex}}")
+    @Path("{id: $uuidRegex}")
     @Produces("application/json")
     fun obter(@PathParam("id") id: UUID) = obter(id, responseType, dao, this)
 
     @PUT
     @Logado
-    @Path("{id: ${CrudREST.uuidRegex}}")
+    @Path("{id: $uuidRegex}")
     @Consumes("application/json")
     @Produces("application/json")
     fun atualizar(@PathParam("id") id: UUID, @Valid data: PagamentoFixaReqData) = atualizar(id, data, responseType, dao, this)
@@ -59,7 +60,7 @@ class PagamentoFixasREST : PagamentoRESTDelegate<PagamentoFixa, PagamentoFixaReq
 
     @DELETE
     @Logado
-    @Path("{id: ${CrudREST.uuidRegex}}")
+    @Path("{id: $uuidRegex}")
     @Produces("application/json")
     fun deletar(@PathParam("id") id: UUID) = deletar(id, responseType, dao, this)
 }
