@@ -46,6 +46,10 @@ abstract class PagamentoResData<in E : Pagamento<T>, T : TipoDespesa, R : TipoDe
             data
         }
 
+        if (coordenada == null && entidade?.coordenada != null) {
+            coordenada = CoordenadaResData()
+        }
+
         coordenada?.preencherCom(entidade?.coordenada)
         atualizadoEm = entidade?.atualizadoEm
 //        }

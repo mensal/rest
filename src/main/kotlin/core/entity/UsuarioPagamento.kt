@@ -32,5 +32,6 @@ open class UsuarioPagamento() {
         this.valor = valor
     }
 
+    @Embeddable
     internal data class UsuarioPagamentoPk(var usuario: UUID? = null, var pagamento: UUID? = null) : Serializable
 }
