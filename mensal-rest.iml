@@ -166,5 +166,31 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.jetbrains.kotlin:kotlin-test-annotations-common:1.3.41" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-arc:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus.arc:arc:1.1.0.Final" level="project" />
+    <orderEntry type="module-library" scope="PROVIDED">
+      <library name="Quarkus (deployment)">
+        <CLASSES>
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-deployment/1.1.0.Final/quarkus-resteasy-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-http-deployment/1.1.0.Final/quarkus-vertx-http-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-vertx-core-deployment/1.1.0.Final/quarkus-vertx-core-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-netty-deployment/1.1.0.Final/quarkus-netty-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-server-common-deployment/1.1.0.Final/quarkus-resteasy-server-common-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-common-deployment/1.1.0.Final/quarkus-resteasy-common-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-hibernate-orm-deployment/1.1.0.Final/quarkus-hibernate-orm-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-core-deployment/1.1.0.Final/quarkus-core-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-agroal-deployment/1.1.0.Final/quarkus-agroal-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-narayana-jta-deployment/1.1.0.Final/quarkus-narayana-jta-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-caffeine-deployment/1.1.0.Final/quarkus-caffeine-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-hibernate-validator-deployment/1.1.0.Final/quarkus-hibernate-validator-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-kotlin-deployment/1.1.0.Final/quarkus-kotlin-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-resteasy-jackson-deployment/1.1.0.Final/quarkus-resteasy-jackson-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-jackson-deployment/1.1.0.Final/quarkus-jackson-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-jdbc-postgresql-deployment/1.1.0.Final/quarkus-jdbc-postgresql-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-undertow-deployment/1.1.0.Final/quarkus-undertow-deployment-1.1.0.Final.jar!/" />
+          <root url="jar://$MAVEN_REPOSITORY$/io/quarkus/quarkus-arc-deployment/1.1.0.Final/quarkus-arc-deployment-1.1.0.Final.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

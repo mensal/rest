@@ -14,6 +14,7 @@ import rest.service.CrudREST.Companion.inserir
 import rest.service.CrudREST.Companion.obter
 import rest.service.CrudREST.Companion.pesquisar
 import rest.service.CrudREST.Companion.uuidRegex
+import java.math.BigDecimal
 import java.util.*
 import javax.inject.Inject
 import javax.transaction.Transactional
@@ -32,6 +33,15 @@ class PagamentoDiaristaREST : PagamentoRESTDelegate<PagamentoDiarista, Pagamento
 
     @Inject
     override lateinit var tipoDAO: TipoDespesaDiaristaDAO
+
+    @GET
+    @Logado
+    @Path("saldo")
+    @Produces("application/json")
+    fun saldo(@QueryParam("ano") ano: Int?, @QueryParam("mes") mes: Int?): BigDecimal {
+//        valida(ano, mes)
+        return dao.pagoAte(ano!!, mes!!) - dao.devidoAte(ano, mes)
+    }
 
     @GET
     @GZIP
