@@ -1,8 +1,0 @@
-#!/bin/sh
-
-export APP_DB_USR=mensal
-export APP_DB_PWD=M3ns@l_2019
-export APP_JWT_KEY=RVqNnKo1TtXV0lO4EwYQHv3NNCWBnYUraDZ8z62kUhOFfx9rqy37JoHd03LCcjtUWbXYpYMcSlLxIBjiipuaYi1KbhWIc2gcgGbCDoe4faRJSC4pDNHXOUATBwNTf8MXecGk3N2Btx0wd4c65xKnEYDDc40aCZ3Ecxs2oAl3lwkdt3gAu1K8LgWhvcVHfdYAtcSW34WdfhcENck0izCGVARvQKokiRrdQYfigK1btc3i6f5L8XfaxP9cQ7ZSjBoi
-
-java -jar /opt/mensal/rest/target/mensal-rest-1.0.0-SNAPSHOT-runner.jar
-
