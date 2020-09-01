@@ -1,0 +1,21 @@
+[Unit]
+Description=Mensal Quarkus REST Service
+Requires=postgresql.service
+#After=postgresql.target
+
+[Service]
+User=root
+
+# The configuration file application.properties should be here:
+WorkingDirectory=/opt/mensal/rest/src/etc
+
+#path to executable. 
+ExecStart=/opt/mensal/rest/src/etc/mensal.sh
+
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
